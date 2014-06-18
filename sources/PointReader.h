@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 
+#include "Graph.h"
 
 /**
  * @class PointReader
@@ -32,6 +33,20 @@ public:
 			temp.z = atof(strtok( NULL," "));
 			wayPoints.push_back(temp);
 		}
+
+		
+		graph = new Graph(wayPoints);
+		
+		std::vector<Ogre::Vector3> n = graph->getNeighbors(wayPoints[10]);
+		std::cout << std::endl;
+		std::cout << wayPoints[10] << std::endl;
+		std::cout << std::endl;
+		for (std::vector<Ogre::Vector3>::iterator iter = n.begin(); iter != n.end(); ++iter) {
+			std::cout << *iter << std::endl;
+		}
+		std::cout << std::endl;
+		
+
 	}
 
 	inline std::vector<Ogre::Vector3> getWayPoints()
@@ -39,6 +54,11 @@ public:
 		return wayPoints;
 	}
 	
+	virtual ~PointReader() {
+		delete graph;
+	}
+
 private:
 	std::vector<Ogre::Vector3> wayPoints;
+	Graph* graph; 
 };
