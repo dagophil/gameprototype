@@ -31,6 +31,7 @@ private:
   void createGround();
   void createCity();
   void createTrainingEnvironment();
+  void createUpgrades();
 
   std::vector<GameMapObject*> MapObjects;
   btVector4 m_startPositions[4];

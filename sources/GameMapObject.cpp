@@ -46,7 +46,7 @@ GameMapObject::GameMapObject(const std::string&MeshName)
 GameMapObject::~GameMapObject()
 {
 //std::cout<<"wall stirbt"<<std::endl;
-};
+}
 
 
 GameObject::ObjectType GameMapObject::getType()

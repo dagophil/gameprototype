@@ -21,6 +21,7 @@ Map::Map()
 
   createGround();
   createCity();
+  createUpgrades();
 
   m_startPositions[0] = btVector4(-20.f, 2.f,-85.f,0.f);
   m_startPositions[1] = btVector4(190.f,2.f,190.f,180.f);
@@ -119,6 +120,13 @@ void Map::createCity()
     cityObj->scale(2.f,2.f,2.f);
     cityObj->setCastShadows(true);
     MapObjects.push_back(cityObj);
+}
+
+void Map::createUpgrades()
+{
+    GameMapObject* upgr = new GameMapObject("Cube.mesh");
+    upgr->translate(-24.f, 5.f,-74.f);
+    MapObjects.push_back(upgr);
 }
 
 const btVector4 Map::getStartPos(int playerId)
