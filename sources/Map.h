@@ -32,7 +32,7 @@ private:
   void createCity();
   void createTrainingEnvironment();
 
-  GameMapObject* MapObjects[22];
+  std::vector<GameMapObject*> MapObjects;
   btVector4 m_startPositions[4];
 };
 
