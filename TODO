@@ -1,0 +1,17 @@
+Upgrades (Fuel / Health), die man einsammeln kann:
+
+* Klassen erstellen (FuelUpgrade / HealthUpgrade)
+** Unterklasse von GameMapObject
+** Interagiert mit Vehicle oder PhysicsManager (Kollision)
+** Interagiert mit Player (wenn das Health Upgrade durchgeführt wird)
+** Interagiert mit Vehicle (wenn das Fuel Upgrade durchgeführt wird)
+* Alternativ: Fuel wird nicht im Vehicle, sondern im Player gespeichert (dann wird das Upgrade nämlich immer im Player durchgeführt)
+
+* Objekte erzeugen (zufällig / vorgegeben?)
+** Klasse Map zum Laden benutzen
+
+* Kollision aller Upgrades mit Auto überprüfen (mit Hilfe von PhysicsManager)
+** Bei Kollision:
+*** Upgrade auslösen
+*** Eingesammeltes Upgrade von der Straße entfernen
+
