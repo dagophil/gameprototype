@@ -9,6 +9,7 @@
 #include <btBulletDynamicsCommon.h>
 #include <btBulletCollisionCommon.h>
 //#include <BulletCollision/Gimpact/btGImpactShape.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 
 #include "MeshStrider.h"
 #include "TopManager.h"
@@ -17,7 +18,7 @@
 #include "MotionState.h"
 
 
-GameMapObject::GameMapObject(const std::string&MeshName)
+GameMapObject::GameMapObject(const std::string&MeshName, const bool contactResponse)
 {
   m_Entity = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity(MeshName);
   m_SceneNode = TopManager::Instance()->getGraphicManager()->getSceneManager()->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0,0,0));
@@ -36,7 +37,20 @@ GameMapObject::GameMapObject(const std::string&MeshName)
   MotionState* motionState = new MotionState(Transform, m_SceneNode);
   btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,motionState,CollisionShape,localInertia);
   btRigidBody* body = new btRigidBody(rbInfo);
-  TopManager::Instance()->getPhysicsManager()->getDynamicsWorld()->addRigidBody(body);
+
+  btGhostObject* ghostObj = new btGhostObject();
+  ghostObj->setCollisionShape(CollisionShape);
+  ghostObj->setCollisionFlags(ghostObj->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+
+  if (contactResponse)
+  {
+    TopManager::Instance()->getPhysicsManager()->getDynamicsWorld()->addRigidBody(body);
+  }
+  else
+  {
+      //TopManager::Instance()->getPhysicsManager()->getDynamicsWorld()->addCollisionObject(ghostObj, btBroadphaseProxy::SensorTrigger, btBroadphaseProxy::AllFilter & ~btBroadphaseProxy::SensorTrigger);
+      TopManager::Instance()->getPhysicsManager()->getDynamicsWorld()->addCollisionObject(ghostObj);
+  }
 
   setRigidBody(body);
   setSceneNode(m_SceneNode);
@@ -46,7 +60,7 @@ GameMapObject::GameMapObject(const std::string&MeshName)
 GameMapObject::~GameMapObject()
 {
 //std::cout<<"wall stirbt"<<std::endl;
-};
+}
 
 
 GameObject::ObjectType GameMapObject::getType()

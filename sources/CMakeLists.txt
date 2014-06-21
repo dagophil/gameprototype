@@ -105,6 +105,7 @@ SET(SRCS
 	./PlayerInput.cpp
 	./GameOverlayManager.cpp
 	./DebugDrawer.cpp
+	./FuelUpgrade.cpp
 	./main.cpp	
 )
 
@@ -129,7 +130,8 @@ SET(HDRS
 	./GameOverlayManager.h
 	./DebugDrawer.h
 	./PointReader.h
-
+	./Graph.h
+	./FuelUpgrade.h
 )
 
 SOURCE_GROUP ("headers" FILES ${HDRS})
