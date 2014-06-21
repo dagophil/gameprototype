@@ -18,7 +18,7 @@
 #include "MotionState.h"
 
 
-GameMapObject::GameMapObject(const std::string&MeshName)
+GameMapObject::GameMapObject(const std::string & MeshName)
 {
   m_Entity = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity(MeshName);
   m_SceneNode = TopManager::Instance()->getGraphicManager()->getSceneManager()->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0,0,0));

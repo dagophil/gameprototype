@@ -60,6 +60,17 @@ public:
   int getLives();
 
   /**
+   * @brief getter for fuel percentage
+   * @return
+   */
+  int getFuel();
+
+  /**
+   * @brief fillTank set the fuel to 100 percent
+   */
+  void fillTank();
+
+  /**
    * @brief getter for x-position
    * @return
    */
@@ -100,6 +111,7 @@ private:
   void createPlayerCam();
   int m_playerId;
   int m_lives;
+  int m_fuel;
   Vehicle * m_vehicle;
   PlayerInput * m_input;
   Ogre::Viewport* m_playerVp;

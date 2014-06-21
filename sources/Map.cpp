@@ -128,6 +128,10 @@ void Map::createUpgrades()
     GameMapObject* upgr = new FuelUpgrade("Cube.mesh");
     upgr->translate(-24.f, 1.5f,-64.f);
     MapObjects.push_back(upgr);
+
+    GameMapObject* upgr2 = new FuelUpgrade("Cube.mesh");
+    upgr2->translate(-24.f, 1.5f,-54.f);
+    MapObjects.push_back(upgr2);
 }
 
 const btVector4 Map::getStartPos(int playerId)
