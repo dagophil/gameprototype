@@ -99,10 +99,14 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
 
 	Ogre::Vector3 position = TopManager::Instance()->getPlayer()->getVehicle()->getSceneNode()->getPosition();
 
-
 	Graph* graph = TopManager::Instance()->getGraph();
-//	AStar astar = new AStar(graph);
+	Ogre::Vector3 pos(graph->getNearestNode(position));
+/**	std::vector<Ogre::Vector3> nodes = graph->getNodes();
+	Ogre::Vector3 goal = nodes[2];
+//	AStar* astar = new AStar(graph, pos, goal);
 
+//	astar->findPath();
+**/
     return true;
   }
 

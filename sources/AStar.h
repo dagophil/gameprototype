@@ -1,3 +1,6 @@
+#ifndef ASTAR_H_
+#define ASTAR_H_
+
 #include "Graph.h"
 #include "SortedList.h"
 #include <vector>
@@ -25,6 +28,10 @@ public:
 		SortedList* close = new SortedList(goal);
 
 	    open->add(start);
+
+		std::cout << std::endl;
+		std::cout << open->getList().back().first << std::endl;
+		std::cout << std::endl;
 	}
 
 private:
@@ -35,3 +42,4 @@ private:
 	Ogre::Vector3 goal;
 };
 
+#endif ASTAR_H_
