@@ -49,10 +49,28 @@ public:
 		return neighbors[index];
 	}
 
-	Ogre::Vector3 getNearestNode(Ogre::Vector3 p) {
-		
+	Node getNearestNode(Ogre::Vector3 p) {
 
+		std::cout << std::endl;
+		std::cout << nodes.size() << std::endl;
+		std::cout << std::endl;
 
+		std::cout << nodes.front() << std::endl;
+
+		Node current;
+		/*
+		for (vecIter iter = nodes.begin(); iter != nodes.end(); ++iter) {
+			
+			if (p.distance(current) > p.distance((*iter)) ) {
+				current = (*iter);
+			}
+		}
+		*/
+		return current;
+	}
+
+	std::vector<Node> getNodes() {
+		return nodes;
 	}
 
 private:

@@ -1,3 +1,6 @@
+#ifndef SORTEDLIST_H_
+#define SORTEDLIST_H_
+
 #include <vector>
 #include <OgreVector3.h>
 
@@ -50,3 +53,6 @@ private:
 	Ogre::Vector3 goal;
 
 };
+
+
+#endif SORTEDLIST_H_
