@@ -1,3 +1,8 @@
+/*
+ * Graph.h
+ *
+ */
+
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
@@ -5,78 +10,63 @@
 #include <OgreVector3.h>
 #include <map>
 
-
 /**
  * @class Graph
  * @brief Graph structure
  */
-
 class Graph{
 
-	typedef Ogre::Vector3 Node;
-	typedef std::vector<Node>::iterator vecIter;
-
 public: 
-	Graph (std::vector<Ogre::Vector3> wayPoints) {
-		nodes = wayPoints;
 
-		for (vecIter iter = nodes.begin(); iter != nodes.end(); ++iter) {
-			std::vector<Node> temp;
-			for (vecIter iter2 = nodes.begin(); iter2 != nodes.end(); ++iter2) {
-				if ( (*iter) != (*iter2) ) {
-					if ( (*iter).distance(*iter2) <= 3 ) {
-						temp.push_back(*iter2);
-					}
-				}
-			}
+    typedef Ogre::Vector3 Node;
 
-			std::vector<double> index(3);
-			for (int i=0; i<3; i++) {
-				index[i] = (*iter)[i];
-			}
-			
-			std::pair<std::vector<double>, std::vector<Node> > val(index, temp);
-			neighbors.insert(val);
-		}
+    /**
+     * @brief PRECISION precision of rounded double values
+     */
+    static const unsigned int PRECISION = 4;
 
-	}
+    /**
+     * @brief constructor
+     * @param wayPoints : list of waypoints to build the graph
+     */
+    Graph(std::vector<Ogre::Vector3> wayPoints);
 
-	std::vector<Node> getNeighbors(Node v) {
-		std::vector<double> index(3);
-		for (int i=0; i<3; i++) {
-			index[i] = v[i];
-		}
-		return neighbors[index];
-	}
+    /**
+     * @brief destructor
+     */
+    ~Graph();
 
-	Node getNearestNode(Ogre::Vector3 p) {
+    /**
+     * @brief getNeighbors get the neighbor nodes of the given node
+     * @param v : neighbor
+     * @return neighbors of v
+     */
+    std::vector<Node*> getNeighbors(Node v);
 
-		std::cout << std::endl;
-		std::cout << nodes.size() << std::endl;
-		std::cout << std::endl;
+    /**
+     * @brief getNearestNode finds the nearest node of p
+     * @param p : the vector3 to find the nearest node of
+     * @return nearest node of p
+     */
+    Node* getNearestNode(Ogre::Vector3 p);
 
-		std::cout << nodes.front() << std::endl;
-
-		Node current;
-		/*
-		for (vecIter iter = nodes.begin(); iter != nodes.end(); ++iter) {
-			
-			if (p.distance(current) > p.distance((*iter)) ) {
-				current = (*iter);
-			}
-		}
-		*/
-		return current;
-	}
-
-	std::vector<Node> getNodes() {
-		return nodes;
-	}
+    /**
+     * @brief getNodes
+     * @return
+     */
+    std::vector<Node*> getNodes();
 
 private:
-	std::vector<Node> nodes;
-	std::map< std::vector<double>, std::vector<Node> > neighbors;
 
+    /**
+     * @brief findIndex construct map index of a node
+     * @param node
+     * @return map index of node
+     */
+    std::vector<long> findIndex(Node node);
+
+    std::vector<Node*> nodes;
+    std::map< std::vector<long> , std::vector<Node*> > neighbors;
 
 };
 

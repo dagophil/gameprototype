@@ -76,8 +76,8 @@ TopManager::TopManager()
   m_PhysicsManager->getDynamicsWorld()->setInternalTickCallback(collisionCallback);
 
   PointReader reader("waypoints1.txt");
-  m_waypoints = reader.getWayPoints();
-  m_graph = reader.getGraph();
+  m_waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
+  m_graph = new Graph(*reader.getGraph());
 }
 
 TopManager::~TopManager()

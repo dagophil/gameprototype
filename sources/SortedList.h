@@ -55,4 +55,4 @@ private:
 };
 
 
-#endif SORTEDLIST_H_
+#endif /* SORTEDLIST_H_ */

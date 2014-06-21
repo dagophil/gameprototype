@@ -106,6 +106,10 @@ SET(SRCS
 	./GameOverlayManager.cpp
 	./DebugDrawer.cpp
 	./FuelUpgrade.cpp
+	./Graph.cpp
+	./PointReader.cpp
+	./AStar.cpp
+	./SortedList.cpp
 	./main.cpp	
 )
 
@@ -130,6 +134,8 @@ SET(HDRS
 	./GameOverlayManager.h
 	./DebugDrawer.h
 	./PointReader.h
+	./AStar.h
+	./SortedList.h
 	./Graph.h
 	./FuelUpgrade.h
 )

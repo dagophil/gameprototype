@@ -42,4 +42,4 @@ private:
 	Ogre::Vector3 goal;
 };
 
-#endif ASTAR_H_
+#endif /* ASTAR_H_ */
