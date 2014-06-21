@@ -29,7 +29,7 @@ public:
   * @param mesh name of mesh
   *
   */
-  GameMapObject(const std::string&mesh, const bool contactResponse = true);
+  GameMapObject(const std::string&mesh);
 
   ~GameMapObject();
   /**
