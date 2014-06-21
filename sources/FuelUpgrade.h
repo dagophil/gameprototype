@@ -7,17 +7,30 @@
 #define FUELUPGRADE_H_
 
 #include "GameMapObject.h"
+#include <string>
 
+/**
+ * @class FuelUpgrade
+ * @brief The FuelUpgrade class
+ */
 class FuelUpgrade : public GameMapObject
 {
 public:
 
-    int getX();
+    /**
+     * @brief constructor
+     * @param MeshName name of mesh
+     */
+    FuelUpgrade(const std::string & MeshName);
 
-    void setX(int _x);
+    /**
+     * @brief CollideWith
+     * @param type type of other object
+     */
+    void CollideWith(const ObjectType & type);
 
 private:
-    int x;
+
 };
 
 #endif /* FUELUPGRADE_H_ */

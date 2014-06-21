@@ -5,12 +5,13 @@
 
 #include "FuelUpgrade.h"
 
-int FuelUpgrade::getX()
+FuelUpgrade::FuelUpgrade(const std::string & MeshName)
+    : GameMapObject(MeshName)
 {
-    return x;
+
 }
 
-void FuelUpgrade::setX(int _x)
+void FuelUpgrade::CollideWith(const ObjectType & type)
 {
-    x = _x;
+    this->translate(0.f, 5.f, 0.f);
 }
