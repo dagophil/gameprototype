@@ -75,6 +75,17 @@ public:
   void setReverse(bool reverse);
 
   /**
+   * @brief getter for fuel percentage
+   * @return
+   */
+  int getFuel();
+
+  /**
+   * @brief fillTank set the fuel to 100 percent
+   */
+  void fillTank();
+
+  /**
    *
    * @brief Update function. Is called every frame.
    */
@@ -90,6 +101,7 @@ private:
   bool m_reverse;
   float m_steering;
   float m_wheelRotation;
+  int m_fuel;
 
   Ogre::SceneNode* m_wheelNode[4];
 

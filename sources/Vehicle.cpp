@@ -25,7 +25,8 @@ Vehicle::Vehicle(const std::string&MeshName, const float&Mass, Player* Player) :
   m_throttle(false),
   m_reverse(false),
   m_steering(0.f),
-  m_wheelRotation(0.f)
+  m_wheelRotation(0.f),
+  m_fuel(100)
 {
   Ogre::Entity* Entity = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity(MeshName);
   Ogre::SceneNode* Node = TopManager::Instance()->getGraphicManager()->getSceneManager()->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0,0,0));
@@ -241,8 +242,11 @@ void Vehicle::update()
     }
     m_wheelNode[i]->pitch(Ogre::Degree(m_wheelRotation));
   }
+  if (m_throttle) {
+      // TODO: Find a framerate independent solution
+      m_fuel--;
+  }
 }
-
 
 void Vehicle::resetOrientation()
 {
@@ -255,4 +259,15 @@ void Vehicle::resetOrientation()
   Matrix[2].setY(0.f);
   Transform.setBasis(Matrix);
   getRigidBody()->setWorldTransform(Transform);
+}
+
+
+int Vehicle::getFuel()
+{
+    return m_fuel;
+}
+
+void Vehicle::fillTank()
+{
+    m_fuel = 100;
 }

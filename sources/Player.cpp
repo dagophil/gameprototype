@@ -59,16 +59,6 @@ int Player::getLives()
   return m_lives;
 }
 
-int Player::getFuel()
-{
-    return m_fuel;
-}
-
-void Player::fillTank()
-{
-    m_fuel = 100;
-}
-
 void Player::createPlayerCam()
 {
   std::stringstream playerstringstream;

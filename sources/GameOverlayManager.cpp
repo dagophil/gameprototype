@@ -6,6 +6,7 @@
 #include "GameOverlayManager.h"
 
 #include "Player.h"
+#include "Vehicle.h"
 
 GameOverlayManager::GameOverlayManager() {}
 
@@ -36,6 +37,9 @@ void GameOverlayManager::init()
   Ogre::Overlay *overlayClock = Ogre::OverlayManager::getSingleton().getByName("Clock/Overlay");
   overlayClock->show();
 
+  Ogre::Overlay *overlayFuel = Ogre::OverlayManager::getSingleton().getByName("Fuel/Overlay");
+  overlayFuel->show();
+
   update();
   createMapOverlay();
 }
@@ -46,16 +50,14 @@ void GameOverlayManager::update()
 
   Player* player = TopManager::Instance()->getPlayer();
 
+  // Create a string for the lives.
+  std::stringstream ssLives;
+  ssLives << "Leben: ";
+  ssLives << player->getLives();
+
+  // Update the lives score overlay.
   std::string scoreOverlayName = "Player/TextScore";
-  std::stringstream ss;
-  ss << "Leben: ";
-  ss << player->getLives();
-  //std::cout << "Leben: "<<player->getLives()<< std::endl;
-  std::string liveText;
-  liveText = ss.str();
-
-  Ogre::OverlayManager::getSingleton().getOverlayElement(scoreOverlayName)->setCaption(liveText);
-
+  Ogre::OverlayManager::getSingleton().getOverlayElement(scoreOverlayName)->setCaption(ssLives.str());
 
   // Get current playing time in minutes, seconds and milliseconds.
   long milliseconds = player->getMilliseconds();
@@ -66,15 +68,22 @@ void GameOverlayManager::update()
 
   // Create a string for the playing time.
   // Format min:secs:msecs with leading zeros for seconds and milliseconds.
-  std::stringstream ss2;
-  ss2 << std::setfill('0');
-  ss2 << "Zeit: ";
-  ss2 << minutes << ":" << std::setw(2) << seconds << ":" << std::setw(3) << milliseconds;
-  std::string clockText = ss2.str();
+  std::stringstream ssTime;
+  ssTime << std::setfill('0');
+  ssTime << "Zeit: ";
+  ssTime << minutes << ":" << std::setw(2) << seconds << ":" << std::setw(3) << milliseconds;
 
   // Update the clock text overlay.
   std::string clockOverlayName = "Clock/Text";
-  Ogre::OverlayManager::getSingleton().getOverlayElement(clockOverlayName)->setCaption(clockText);
+  Ogre::OverlayManager::getSingleton().getOverlayElement(clockOverlayName)->setCaption(ssTime.str());
+
+  // Create a string for the fuel percentage.
+  std::stringstream ss;
+  ss << "Tank: " << player->getVehicle()->getFuel() << "%";
+
+  // Update the fuel overlay.
+  std::string fuelOverlayName = "Fuel/Text";
+  Ogre::OverlayManager::getSingleton().getOverlayElement(fuelOverlayName)->setCaption(ss.str());
 
 }
 
