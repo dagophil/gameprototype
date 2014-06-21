@@ -19,6 +19,7 @@
 #include "Vehicle.h"
 #include "DebugDrawer.h"
 #include "PointReader.h"
+#include "Graph.h"
 
 TopManager* TopManager::m_Instance = 0;
 
@@ -76,6 +77,7 @@ TopManager::TopManager()
 
   PointReader reader("waypoints1.txt");
   m_waypoints = reader.getWayPoints();
+  m_graph = reader.getGraph();
 }
 
 TopManager::~TopManager()
@@ -109,6 +111,11 @@ Map* TopManager::getMap()
 Player* TopManager::getPlayer()
 {
   return PlayerList[0];
+}
+
+Graph* TopManager::getGraph()
+{
+	return m_graph;
 }
 
 void TopManager::addPlayer()

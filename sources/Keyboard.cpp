@@ -4,10 +4,12 @@
  */
 
 #include "Keyboard.h"
+#include "AStar.h"
+#include "Graph.h"
 
 #include "Vehicle.h"
 
-enum {THROTTLE, BRAKE, STEER_LEFT, STEER_RIGHT, REVERSE, RESET};
+enum {THROTTLE, BRAKE, STEER_LEFT, STEER_RIGHT, REVERSE, RESET, AUTOMATIC};
 
 Keyboard* Keyboard::m_Instance = 0;
 
@@ -39,6 +41,7 @@ void Keyboard::init()
 
   m_pPlayerKeys[REVERSE] = OIS::KC_R;
   m_pPlayerKeys[RESET] = OIS::KC_RETURN;
+  m_pPlayerKeys[AUTOMATIC] = OIS::KC_A;
 }
 
 Keyboard::~Keyboard()
@@ -86,6 +89,20 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
   if(arg.key == m_pPlayerKeys[REVERSE])
   {
     m_pVehicle->setReverse(true);
+    return true;
+  }
+  if(arg.key == OIS::KC_A)
+  {
+    std::cout << std::endl;
+	std::cout << "AUTOMATIC" << std::endl;
+	std::cout << std::endl;
+
+	Ogre::Vector3 position = TopManager::Instance()->getPlayer()->getVehicle()->getSceneNode()->getPosition();
+
+
+	Graph* graph = TopManager::Instance()->getGraph();
+//	AStar astar = new AStar(graph);
+
     return true;
   }
 

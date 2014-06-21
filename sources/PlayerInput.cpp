@@ -94,6 +94,7 @@ void PlayerInput::init(int playerId, Player * player)
 bool PlayerInput::buttonPressed(const OIS::JoyStickEvent&evt, int button)
 {
   // 0 gas; 1 bremse; 2 waffe wechseln, 9 reset, 3 schieen, 8 shutdown, 4 rckwrtsgang
+
   if (button == m_buttonMap[0])
   {
     m_vehicle->setThrottle(true);

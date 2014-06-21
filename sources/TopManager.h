@@ -9,6 +9,7 @@
 #include <vector>
 #include <list>
 #include "GameOverlayManager.h"
+#include "Graph.h"
 
 class Map;
 class Player;
@@ -69,6 +70,12 @@ public:
   Player*getPlayer();
 
   /**
+   * @brief getter for Graph
+   * @return pointer to Graph
+   */
+  Graph*getGraph();
+
+  /**
    * @brief Adds player to game
    */
   void addPlayer();
@@ -108,6 +115,7 @@ private:
   btIDebugDraw * m_debugDrawer;
 
   std::vector<Ogre::Vector3> m_waypoints;
+  Graph* m_graph;
 };
 
 #endif /* MANAGER_H_ */

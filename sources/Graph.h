@@ -14,12 +14,12 @@
 class Graph{
 
 	typedef Ogre::Vector3 Node;
+	typedef std::vector<Node>::iterator vecIter;
 
 public: 
 	Graph (std::vector<Ogre::Vector3> wayPoints) {
 		nodes = wayPoints;
 
-		typedef std::vector<Node>::iterator vecIter;
 		for (vecIter iter = nodes.begin(); iter != nodes.end(); ++iter) {
 			std::vector<Node> temp;
 			for (vecIter iter2 = nodes.begin(); iter2 != nodes.end(); ++iter2) {
@@ -47,6 +47,12 @@ public:
 			index[i] = v[i];
 		}
 		return neighbors[index];
+	}
+
+	Ogre::Vector3 getNearestNode(Ogre::Vector3 p) {
+		
+
+
 	}
 
 private:

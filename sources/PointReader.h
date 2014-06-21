@@ -54,6 +54,10 @@ public:
 		return wayPoints;
 	}
 	
+	Graph* getGraph() {
+		return graph;
+	}
+
 	virtual ~PointReader() {
 		delete graph;
 	}
