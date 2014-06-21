@@ -44,14 +44,15 @@ public:
 		return temp1;
 	}
 
-	std::vector<std::pair<Ogre::Vector3, double>> getList() {
+    std::vector<std::pair<Ogre::Vector3, double> > getList() {
 		return list;
 	}
 
 private:
-	std::vector<std::pair<Ogre::Vector3, double>> list;
+    std::vector<std::pair<Ogre::Vector3, double> > list;
 	Ogre::Vector3 goal;
 
 };
+
 
 #endif SORTEDLIST_H_
