@@ -67,7 +67,7 @@ std::vector<long> Graph::findIndex(Graph::Node node)
     std::vector<long> index(3);
     for (int i=0; i<3; ++i)
     {
-        index[i] = node[i]*pow(10, Graph::PRECISION);
+        index[i] = node[i]*pow((double)10, (double)Graph::PRECISION);
     }
     return index;
 }

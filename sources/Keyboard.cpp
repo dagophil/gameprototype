@@ -104,12 +104,12 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
     std::cout << "nodes.size() from keyboard :  " << graph->getNodes().size() << std::endl;
 
     Graph::Node* pos(graph->getNearestNode(position));
-/**	std::vector<Ogre::Vector3> nodes = graph->getNodes();
-	Ogre::Vector3 goal = nodes[2];
-//	AStar* astar = new AStar(graph, pos, goal);
+	std::vector<Graph::Node*> nodes = graph->getNodes();
+	Graph::Node* goal = nodes[2];
+	AStar* astar = new AStar(graph, pos, goal);
 
-//	astar->findPath();
-**/
+	astar->findPath();
+
     return true;
   }
 

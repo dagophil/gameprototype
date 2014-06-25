@@ -17,29 +17,16 @@ class AStar{
 
 public: 
 
-	AStar (Graph* g, Ogre::Vector3 s, Ogre::Vector3 e) {
-		graph = g;
-		start = s;
-		goal = e;
-	}
+	AStar (Graph* g, Graph::Node* s, Graph::Node* e);
 
-	void findPath() {
-		SortedList* open = new SortedList(goal);
-		SortedList* close = new SortedList(goal);
-
-	    open->add(start);
-
-		std::cout << std::endl;
-		std::cout << open->getList().back().first << std::endl;
-		std::cout << std::endl;
-	}
+	void findPath();
 
 private:
 
 	Graph* graph;
 	std::vector<Ogre::Vector3> path;
-	Ogre::Vector3 start;
-	Ogre::Vector3 goal;
+	Graph::Node* start;
+	Graph::Node* goal;
 };
 
 #endif /* ASTAR_H_ */
