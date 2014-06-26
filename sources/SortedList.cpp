@@ -5,8 +5,6 @@
 
 #include "SortedList.h"
 
-// TODO: Move function implementations from SortedList.h to here.
-
 SortedList::SortedList(Graph::Node* e) {
 		goal = e;
 }

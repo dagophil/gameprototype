@@ -5,9 +5,6 @@
 
 #include "AStar.h"
 
-// TODO: Move function implementations from AStar.h to here.
-
-
 AStar::AStar (Graph* g, Graph::Node* s, Graph::Node* e) {
 		graph = g;
 		start = s;
