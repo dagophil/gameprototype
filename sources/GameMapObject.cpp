@@ -18,7 +18,7 @@
 #include "MotionState.h"
 
 
-GameMapObject::GameMapObject(const std::string & MeshName)
+GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactResponse)
 {
   m_Entity = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity(MeshName);
   m_SceneNode = TopManager::Instance()->getGraphicManager()->getSceneManager()->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0,0,0));
@@ -37,7 +37,11 @@ GameMapObject::GameMapObject(const std::string & MeshName)
   MotionState* motionState = new MotionState(Transform, m_SceneNode);
   btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,motionState,CollisionShape,localInertia);
   btRigidBody* body = new btRigidBody(rbInfo);
+  if(!contactResponse) {
+      body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+  }
   TopManager::Instance()->getPhysicsManager()->getDynamicsWorld()->addRigidBody(body);
+
   setRigidBody(body);
   setSceneNode(m_SceneNode);
   body->setUserPointer(this);

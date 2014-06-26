@@ -46,13 +46,10 @@ void collisionCallback(btDynamicsWorld *world, btScalar timeStep)
       if(obAF&&obBF)
       {
         int numContacts = contactManifold->getNumContacts();
+
         for (int j = 0; j < numContacts; j++)
         {
-          if(contactManifold->getContactPoint(j).getDistance() < 0.f) /*
-            if (obAF->getType()==2)
-              std::cout<<obBF<<std::endl;
-            if (obBF->getType()==2)
-              std::cout<<obAF<<std::endl;*/
+          if(contactManifold->getContactPoint(j).getDistance() < 0.f)
           {
             obAF->CollideWith(obBF->getType());
             obBF->CollideWith(obAF->getType());

@@ -10,14 +10,11 @@
 #include <BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h>
 #include <iostream>
 
-
 PhysicsManager::PhysicsManager()
 {
   m_CollisionConfiguration = new btDefaultCollisionConfiguration();
   m_Dispatcher = new  btCollisionDispatcher(m_CollisionConfiguration);
-
   //btGImpactCollisionAlgorithm::registerAlgorithm((btCollisionDispatcher*)m_Dispatcher);
-
   m_Broadphase = new btDbvtBroadphase();
   btSequentialImpulseConstraintSolver* sol = new btSequentialImpulseConstraintSolver;
   m_ConstraintSolver = sol;
