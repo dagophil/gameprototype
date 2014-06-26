@@ -16,7 +16,7 @@ class GameObject
 public:
 
   /// Define all types of the objects here
-  enum ObjectType { Wall, AbstractObject, Vehicle};
+  enum ObjectType { Wall, AbstractObject, Vehicle, FuelUpgrade, HealthUpgrade};
 
   /**
    * @brief getter for object type

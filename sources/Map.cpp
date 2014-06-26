@@ -9,7 +9,7 @@
 #include "TopManager.h"
 #include "GraphicManager.h"
 #include "Vehicle.h"
-#include "FuelUpgrade.h"
+#include "Upgrade.h"
 #include <OGRE/Ogre.h>
 
 
@@ -125,11 +125,11 @@ void Map::createCity()
 
 void Map::createUpgrades()
 {
-    GameMapObject* upgr = new FuelUpgrade("Cube.mesh");
+    GameMapObject* upgr = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
     upgr->translate(-24.f, 1.5f,-64.f);
     MapObjects.push_back(upgr);
 
-    GameMapObject* upgr2 = new FuelUpgrade("Cube.mesh");
+    GameMapObject* upgr2 = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
     upgr2->translate(-24.f, 1.5f,-54.f);
     MapObjects.push_back(upgr2);
 }
