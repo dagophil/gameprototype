@@ -41,7 +41,6 @@ GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactR
       body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
   }
   TopManager::Instance()->getPhysicsManager()->getDynamicsWorld()->addRigidBody(body);
-
   setRigidBody(body);
   setSceneNode(m_SceneNode);
   body->setUserPointer(this);
