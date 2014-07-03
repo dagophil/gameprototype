@@ -129,7 +129,7 @@ void Map::createUpgrades()
     upgr->translate(-24.f, 1.5f,-64.f);
     MapObjects.push_back(upgr);
 
-    GameMapObject* upgr2 = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
+    GameMapObject* upgr2 = new Upgrade("Cube.mesh", GameObject::HealthUpgrade);
     upgr2->translate(-24.f, 1.5f,-54.f);
     MapObjects.push_back(upgr2);
 }

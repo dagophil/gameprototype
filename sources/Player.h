@@ -49,6 +49,11 @@ public:
   void update();
 
   /**
+   * @brief function to increase score
+   */
+  void addLive();
+
+  /**
    * @brief function to decrease score
    */
   void removeLive();
