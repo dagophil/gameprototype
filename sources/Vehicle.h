@@ -78,7 +78,7 @@ public:
    * @brief getter for fuel percentage
    * @return
    */
-  int getFuel();
+  float getFuel();
 
   /**
    * @brief fillTank set the fuel to 100 percent
@@ -101,7 +101,7 @@ private:
   bool m_reverse;
   float m_steering;
   float m_wheelRotation;
-  int m_fuel;
+  float m_fuel;
 
   Ogre::SceneNode* m_wheelNode[4];
 

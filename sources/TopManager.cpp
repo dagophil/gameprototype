@@ -74,7 +74,7 @@ TopManager::TopManager()
 
   PointReader reader("waypoints1.txt");
   m_waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
-  m_graph = new Graph(*reader.getGraph());
+  m_graph = new Graph(m_waypoints);
 }
 
 TopManager::~TopManager()

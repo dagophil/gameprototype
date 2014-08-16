@@ -242,9 +242,11 @@ void Vehicle::update()
     }
     m_wheelNode[i]->pitch(Ogre::Degree(m_wheelRotation));
   }
-  if (m_throttle) {
+  if (kmh > 1) {
       // TODO: Find a framerate independent solution
-      m_fuel--;
+      m_fuel -= kmh/100;
+  } else if (kmh < -1) {
+      m_fuel += kmh/100;
   }
 }
 
@@ -262,12 +264,15 @@ void Vehicle::resetOrientation()
 }
 
 
-int Vehicle::getFuel()
+float Vehicle::getFuel()
 {
     return m_fuel;
 }
 
 void Vehicle::fillTank()
 {
-    m_fuel = 100;
+    m_fuel += 20;
+    if (m_fuel > 100) {
+        m_fuel = 100;
+    }
 }
