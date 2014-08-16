@@ -9,7 +9,7 @@
 #include "Upgrade.h"
 
 Upgrade::Upgrade(const std::string & MeshName, const ObjectType & type)
-    : GameMapObject(MeshName, false)
+    : GameMapObject(MeshName, false, true)
 {
     m_type = type;
 }

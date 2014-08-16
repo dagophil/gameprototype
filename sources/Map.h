@@ -24,6 +24,11 @@ public:
   ~Map();
 
   /**
+   * @brief function to call once per frame
+   */
+  void update();
+
+  /**
    * @param Player
    */
   const btVector4 getStartPos(int PlayerId);

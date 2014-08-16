@@ -132,10 +132,22 @@ void TopManager::update(const float&timestep)
 #ifdef PROFILE
   Ogre::Profiler::getSingleton().beginProfile("Physik");
 #endif
+
   m_PhysicsManager->getDynamicsWorld()->stepSimulation(2.0 * timestep, 10);
 
 #ifdef PROFILE
   Ogre::Profiler::getSingleton().endProfile("Physik");
+#endif
+
+  // Update the map
+#ifdef PROFILE
+  Ogre::Profiler::getSingleton().beginProfile("Map Update");
+#endif
+
+  m_Map->update();
+
+#ifdef PROFILE
+  Ogre::Profiler::getSingleton().endProfile("Map Update");
 #endif
   // Update all Players
 

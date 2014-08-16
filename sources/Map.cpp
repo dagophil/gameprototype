@@ -10,7 +10,9 @@
 #include "GraphicManager.h"
 #include "Vehicle.h"
 #include "Upgrade.h"
+#include "PointReader.h"
 #include <OGRE/Ogre.h>
+#include <OgreVector3.h>
 
 
 float collison_length = 2.f;
@@ -98,6 +100,16 @@ Map::~Map()
     MapObjects.clear();
 }
 
+void Map::update()
+{
+    typedef std::vector<GameMapObject*>::iterator objIter;
+
+    for (objIter iter = MapObjects.begin(); iter != MapObjects.end(); iter++)
+    {
+        (*iter)->update();
+    }
+}
+
 void Map::createGround()
 {
 	// create plane with stones texture as floor
@@ -125,13 +137,24 @@ void Map::createCity()
 
 void Map::createUpgrades()
 {
-    GameMapObject* upgr = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
-    upgr->translate(-26.f, 1.5f,-29.f);
-    MapObjects.push_back(upgr);
+    typedef std::vector<Ogre::Vector3>::iterator vecIter;
 
-    GameMapObject* upgr2 = new Upgrade("Cube.mesh", GameObject::HealthUpgrade);
-    upgr2->translate(-26.f, 1.5f,-49.f);
-    MapObjects.push_back(upgr2);
+    PointReader reader("fuelupgrades.txt");
+    std::vector<Ogre::Vector3> waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
+    for (vecIter iter = waypoints.begin(); iter != waypoints.end(); iter++) {
+        GameMapObject* upgr = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
+        upgr->translate(2*iter->x, 1.5f, 2*iter->z);
+        MapObjects.push_back(upgr);
+    }
+
+
+//    GameMapObject* upgr = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
+//    upgr->translate(-26.f, 1.5f,-29.f);
+//    MapObjects.push_back(upgr);
+
+//    GameMapObject* upgr2 = new Upgrade("Cube.mesh", GameObject::HealthUpgrade);
+//    upgr2->translate(-26.f, 1.5f,-49.f);
+//    MapObjects.push_back(upgr2);
 }
 
 const btVector4 Map::getStartPos(int playerId)

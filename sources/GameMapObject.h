@@ -29,9 +29,15 @@ public:
   * @param mesh name of mesh
   *
   */
-  GameMapObject(const std::string&mesh, const bool & contactResponse = true);
+  GameMapObject(const std::string&mesh, const bool & contactResponse = true, const bool & rotates = false);
 
   ~GameMapObject();
+
+  /**
+   * @brief function to call once per frame
+   */
+  void update();
+
   /**
   * @brief getter for Object type
   * @return ObjectType
@@ -55,6 +61,8 @@ public:
    */
   virtual void PlayCollisionAnimation();
 private:
+
+  bool m_Rotates;
 
 };
 
