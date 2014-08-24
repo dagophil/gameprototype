@@ -1,10 +1,8 @@
 Upgrades (Fuel / Health), die man einsammeln kann:
-* Upgrades erzeugen -> Datei einlesen -> Klasse Map
 * Models austauschen
 * Leeren des Tanks optimieren (unabhängig von Framerate)
 * Spiel vorbei wenn Tank leer
-* Respawn nach 30 Sekunden
-* Fuel füllt nur 10% statt 100%
+* Respawn der Fuel Upgrades nach 30 Sekunden
 
 Wegplaner:
 * A*
@@ -16,7 +14,7 @@ Beleuchtung:
 Sonstiges:
 * Kollision mit Wand -> Leben abziehen
 * Ziel mit Fahne markieren (Notiz: Ziel ist waypoints[0])
-
+* Wände mit Textur
 
 
 
