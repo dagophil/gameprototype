@@ -36,13 +36,13 @@ public:
    * @brief Instance for singelton
    * @return pointer to Manager
    */
-  static TopManager*Instance();
+  static TopManager* Instance();
 
   /**
    * @brief getter PhsicsManager
    * @return Pointer to PhysicsManager
    */
-  PhysicsManager*getPhysicsManager();
+  PhysicsManager* getPhysicsManager();
 
   /**
    * @brief getter for GraphicsManager
@@ -60,20 +60,20 @@ public:
    * @brief getter fo Map
    * @return pointer to Map
    */
-  Map*getMap();
+  Map* getMap();
 
   /**
    * @brief getter for Player
    * @param playerId
    * @return pointer to Player
    */
-  Player*getPlayer();
+  Player* getPlayer();
 
   /**
    * @brief getter for Graph
    * @return pointer to Graph
    */
-  Graph*getGraph();
+  Graph* getGraph();
 
   /**
    * @brief Adds player to game
@@ -106,14 +106,12 @@ public:
 private:
   TopManager();
   static TopManager*     m_Instance;
-
   PhysicsManager*   m_PhysicsManager;
   GraphicManager*   m_GraphicManager;
   GameOverlayManager*   m_OverlayManager;
   Map*        m_Map;
   std::vector<Player*>  PlayerList;
   btIDebugDraw * m_debugDrawer;
-
   std::vector<Ogre::Vector3> m_waypoints;
   Graph* m_graph;
 };

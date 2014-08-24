@@ -19,13 +19,10 @@ void GraphicManager::chooseSceneManager()
 
 void GraphicManager::createLightNShadow()
 {
-  mSceneMgr->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.3));
-
-  Ogre::Light *light = mSceneMgr->createLight("Light1");
+  Ogre::Light* light = mSceneMgr->createLight("Light1");
   light->setType(Ogre::Light::LT_POINT);
   light->setPosition(Ogre::Vector3(0, 1500, 0));
-  light->setDiffuseColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));//(Ogre::ColourValue::White);
-  light->setSpecularColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));//(Ogre::ColourValue::White);
+  makeDayLights();
 
   //Ogre::Light* l = TopManager::Instance()->getGraphicManager()->getSceneManager()->createLight("MainLight");
   //l->setType(Ogre::Light::LT_POINT);
@@ -33,6 +30,36 @@ void GraphicManager::createLightNShadow()
   //l->setPosition(100,300,100);
 
   mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+}
+
+void GraphicManager::toggleDayNight()
+{
+    if (m_daylight)
+    {
+        makeNightLights();
+    }
+    else
+    {
+        makeDayLights();
+    }
+}
+
+void GraphicManager::makeDayLights()
+{
+    Ogre::Light* light = mSceneMgr->getLight("Light1");
+    light->setDiffuseColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
+    light->setSpecularColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.3));
+    m_daylight = true;
+}
+
+void GraphicManager::makeNightLights()
+{
+    Ogre::Light* light = mSceneMgr->getLight("Light1");
+    light->setDiffuseColour(Ogre::ColourValue(0.4f, 0.4f, 0.4f));
+    light->setSpecularColour(Ogre::ColourValue(0.4f, 0.4f, 0.4f));
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.1, 0.1, 0.1));
+    m_daylight = false;
 }
 
 void GraphicManager::createScene()
