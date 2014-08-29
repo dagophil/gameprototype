@@ -34,6 +34,10 @@ Vehicle::Vehicle(const std::string&MeshName, const float&Mass, Player* Player) :
   Entity->setCastShadows(true);
   GrafikNode->attachObject(Entity);
 
+  Ogre::SceneNode* HeadlightNode = Node->createChildSceneNode(Ogre::Vector3(0.f, 2.f, 0.f));
+  Ogre::Light* headlight1 = TopManager::Instance()->getGraphicManager()->getSceneManager()->getLight("Headlight1");
+  HeadlightNode->attachObject(headlight1);
+
   Ogre::Entity* wheel0 = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity("wheel.mesh");
   m_wheelNode[0] = GrafikNode->createChildSceneNode(Ogre::Vector3(1.24, 0.49,-2.1));
   m_wheelNode[0]->attachObject(wheel0);

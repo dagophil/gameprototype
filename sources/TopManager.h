@@ -86,6 +86,12 @@ public:
   void loadMap();
 
   /**
+   * @brief getter for m_mapLoaded
+   * @return
+   */
+  bool isMapLoaded();
+
+  /**
    * @brief update function. is called every frame
    * @param timestep
    */
@@ -110,6 +116,7 @@ private:
   GraphicManager*   m_GraphicManager;
   GameOverlayManager*   m_OverlayManager;
   Map*        m_Map;
+  bool m_mapLoaded;
   std::vector<Player*>  PlayerList;
   btIDebugDraw * m_debugDrawer;
   std::vector<Ogre::Vector3> m_waypoints;

@@ -112,27 +112,28 @@ void Map::update()
 
 void Map::createGround()
 {
-	// create plane with stones texture as floor
-	Ogre::Plane plane;
-	plane.normal = Ogre::Vector3::UNIT_Y;
-	plane.d = 0;
+    // create plane with stones texture as floor
+    Ogre::Plane plane;
+    plane.normal = Ogre::Vector3::UNIT_Y;
+    plane.d = 0;
  
-	Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane, 100000.0f, 100000.0f, 10, 10, true, 1, 50.0f, 50.0f, Ogre::Vector3::UNIT_Z);
+    Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane, 100000.0f, 100000.0f, 10, 10, true, 1, 50.0f, 50.0f, Ogre::Vector3::UNIT_Z);
 
-    GameMapObject* groundObj = new GameMapObject("ground");
-    groundObj->translate(0.f,0.f,0.f);
-    groundObj->setMaterialName("groundMat");
-    groundObj->setCastShadows(false);
-    MapObjects.push_back(groundObj);
+    m_ground = new GameMapObject("ground");
+    m_ground->translate(0.f,0.f,0.f);
+    m_ground->setMaterialName("groundMat");
+    m_ground->setCastShadows(false);
+    MapObjects.push_back(m_ground);
 }
 
 void Map::createCity()
 {
-    GameMapObject* cityObj = new GameMapObject("city.mesh");
-    cityObj->translate(0.f,0.f,0.f);
-    cityObj->scale(2.f,2.f,2.f);
-    cityObj->setCastShadows(true);
-    MapObjects.push_back(cityObj);
+    m_city = new GameMapObject("city.mesh");
+    m_city->translate(0.f,0.f,0.f);
+    m_city->scale(2.f,2.f,2.f);
+    m_city->setCastShadows(true);
+    m_city->setMaterialName("cityMat");
+    MapObjects.push_back(m_city);
 }
 
 void Map::createUpgrades()
@@ -155,6 +156,16 @@ void Map::createUpgrades()
 //    GameMapObject* upgr2 = new Upgrade("Cube.mesh", GameObject::HealthUpgrade);
 //    upgr2->translate(-26.f, 1.5f,-49.f);
 //    MapObjects.push_back(upgr2);
+}
+
+GameMapObject* Map::getCity()
+{
+    return m_city;
+}
+
+GameMapObject* Map::getGround()
+{
+    return m_ground;
 }
 
 const btVector4 Map::getStartPos(int playerId)

@@ -75,6 +75,8 @@ TopManager::TopManager()
   PointReader reader("waypoints1.txt");
   m_waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
   m_graph = new Graph(m_waypoints);
+
+  m_mapLoaded = false;
 }
 
 TopManager::~TopManager()
@@ -124,8 +126,13 @@ void TopManager::addPlayer()
 void TopManager::loadMap()
 {
   m_Map = new Map;
+  m_mapLoaded = true;
 }
 
+bool TopManager::isMapLoaded()
+{
+    return m_mapLoaded;
+}
 
 void TopManager::update(const float&timestep)
 {

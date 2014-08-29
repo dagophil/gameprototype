@@ -32,6 +32,19 @@ public:
    * @param Player
    */
   const btVector4 getStartPos(int PlayerId);
+
+  /**
+   * @brief getter for m_city
+   * @return
+   */
+  GameMapObject* getCity();
+
+  /**
+   * @brief getter for m_ground
+   * @return
+   */
+  GameMapObject* getGround();
+
 private:
   void createGround();
   void createCity();
@@ -39,6 +52,8 @@ private:
   void createUpgrades();
 
   std::vector<GameMapObject*> MapObjects;
+  GameMapObject* m_city;
+  GameMapObject* m_ground;
   btVector4 m_startPositions[4];
 };
 
