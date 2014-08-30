@@ -30,10 +30,16 @@ void GraphicManager::createLightNShadow()
   light->setSpecularColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
 
   // Create headlights for the car
-  Ogre::Light* headlight = mSceneMgr->createLight("Headlight1");
-  headlight->setCastShadows(false);
-  headlight->setType(Ogre::Light::LT_SPOTLIGHT);
-  headlight->setSpotlightRange(Ogre::Radian(0.1), Ogre::Radian(M_PI_4));
+  Ogre::Light* headlights[] = {mSceneMgr->createLight("Headlight1"),
+                               mSceneMgr->createLight("Headlight2")};
+  for (int i=0; i<2; ++i)
+  {
+      headlights[i]->setCastShadows(false);
+      headlights[i]->setType(Ogre::Light::LT_SPOTLIGHT);
+      headlights[i]->setSpotlightRange(Ogre::Radian(0.1), Ogre::Radian(M_PI/3.f));
+      headlights[i]->setDiffuseColour(Ogre::ColourValue(1.f, 1.f, 1.f));
+      headlights[i]->setSpecularColour(Ogre::ColourValue(1.f, 1.f, 1.f));
+  }
 
   makeDayLights();
 }
@@ -57,9 +63,10 @@ void GraphicManager::makeDayLights()
     light->setVisible(true);
 
     // Darken the headlights
-    Ogre::Light* headlight = mSceneMgr->getLight("Headlight1");
-    headlight->setDiffuseColour(Ogre::ColourValue(0.f, 0.f, 0.f));
-    headlight->setSpecularColour(Ogre::ColourValue(0.f, 0.f, 0.f));
+    Ogre::Light* headlight1 = mSceneMgr->getLight("Headlight1");
+    headlight1->setVisible(false);
+    Ogre::Light* headlight2 = mSceneMgr->getLight("Headlight2");
+    headlight2->setVisible(false);
 
     // Change city and ground material
     if (TopManager::Instance()->isMapLoaded())
@@ -83,9 +90,10 @@ void GraphicManager::makeNightLights()
     light->setVisible(false);
 
     // Brighten the headlights
-    Ogre::Light* headlight = mSceneMgr->getLight("Headlight1");
-    headlight->setDiffuseColour(Ogre::ColourValue(0.4f, 0.5f, 0.5f));
-    headlight->setSpecularColour(Ogre::ColourValue(0.4f, 0.5f, 0.5f));
+    Ogre::Light* headlight1 = mSceneMgr->getLight("Headlight1");
+    headlight1->setVisible(true);
+    Ogre::Light* headlight2 = mSceneMgr->getLight("Headlight2");
+    headlight2->setVisible(true);
 
     // Change city and ground material
     if (TopManager::Instance()->isMapLoaded())
