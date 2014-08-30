@@ -8,9 +8,6 @@ Wegplaner:
 * A*
 * Auto fährt von allein
 
-Beleuchtung:
-* Tag / Nacht Beleuchtung
-
 Sonstiges:
 * Kollision mit Wand -> Leben abziehen
 * Ziel mit Fahne markieren (Notiz: Ziel ist waypoints[0])
