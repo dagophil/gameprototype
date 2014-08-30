@@ -34,26 +34,23 @@ public:
   const btVector4 getStartPos(int PlayerId);
 
   /**
-   * @brief getter for m_city
-   * @return
+   * @brief set materials to day materials
    */
-  GameMapObject* getCity();
+  void changeToDayMaterials();
 
   /**
-   * @brief getter for m_ground
-   * @return
+   * @brief set materials to night materials
    */
-  GameMapObject* getGround();
+  void changeToNightMaterials();
 
 private:
   void createGround();
   void createCity();
-  void createTrainingEnvironment();
   void createUpgrades();
 
-  std::vector<GameMapObject*> MapObjects;
   GameMapObject* m_city;
   GameMapObject* m_ground;
+  std::vector<GameMapObject*> m_upgrades;
   btVector4 m_startPositions[4];
 };
 

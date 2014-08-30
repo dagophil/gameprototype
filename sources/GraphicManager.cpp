@@ -68,14 +68,10 @@ void GraphicManager::makeDayLights()
     Ogre::Light* headlight2 = mSceneMgr->getLight("Headlight2");
     headlight2->setVisible(false);
 
-    // Change city and ground material
+    // Change to day materials
     if (TopManager::Instance()->isMapLoaded())
     {
-        GameMapObject* city = TopManager::Instance()->getMap()->getCity();
-        city->setMaterialName("cityMat");
-
-        GameMapObject* ground = TopManager::Instance()->getMap()->getGround();
-        ground->setMaterialName("groundMat");
+        TopManager::Instance()->getMap()->changeToDayMaterials();
     }
 
     mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
@@ -95,14 +91,10 @@ void GraphicManager::makeNightLights()
     Ogre::Light* headlight2 = mSceneMgr->getLight("Headlight2");
     headlight2->setVisible(true);
 
-    // Change city and ground material
+    // Change map materials
     if (TopManager::Instance()->isMapLoaded())
     {
-        GameMapObject* city = TopManager::Instance()->getMap()->getCity();
-        city->setMaterialName("Simple_Perpixel");
-
-        GameMapObject* ground = TopManager::Instance()->getMap()->getGround();
-        ground->setMaterialName("Simple_Perpixel");
+        TopManager::Instance()->getMap()->changeToNightMaterials();
     }
 
     mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
