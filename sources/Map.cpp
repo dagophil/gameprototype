@@ -78,6 +78,7 @@ void Map::createUpgrades()
     std::vector<Ogre::Vector3> waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
     for (vecIter iter = waypoints.begin(); iter != waypoints.end(); iter++) {
         GameMapObject* upgr = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
+        upgr->setMaterialName("redBlockMat");
         upgr->translate(2*iter->x, 1.5f, 2*iter->z);
         m_upgrades.push_back(upgr);
     }
@@ -87,12 +88,24 @@ void Map::changeToDayMaterials()
 {
     m_city->setMaterialName("cityMat");
     m_ground->setMaterialName("groundMat");
+
+    typedef std::vector<GameMapObject*>::iterator upgrIter;
+    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
+    {
+        ((GameMapObject*) *iter)->setMaterialName("redBlockMat");
+    }
 }
 
 void Map::changeToNightMaterials()
 {
     m_city->setMaterialName("Simple_Perpixel");
     m_ground->setMaterialName("Simple_Perpixel");
+
+    typedef std::vector<GameMapObject*>::iterator upgrIter;
+    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
+    {
+        ((GameMapObject*) *iter)->setMaterialName("Simple_Perpixel_Red");
+    }
 }
 
 const btVector4 Map::getStartPos(int playerId)
