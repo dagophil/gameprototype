@@ -1,0 +1,20 @@
+material groundMat
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.4 0.4 0.4 1
+			diffuse 0.4 0.4 0.4 1
+			specular 0 0 0 1 10
+
+			texture_unit
+			{
+				texture cobbles01.jpg
+				transform 900 0 0 0 0 900 0 0 0 0 1 0 0 0 0 1
+			}
+		}
+
+	}
+
+}

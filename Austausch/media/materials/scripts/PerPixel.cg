@@ -1,0 +1,65 @@
+//***************************************************//
+//                                                   //
+//                PERPIXEL LIGHTING                  //
+//                    A + D + S                      //
+//                                                   //
+//***************************************************//
+
+void Ambient_vp(float4 position : POSITION,
+                out float4 oPosition : POSITION,
+                out float4 colour : COLOR,
+                uniform float4x4 worldViewProj,
+                uniform float4 ambient)
+{
+    oPosition = mul(worldViewProj, position);
+    colour = ambient;
+}
+
+void Simple_Perpixel_Vert(float4 position : POSITION,
+                          float3 normal : NORMAL,
+                          uniform float4 lightPosition0,
+                          uniform float4x4 worldviewproj,
+                          uniform float3 spotDirection,
+                          out float4 oClipPos : POSITION,
+                          out float3 oNorm : TEXCOORD0,
+                          out float4 oLightPos0 : TEXCOORD1,
+                          out float3 oSpotDirection : TEXCOORD2,
+                          out float4 oPos : TEXCOORD4,
+                          out float3 EyeDir : TEXCOORD5)
+{
+    oClipPos = mul(worldviewproj, position);
+    oLightPos0 = lightPosition0;
+    oPos = position;
+    oNorm = normal;
+    oSpotDirection = spotDirection;
+}
+
+void Simple_PerPixel_Frag(float3 normal : TEXCOORD0,
+                          float4 LightPos0 : TEXCOORD1,
+                          float3 spotDirection : TEXCOORD2,
+                          float4 position : TEXCOORD4,
+                          uniform float3 eyePosition,
+                          uniform float4 lightDiffuse0,
+                          uniform float4 lightSpecular0,
+                          uniform float4 spotParams,
+                          uniform float exponent0,
+                          uniform float4 ambient,
+                          uniform float4 diffuse,
+                          uniform float4 specular,
+                          out float4 oColor : COLOR) 
+{
+    float3 N = normalize(normal);
+    float3 EyeDir = normalize(eyePosition - position.xyz);
+    float3 LightDir = normalize(LightPos0.xyz - (position * LightPos0.w));
+    float3 HalfAngle = normalize(LightDir + EyeDir);
+    float NdotL = dot(LightDir, N);
+    float NdotH = dot(HalfAngle, N);
+    float4 Lit = lit(NdotL,NdotH,exponent0);
+    oColor = diffuse * lightDiffuse0 * Lit.y + specular * lightSpecular0 * Lit.z + ambient;
+
+    // Spotlights
+    float rho = saturate(dot(spotDirection, LightDir));
+    float spotFactor = pow(saturate(rho - spotParams.y) / (spotParams.x - spotParams.y), spotParams.z);
+    oColor = oColor * spotFactor;
+}
+

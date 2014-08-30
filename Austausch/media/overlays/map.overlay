@@ -1,0 +1,20 @@
+Map/Overlay
+{
+	zorder 01
+	container Panel(MapContainer)
+	{
+		metrics_mode relative
+		left 50
+		top 100
+		metrics_mode pixels
+		width 240
+		height 240
+		element Panel(MapImage)
+		{
+			metrics_mode pixels
+			width 240
+			height 240
+			material Overlay/Map
+		}
+	}
+}

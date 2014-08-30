@@ -1,0 +1,110 @@
+//***************************************************//
+//                                                   //
+//                PERPIXEL LIGHTING                  //
+//                    A + D + S                      //
+//                                                   //
+//***************************************************//
+
+vertex_program Ambient cg
+{
+    source PerPixel.cg
+
+    default_params
+    {
+        param_named_auto worldViewProj worldviewproj_matrix
+        param_named ambient float4 0.0 0.0 0.0 1.0
+    }
+
+    entry_point Ambient_vp
+    profiles vs_1_1 arbvp1
+}
+
+vertex_program Simple_Perpixel_Vert cg
+{
+    source PerPixel.cg
+
+    default_params
+    {
+        param_named_auto lightPosition0 light_position_object_space 0
+        param_named_auto worldviewproj worldviewproj_matrix
+        param_named_auto spotDirection light_direction_object_space 0
+    }
+
+    entry_point Simple_Perpixel_Vert
+    profiles vs_1_1 arbvp1
+}
+
+fragment_program Simple_PerPixel_Frag cg
+{
+    source PerPixel.cg
+
+    default_params
+    {
+        param_named_auto eyePosition camera_position_object_space
+        param_named_auto lightDiffuse0 light_diffuse_colour 0
+        param_named_auto lightSpecular0 light_specular_colour 0
+        param_named_auto spotParams spotlight_params 0
+        param_named exponent0 float 127
+        param_named ambient float4 0.0 0.0 0.0 1.0
+        param_named diffuse float4 1.0 1.0 1.0 1.0
+        param_named specular float4 1.0 1.0 1.0 1.0
+    }
+
+    entry_point Simple_PerPixel_Frag
+    profiles ps_2_0 arbfp1
+}
+
+material Simple_Perpixel
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+            }
+        }
+    }
+}
+
+material Simple_Perpixel_Red
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 1.0 0.0 0.0 1.0
+                param_named specular float4 0.0 0.0 0.0 1.0
+            }
+        }
+    }
+}
+

@@ -1,0 +1,29 @@
+Clock/Overlay
+{
+	zorder 01
+	
+	container Panel(Clock/Timer)
+	{
+		
+		left 0
+		top 0
+		width 1
+		height 0.1
+		
+		element TextArea(Clock/Text)
+		{
+			left 0
+			top 0
+			width 1
+			height 1
+			//horz_align right
+			//alignment right
+			
+			font_name SdkTrays/Caption
+			char_height 0.03
+			colour 1.0 0.0 0.0
+			caption ClockCaption
+		}
+	}
+	
+}
