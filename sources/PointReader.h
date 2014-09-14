@@ -22,16 +22,11 @@ public:
     PointReader(const char* filename);
 
     std::vector<Ogre::Vector3> getWayPoints();
-	
-    Graph* getGraph();
-
-    virtual ~PointReader();
 
 private:
 
-	std::vector<Ogre::Vector3> wayPoints;
+    std::vector<Ogre::Vector3> wayPoints;
 
-	Graph* graph; 
 };
 
 #endif /* POINTREADER_H_ */

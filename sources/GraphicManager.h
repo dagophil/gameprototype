@@ -93,11 +93,28 @@ public:
    * @return Ogre::Viewport*
    */
   Ogre::Viewport*getViewport();
+
+  /**
+   * @brief toggle day and night modus (lights)
+   */
+  void toggleDayNight();
+
+  /**
+   * @brief set all lights to day mode
+   */
+  void makeDayLights();
+
+  /**
+   * @brief set all lights to night mode
+   */
+  void makeNightLights();
+
 private:
   Ogre::Viewport* m_vp;
   std::vector<Ogre::Vector3> m_waypoints;
-
   void createLightNShadow();
+  bool m_daylight;
+
 };
 
 #endif /* GRAPHICMANAGER_H_ */

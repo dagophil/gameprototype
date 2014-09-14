@@ -1,17 +1,27 @@
 Upgrades (Fuel / Health), die man einsammeln kann:
+* Models austauschen
+* Leeren des Tanks optimieren (unabhängig von Framerate)
+* Spiel vorbei wenn Tank leer
+* Respawn der Fuel Upgrades nach 30 Sekunden
 
-* Klassen erstellen (FuelUpgrade / HealthUpgrade)
-** Unterklasse von GameMapObject
-** Interagiert mit Vehicle oder PhysicsManager (Kollision)
-** Interagiert mit Player (wenn das Health Upgrade durchgeführt wird)
-** Interagiert mit Vehicle (wenn das Fuel Upgrade durchgeführt wird)
-* Alternativ: Fuel wird nicht im Vehicle, sondern im Player gespeichert (dann wird das Upgrade nämlich immer im Player durchgeführt)
+Wegplaner:
+* A*
+* Auto fährt von allein
 
-* Objekte erzeugen (zufällig / vorgegeben?)
-** Klasse Map zum Laden benutzen
+Sonstiges:
+* Kollision mit Wand -> Leben abziehen
+* Ziel mit Fahne markieren (Notiz: Ziel ist waypoints[0])
+* Wände mit Textur
 
-* Kollision aller Upgrades mit Auto überprüfen (mit Hilfe von PhysicsManager)
-** Bei Kollision:
-*** Upgrade auslösen
-*** Eingesammeltes Upgrade von der Straße entfernen
+
+
+
+Per Mail abgeben (.doc/.docx/.pdf):
+* Klassendiagramm
+* Zeitplan
+* Ziel des Projekts
+* Welche Algorithmen benutzt werden
+
+Kontakt:
+* Daniel.Glodeck@medma.uni-heidelberg.de
 

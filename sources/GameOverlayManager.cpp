@@ -79,7 +79,7 @@ void GameOverlayManager::update()
 
   // Create a string for the fuel percentage.
   std::stringstream ss;
-  ss << "Tank: " << player->getVehicle()->getFuel() << "%";
+  ss << "Tank: " << (int) player->getVehicle()->getFuel() << "%";
 
   // Update the fuel overlay.
   std::string fuelOverlayName = "Fuel/Text";
@@ -90,7 +90,8 @@ void GameOverlayManager::update()
 void GameOverlayManager::createMapOverlay()
 {
   // Create map container
-  /*Ogre::OverlayContainer* mapContainer = static_cast<Ogre::OverlayContainer*>(
+  /*
+  Ogre::OverlayContainer* mapContainer = static_cast<Ogre::OverlayContainer*>(
        m_overlayMgr->createOverlayElement("Panel", "MapContainer"));
   mapContainer->setMetricsMode(Ogre::GMM_RELATIVE);
   mapContainer->setPosition(0.5, 1);
@@ -106,19 +107,20 @@ void GameOverlayManager::createMapOverlay()
   Ogre::Overlay* overlay = m_overlayMgr->create("MapOverlay");
   overlay->setZOrder(500);
   overlay->add2D(mapContainer);
-  */
+
   Ogre::OverlayManager::getSingleton().getOverlayElement("MapContainer")->setPosition((m_dimX / 2) - 120,m_dimY - 240);
 
   Ogre::Overlay* playerMarker;
   playerMarker = Ogre::OverlayManager::getSingleton().getByName("Player/MapPosition");
   playerMarker->show();
-
+  */
   //xxx Ogre::Overlay *overlayMap = Ogre::OverlayManager::getSingleton().getByName("Map/Overlay");
   //xxx enable again if used... overlayMap->show();
 }
 
 void GameOverlayManager::updateMapOverlay()
 {
+  /*
   int offsetX;
   int offsetY;
   offsetX = (m_dimX / 2) - 120;
@@ -130,4 +132,5 @@ void GameOverlayManager::updateMapOverlay()
   overlayName = "Player/MapMarker";
   Ogre::OverlayManager::getSingleton().getOverlayElement(overlayName)->setPosition(posX + offsetX,posY + offsetY);
   Ogre::OverlayManager::getSingleton().getOverlayElement(overlayName)->setParameter("rotation","30,0,1,0");
+  */
 }

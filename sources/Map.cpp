@@ -10,7 +10,9 @@
 #include "GraphicManager.h"
 #include "Vehicle.h"
 #include "Upgrade.h"
+#include "PointReader.h"
 #include <OGRE/Ogre.h>
+#include <OgreVector3.h>
 
 
 float collison_length = 2.f;
@@ -30,108 +32,80 @@ Map::Map()
   m_startPositions[3] = btVector4(190.f,2.f,10.f,270.f);
 }
 
-void Map::createTrainingEnvironment()
-{
-  Ogre::ResourceGroupManager::getSingletonPtr()->createResourceGroup("Map");
-  Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup("Map");
-
-  Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
-  Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane, 240, 240, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_Z);
-
-  GameMapObject* groundObj = new GameMapObject("ground");
-  groundObj->translate(100.f,-10.f,100.f);
-  groundObj->setMaterialName("Floor");
-  groundObj->setCastShadows(false);
-  MapObjects.push_back(groundObj);
-
-  Ogre::Plane wall1(Ogre::Vector3::UNIT_Y, 0);
-  Ogre::MeshManager::getSingleton().createPlane("wall1", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, wall1, 20, 240, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_X);
-
-  GameMapObject* wall1Obj = new GameMapObject("wall1");
-  wall1Obj->translate(100.f,0.f,-20.f);
-  wall1Obj->pitch(Ogre::Degree(90));
-  wall1Obj->setMaterialName("Green");
-  wall1Obj->setCastShadows(false);
-  MapObjects.push_back(wall1Obj);
-
-  Ogre::Plane wall2(Ogre::Vector3::UNIT_Y, 0);
-  Ogre::MeshManager::getSingleton().createPlane("wall2", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, wall2, 20, 240, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_X);
-
-  GameMapObject* wall2Obj = new GameMapObject("wall2");
-  wall2Obj->translate(100.f,0.f,220.f);
-  wall2Obj->pitch(Ogre::Degree(-90));
-  wall2Obj->setMaterialName("Green");
-  wall2Obj->setCastShadows(false);
-  MapObjects.push_back(wall2Obj);
-
-  Ogre::Plane wall3(Ogre::Vector3::UNIT_Y, 0);
-  Ogre::MeshManager::getSingleton().createPlane("wall3", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, wall3, 20, 240, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_X);
-
-  GameMapObject* wall3Obj = new GameMapObject("wall3");
-  wall3Obj->translate(-20.f,0.f,100.f);
-  wall3Obj->pitch(Ogre::Degree(-90));
-  wall3Obj->roll(Ogre::Degree(-90));
-  wall3Obj->setMaterialName("Blue");
-  wall3Obj->setCastShadows(false);
-  MapObjects.push_back(wall3Obj);
-
-  Ogre::Plane wall4(Ogre::Vector3::UNIT_Y, 0);
-  Ogre::MeshManager::getSingleton().createPlane("wall4", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, wall4, 20, 240, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_X);
-
-  GameMapObject* wall4Obj = new GameMapObject("wall4");
-  wall4Obj->translate(220.f,0.f,100.f);
-  wall4Obj->pitch(Ogre::Degree(-90));
-  wall4Obj->roll(Ogre::Degree(90));
-  wall4Obj->setMaterialName("Blue");
-  wall4Obj->setCastShadows(false);
-  MapObjects.push_back(wall4Obj);
-
-  m_startPositions[0] = btVector4(100.f,-4.f,100.f,0.f);
-  m_startPositions[1] = btVector4(190.f,-4.f,190.f,180.f);
-  m_startPositions[2] = btVector4(10.f,-4.f,190.f,90.f);
-  m_startPositions[3] = btVector4(190.f,-4.f,10.f,270.f);
-
-}
-
 Map::~Map()
 {
-    MapObjects.clear();
+    m_upgrades.clear();
+}
+
+void Map::update()
+{
+    typedef std::vector<GameMapObject*>::iterator objIter;
+    for (objIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
+    {
+        (*iter)->update();
+    }
 }
 
 void Map::createGround()
 {
-	// create plane with stones texture as floor
-	Ogre::Plane plane;
-	plane.normal = Ogre::Vector3::UNIT_Y;
-	plane.d = 0;
+    // create plane with stones texture as floor
+    Ogre::Plane plane;
+    plane.normal = Ogre::Vector3::UNIT_Y;
+    plane.d = 0;
  
-	Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane, 100000.0f, 100000.0f, 10, 10, true, 1, 50.0f, 50.0f, Ogre::Vector3::UNIT_Z);
+    Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane, 100000.0f, 100000.0f, 10, 10, true, 1, 50.0f, 50.0f, Ogre::Vector3::UNIT_Z);
 
-    GameMapObject* groundObj = new GameMapObject("ground");
-    groundObj->translate(0.f,0.f,0.f);
-    groundObj->setMaterialName("groundMat");
-    groundObj->setCastShadows(false);
-    MapObjects.push_back(groundObj);
+    m_ground = new GameMapObject("ground");
+    m_ground->translate(0.f,0.f,0.f);
+    m_ground->setMaterialName("groundMat");
+    m_ground->setCastShadows(false);
 }
 
 void Map::createCity()
 {
-    GameMapObject* cityObj = new GameMapObject("city.mesh");
-    cityObj->translate(0.f,0.f,0.f);
-    cityObj->scale(2.f,2.f,2.f);
-    cityObj->setCastShadows(true);
-    MapObjects.push_back(cityObj);
+    m_city = new GameMapObject("city.mesh");
+    m_city->translate(0.f,0.f,0.f);
+    m_city->scale(2.f,2.f,2.f);
+    m_city->setCastShadows(true);
+    m_city->setMaterialName("cityMat");
 }
 
 void Map::createUpgrades()
 {
-    GameMapObject* upgr = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
-    upgr->translate(-24.f, 1.5f,-64.f);
-    MapObjects.push_back(upgr);
+    typedef std::vector<Ogre::Vector3>::iterator vecIter;
 
-    GameMapObject* upgr2 = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
-    upgr2->translate(-24.f, 1.5f,-54.f);
-    MapObjects.push_back(upgr2);
+    PointReader reader("fuelupgrades.txt");
+    std::vector<Ogre::Vector3> waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
+    for (vecIter iter = waypoints.begin(); iter != waypoints.end(); iter++) {
+        GameMapObject* upgr = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
+        upgr->setMaterialName("redBlockMat");
+        upgr->translate(2*iter->x, 1.5f, 2*iter->z);
+        m_upgrades.push_back(upgr);
+    }
+}
+
+void Map::changeToDayMaterials()
+{
+    m_city->setMaterialName("cityMat");
+    m_ground->setMaterialName("groundMat");
+
+    typedef std::vector<GameMapObject*>::iterator upgrIter;
+    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
+    {
+        ((GameMapObject*) *iter)->setMaterialName("redBlockMat");
+    }
+}
+
+void Map::changeToNightMaterials()
+{
+    m_city->setMaterialName("Simple_Perpixel");
+    m_ground->setMaterialName("Simple_Perpixel");
+
+    typedef std::vector<GameMapObject*>::iterator upgrIter;
+    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
+    {
+        ((GameMapObject*) *iter)->setMaterialName("Simple_Perpixel_Red");
+    }
 }
 
 const btVector4 Map::getStartPos(int playerId)

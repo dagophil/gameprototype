@@ -3,4 +3,4 @@ build/
 dist/
 doc/
 sources/CMakeLists.txt.user
-
+QTProject/

@@ -1,0 +1,27 @@
+Fuel/Overlay
+{
+	zorder 01
+	
+	container Panel(Fuel/Gastank)
+	{
+		
+		left 0
+		top 0
+		width 0.1
+		height 0.1
+		
+		element TextArea(Fuel/Text)
+		{
+			left 0
+			top 0.19
+			width 0.2
+			height 0.2
+			
+			font_name SdkTrays/Caption
+			char_height 0.03
+			colour 1.0 0.0 0.0
+			caption FuelCaption
+		}
+	}
+	
+}

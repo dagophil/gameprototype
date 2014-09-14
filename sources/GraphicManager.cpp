@@ -7,6 +7,9 @@
 #include "BaseApplication.h"
 #include "TopManager.h"
 #include "Keyboard.h"
+#include "Vehicle.h"
+#include "GameMapObject.h"
+#include "Map.h"
 
 GraphicManager::GraphicManager(){}
 
@@ -19,20 +22,84 @@ void GraphicManager::chooseSceneManager()
 
 void GraphicManager::createLightNShadow()
 {
-  mSceneMgr->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.3));
-
-  Ogre::Light *light = mSceneMgr->createLight("Light1");
+  // Create sunlight
+  Ogre::Light* light = mSceneMgr->createLight("Light1");
   light->setType(Ogre::Light::LT_POINT);
   light->setPosition(Ogre::Vector3(0, 1500, 0));
-  light->setDiffuseColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));//(Ogre::ColourValue::White);
-  light->setSpecularColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));//(Ogre::ColourValue::White);
+  light->setDiffuseColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
+  light->setSpecularColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
 
-  //Ogre::Light* l = TopManager::Instance()->getGraphicManager()->getSceneManager()->createLight("MainLight");
-  //l->setType(Ogre::Light::LT_POINT);
-  //l->setPosition(100,500,100);
-  //l->setPosition(100,300,100);
+  // Create headlights for the car
+  Ogre::Light* headlights[] = {mSceneMgr->createLight("Headlight1"),
+                               mSceneMgr->createLight("Headlight2")};
+  for (int i=0; i<2; ++i)
+  {
+      headlights[i]->setCastShadows(false);
+      headlights[i]->setType(Ogre::Light::LT_SPOTLIGHT);
+      headlights[i]->setSpotlightRange(Ogre::Radian(0.1), Ogre::Radian(M_PI/3.f));
+      headlights[i]->setDiffuseColour(Ogre::ColourValue(1.f, 1.f, 1.f));
+      headlights[i]->setSpecularColour(Ogre::ColourValue(1.f, 1.f, 1.f));
+  }
 
-  mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+  makeDayLights();
+}
+
+void GraphicManager::toggleDayNight()
+{
+    if (m_daylight)
+    {
+        makeNightLights();
+    }
+    else
+    {
+        makeDayLights();
+    }
+}
+
+void GraphicManager::makeDayLights()
+{
+    // Brighten the sun
+    Ogre::Light* light = mSceneMgr->getLight("Light1");
+    light->setVisible(true);
+
+    // Darken the headlights
+    Ogre::Light* headlight1 = mSceneMgr->getLight("Headlight1");
+    headlight1->setVisible(false);
+    Ogre::Light* headlight2 = mSceneMgr->getLight("Headlight2");
+    headlight2->setVisible(false);
+
+    // Change to day materials
+    if (TopManager::Instance()->isMapLoaded())
+    {
+        TopManager::Instance()->getMap()->changeToDayMaterials();
+    }
+
+    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.3));
+    m_daylight = true;
+}
+
+void GraphicManager::makeNightLights()
+{
+    // Darken the sun
+    Ogre::Light* light = mSceneMgr->getLight("Light1");
+    light->setVisible(false);
+
+    // Brighten the headlights
+    Ogre::Light* headlight1 = mSceneMgr->getLight("Headlight1");
+    headlight1->setVisible(true);
+    Ogre::Light* headlight2 = mSceneMgr->getLight("Headlight2");
+    headlight2->setVisible(true);
+
+    // Change map materials
+    if (TopManager::Instance()->isMapLoaded())
+    {
+        TopManager::Instance()->getMap()->changeToNightMaterials();
+    }
+
+    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.1, 0.1, 0.1));
+    m_daylight = false;
 }
 
 void GraphicManager::createScene()
@@ -44,27 +111,33 @@ void GraphicManager::createScene()
 
   m_waypoints = TopManager::Instance()->getWaypoints();
 
-  //create waypoint
-  Ogre::SceneNode* wprnode = mSceneMgr->getRootSceneNode()-> createChildSceneNode("waypointsroot");
 
-  for (std::size_t i = 0; i < m_waypoints.size(); ++i)
+  // Draw (or dont draw) the waypoints
+  if (false)
   {
-    std::stringstream ss;
-    ss << "wp" << i;
+      //create waypoint
+      Ogre::SceneNode* wprnode = mSceneMgr->getRootSceneNode()-> createChildSceneNode("waypointsroot");
 
-    std::stringstream ss2;
-    ss2 << "wpnode" << i;
-	
-    Ogre::SceneNode* citynode = wprnode->createChildSceneNode();
+      for (std::size_t i = 0; i < m_waypoints.size(); ++i)
+      {
+        std::stringstream ss;
+        ss << "wp" << i;
 
-    Ogre::Entity* entCity = mSceneMgr->createEntity( ss.str(), "Cube.mesh");
-    entCity->setCastShadows(true);
-    citynode->attachObject(entCity);
-    citynode->setPosition(m_waypoints[i].x, 0, m_waypoints[i].z);
-    citynode->scale(0.5, 0.5, 0.5);
-    //citynode->setPosition(-20, 1,-75);     //TEST
+        std::stringstream ss2;
+        ss2 << "wpnode" << i;
+
+        Ogre::SceneNode* citynode = wprnode->createChildSceneNode();
+
+        Ogre::Entity* entCity = mSceneMgr->createEntity( ss.str(), "Cube.mesh");
+        entCity->setCastShadows(true);
+        citynode->attachObject(entCity);
+        citynode->setPosition(m_waypoints[i].x, 0, m_waypoints[i].z);
+        citynode->scale(0.5, 0.5, 0.5);
+        //citynode->setPosition(-20, 1,-75);     //TEST
+      }
+      wprnode->scale(2,2,2);
   }
-  wprnode->scale(2,2,2);
+
 
 
   TopManager::Instance()->loadMap();

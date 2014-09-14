@@ -26,20 +26,9 @@ PointReader::PointReader(const char* filename)
         temp.z = atof(strtok( NULL," "));
         wayPoints.push_back(temp);
     }
-    graph = new Graph(wayPoints);
-}
-
-PointReader::~PointReader()
-{
-    delete graph;
 }
 
 std::vector<Ogre::Vector3> PointReader::getWayPoints()
 {
     return wayPoints;
-}
-
-Graph* PointReader::getGraph()
-{
-    return graph;
 }

@@ -18,12 +18,13 @@
 #include "MotionState.h"
 
 
-GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactResponse)
+GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactResponse, const bool & rotates)
 {
   m_Entity = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity(MeshName);
   m_SceneNode = TopManager::Instance()->getGraphicManager()->getSceneManager()->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0,0,0));
   m_Entity->setCastShadows(true);
   m_SceneNode->attachObject(m_Entity);
+  m_Rotates = rotates;
 
   Ogre::MeshPtr MeshPtr = Ogre::Singleton<Ogre::MeshManager>::getSingletonPtr()->load(MeshName, "Map");
   MeshStrider* Strider = new MeshStrider(MeshPtr.get());
@@ -41,7 +42,6 @@ GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactR
       body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
   }
   TopManager::Instance()->getPhysicsManager()->getDynamicsWorld()->addRigidBody(body);
-
   setRigidBody(body);
   setSceneNode(m_SceneNode);
   body->setUserPointer(this);
@@ -50,6 +50,14 @@ GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactR
 GameMapObject::~GameMapObject()
 {
 //std::cout<<"wall stirbt"<<std::endl;
+}
+
+void GameMapObject::update()
+{
+    if (m_Rotates)
+    {
+        this->yaw(Ogre::Degree(5));
+    }
 }
 
 

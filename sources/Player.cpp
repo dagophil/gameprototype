@@ -2,7 +2,7 @@
 
 #include "Vehicle.h"
 
-Player::Player(int playerId) : m_playerId(playerId),m_lives(10)
+Player::Player(int playerId) : m_playerId(playerId),m_lives(5)
 {
   m_joystick = true;
   srand(time(NULL) );
@@ -45,6 +45,11 @@ void Player::createViewport()
   m_playerVp =  window->addViewport(m_playerCam,1,0,0,1,1);
   m_playerVp->setOverlaysEnabled(true);
   m_playerCam->setAspectRatio(Ogre::Real(m_playerVp->getActualWidth()) / Ogre::Real(m_playerVp->getActualHeight()));
+}
+
+void Player::addLive()
+{
+    m_lives++;
 }
 
 void Player::removeLive()

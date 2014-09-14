@@ -6,7 +6,6 @@
 #include "Keyboard.h"
 #include "AStar.h"
 #include "Graph.h"
-
 #include "Vehicle.h"
 
 enum {THROTTLE, BRAKE, STEER_LEFT, STEER_RIGHT, REVERSE, RESET, AUTOMATIC};
@@ -91,6 +90,8 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
     m_pVehicle->setReverse(true);
     return true;
   }
+
+  // Drive automatically
   if(arg.key == OIS::KC_A)
   {
     std::cout << std::endl;
@@ -118,6 +119,12 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
 	astar->findPath();
 
     return true;
+  }
+
+  // Lighting (day / night)
+  if (arg.key == OIS::KC_L)
+  {
+      TopManager::Instance()->getGraphicManager()->toggleDayNight();
   }
 
   return true;

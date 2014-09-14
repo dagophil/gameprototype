@@ -24,16 +24,33 @@ public:
   ~Map();
 
   /**
+   * @brief function to call once per frame
+   */
+  void update();
+
+  /**
    * @param Player
    */
   const btVector4 getStartPos(int PlayerId);
+
+  /**
+   * @brief set materials to day materials
+   */
+  void changeToDayMaterials();
+
+  /**
+   * @brief set materials to night materials
+   */
+  void changeToNightMaterials();
+
 private:
   void createGround();
   void createCity();
-  void createTrainingEnvironment();
   void createUpgrades();
 
-  std::vector<GameMapObject*> MapObjects;
+  GameMapObject* m_city;
+  GameMapObject* m_ground;
+  std::vector<GameMapObject*> m_upgrades;
   btVector4 m_startPositions[4];
 };
 

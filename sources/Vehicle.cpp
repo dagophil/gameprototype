@@ -34,6 +34,18 @@ Vehicle::Vehicle(const std::string&MeshName, const float&Mass, Player* Player) :
   Entity->setCastShadows(true);
   GrafikNode->attachObject(Entity);
 
+  Ogre::SceneNode* HeadlightNode = Node->createChildSceneNode(Ogre::Vector3(0.5f, 2.f, 0.f));
+  HeadlightNode->pitch(Ogre::Degree(190));
+  HeadlightNode->yaw(Ogre::Degree(-10));
+  Ogre::Light* headlight1 = TopManager::Instance()->getGraphicManager()->getSceneManager()->getLight("Headlight1");
+  HeadlightNode->attachObject(headlight1);
+
+  Ogre::SceneNode* Headlight2Node = Node->createChildSceneNode(Ogre::Vector3(-0.5f, 2.f, 0.f));
+  Headlight2Node->pitch(Ogre::Degree(190));
+  Headlight2Node->yaw(Ogre::Degree(10));
+  Ogre::Light* headlight2 = TopManager::Instance()->getGraphicManager()->getSceneManager()->getLight("Headlight2");
+  Headlight2Node->attachObject(headlight2);
+
   Ogre::Entity* wheel0 = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity("wheel.mesh");
   m_wheelNode[0] = GrafikNode->createChildSceneNode(Ogre::Vector3(1.24, 0.49,-2.1));
   m_wheelNode[0]->attachObject(wheel0);
@@ -242,9 +254,11 @@ void Vehicle::update()
     }
     m_wheelNode[i]->pitch(Ogre::Degree(m_wheelRotation));
   }
-  if (m_throttle) {
+  if (kmh > 1) {
       // TODO: Find a framerate independent solution
-      m_fuel--;
+      m_fuel -= kmh/100;
+  } else if (kmh < -1) {
+      m_fuel += kmh/100;
   }
 }
 
@@ -262,12 +276,15 @@ void Vehicle::resetOrientation()
 }
 
 
-int Vehicle::getFuel()
+float Vehicle::getFuel()
 {
     return m_fuel;
 }
 
 void Vehicle::fillTank()
 {
-    m_fuel = 100;
+    m_fuel += 20;
+    if (m_fuel > 100) {
+        m_fuel = 100;
+    }
 }
