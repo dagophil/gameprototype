@@ -18,7 +18,16 @@ class Graph{
 
 public: 
 
-    typedef Ogre::Vector3 Node;
+	class Node : public Ogre::Vector3 {
+	public:
+		Node* parent;
+
+		Node(Ogre::Vector3 n) {
+			this->x = n.x;
+			this->y = n.y;
+			this->z = n.z;
+		};
+	};
 
     /**
      * @brief PRECISION precision of rounded double values

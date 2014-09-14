@@ -8,6 +8,7 @@
 AStar::AStar (Graph* g, Graph::Node* s, Graph::Node* e) {
 		graph = g;
 		start = s;
+		start->parent = start;
 		goal = e;
 }
 
@@ -22,7 +23,13 @@ void AStar::findPath() {
 		while (open->getList().size() > 0) {
 			Graph::Node* current_node = open->popNode();
 
-			if (current_node == goal) {
+			if (current_node->distance(*goal) < 1) {
+				std::cout << std::endl;
+				std::cout << "Sie haben das Ziel erreicht!" << *current_node << std::endl;
+				std::cout << *start << std::endl;
+				std::cout << std::endl;
+
+				goal->parent = current_node->parent;
 				break;
 			}
 
@@ -30,6 +37,7 @@ void AStar::findPath() {
 
 			for (std::vector<Graph::Node*>::iterator iter = successors.begin(); iter != successors.end(); ++iter) {
 
+		//		int oFound = open
 			}
 
 		}
