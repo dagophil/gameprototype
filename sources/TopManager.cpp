@@ -73,7 +73,12 @@ TopManager::TopManager()
   m_PhysicsManager->getDynamicsWorld()->setInternalTickCallback(collisionCallback);
 
   PointReader reader("waypoints1.txt");
-  m_waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
+
+  std::vector<Ogre::Vector3> waypoints = reader.getWayPoints();
+  for (size_t i = 0; i < waypoints.size(); ++i) {
+      m_waypoints.push_back(Ogre::Vector3(waypoints[i]));
+  }
+
   m_graph = new Graph(m_waypoints);
 
   m_mapLoaded = false;
@@ -121,6 +126,10 @@ void TopManager::addPlayer()
 {
   Player * newPlayer = new Player(PlayerList.size());
   PlayerList.push_back(newPlayer);
+}
+
+std::vector<Ogre::Vector3> TopManager::getWaypoints() {
+    return m_waypoints;
 }
 
 void TopManager::loadMap()

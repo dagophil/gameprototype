@@ -25,7 +25,7 @@ public:
 
 private:
 
-    std::vector<Ogre::Vector3> wayPoints;
+    std::vector<Ogre::Vector3> m_wayPoints;
 
 };
 

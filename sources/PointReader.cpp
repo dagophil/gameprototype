@@ -24,11 +24,11 @@ PointReader::PointReader(const char* filename)
         temp.x = atof(strtok( line,", "));
         temp.y=0;
         temp.z = atof(strtok( NULL," "));
-        wayPoints.push_back(temp);
+        m_wayPoints.push_back(temp);
     }
 }
 
 std::vector<Ogre::Vector3> PointReader::getWayPoints()
 {
-    return wayPoints;
+    return m_wayPoints;
 }

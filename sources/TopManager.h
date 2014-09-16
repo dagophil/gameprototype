@@ -97,18 +97,14 @@ public:
    */
   void update(const float&timestep);
 
-   inline std::vector<Ogre::Vector3> getWaypoints()
-   {
-	   return m_waypoints;
-   }
+  /**
+   * @brief getter for m_waypoints
+   * @return
+   */
+  std::vector<Ogre::Vector3> getWaypoints();
 
 //	void						collisionCallback(btDynamicsWorld *world, btScalar timeStep);
 
-  /**
-   * @brief getter for numer of players
-   * @return number of players
-   *
-   */
 private:
   TopManager();
   static TopManager*     m_Instance;
