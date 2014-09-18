@@ -9,10 +9,9 @@
 #include "Upgrade.h"
 
 Upgrade::Upgrade(const std::string & MeshName, const ObjectType & type)
-    : GameMapObject(MeshName, false, true),
+    : GameMapObject(MeshName, false, true, type),
       m_respawnY(1.5),
       m_respawnTime(5),
-      m_type(type),
       m_hidden(false),
       m_hiddenTime(-1)
 {
@@ -35,11 +34,6 @@ void Upgrade::CollideWith(const ObjectType & type)
     default:
         break;
     }
-}
-
-GameObject::ObjectType Upgrade::getType()
-{
-    return m_type;
 }
 
 void Upgrade::update(const float & timestep)

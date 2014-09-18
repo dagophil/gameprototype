@@ -26,7 +26,7 @@ Map::Map()
   createCity();
   createUpgrades();
 
-  m_startPositions[0] = btVector4(-20.f, 2.f,-85.f,0.f);
+  m_startPositions[0] = btVector4(-22.f, 2.f,-84.f,0.f);
   m_startPositions[1] = btVector4(190.f,2.f,190.f,180.f);
   m_startPositions[2] = btVector4(10.f,2.f,190.f,90.f);
   m_startPositions[3] = btVector4(190.f,2.f,10.f,270.f);
@@ -55,7 +55,7 @@ void Map::createGround()
  
     Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, plane, 100000.0f, 100000.0f, 10, 10, true, 1, 50.0f, 50.0f, Ogre::Vector3::UNIT_Z);
 
-    m_ground = new GameMapObject("ground");
+    m_ground = new GameMapObject("ground", true, false, GameObject::Ground);
     m_ground->translate(0.f,0.f,0.f);
     m_ground->setMaterialName("groundMat");
     m_ground->setCastShadows(false);

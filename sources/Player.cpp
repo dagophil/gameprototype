@@ -29,7 +29,9 @@ Vehicle* Player::getVehicle()
 void Player::update(const float & timestep)
 {
   if(m_joystick)
-    m_input->capture();
+  {
+      m_input->capture();
+  }
   m_vehicle->update(timestep);
   TopManager::Instance()->getOverlayManager()->update();
 }

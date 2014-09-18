@@ -20,13 +20,14 @@
 
 GameMapObject::GameMapObject() {}
 
-GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactResponse, const bool & rotates)
+GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactResponse, const bool & rotates, const ObjectType & type)
 {
   m_Entity = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity(MeshName);
   m_SceneNode = TopManager::Instance()->getGraphicManager()->getSceneManager()->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0,0,0));
   m_Entity->setCastShadows(true);
   m_SceneNode->attachObject(m_Entity);
   m_Rotates = rotates;
+  m_type = type;
 
   Ogre::MeshPtr MeshPtr = Ogre::Singleton<Ogre::MeshManager>::getSingletonPtr()->load(MeshName, "Map");
   MeshStrider* Strider = new MeshStrider(MeshPtr.get());
@@ -65,7 +66,7 @@ void GameMapObject::update(const float & timestep)
 
 GameObject::ObjectType GameMapObject::getType()
 {
-  return Wall;
+  return m_type;
 }
 
 void GameMapObject::CollideWith(const ObjectType&){}

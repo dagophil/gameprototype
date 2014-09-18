@@ -102,6 +102,8 @@ private:
   float m_steering;
   float m_wheelRotation;
   float m_fuel;
+  float m_lastCollisionTime;
+  float m_invincibleTime;
 
   Ogre::SceneNode* m_wheelNode[4];
 

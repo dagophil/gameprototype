@@ -6,7 +6,6 @@ Wegplaner:
 * Auto fährt von allein
 
 Sonstiges:
-* Kollision mit Wand -> Leben abziehen
 * Ziel mit Fahne markieren (Notiz: Ziel ist waypoints[0])
 * Wände mit Textur
 

@@ -29,7 +29,7 @@ public:
   * @param mesh name of mesh
   *
   */
-  GameMapObject(const std::string&mesh, const bool & contactResponse = true, const bool & rotates = false);
+  GameMapObject(const std::string&mesh, const bool & contactResponse = true, const bool & rotates = false, const ObjectType & type = Wall);
 
   ~GameMapObject();
 
@@ -42,7 +42,7 @@ public:
   * @brief getter for Object type
   * @return ObjectType
   */
-  virtual GameObject::ObjectType getType();
+  virtual ObjectType getType();
 
   /**
    * @brief handles collision with other object
@@ -60,9 +60,14 @@ public:
    *
    */
   virtual void PlayCollisionAnimation();
+
 private:
 
   bool m_Rotates;
+
+protected:
+
+  ObjectType m_type;
 
 };
 

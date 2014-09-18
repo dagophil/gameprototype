@@ -30,12 +30,6 @@ public:
     void CollideWith(const ObjectType & type);
 
     /**
-     * @brief getter for m_type
-     * @return
-     */
-    ObjectType getType();
-
-    /**
      * @brief update method, called every frame
      * @param timestep
      */
@@ -53,7 +47,6 @@ public:
 
 private:
 
-    ObjectType m_type;
     bool m_hidden;
     float m_hiddenTime;
 

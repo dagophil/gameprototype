@@ -18,7 +18,7 @@ btScalar suspensionRestLength(.4f);
 btVector3 wheelDirectionCS0(0,-1,0);
 btVector3 wheelAxleCS(-1,0,0);
 
-btVector3 hit_impulse(0.f,5000.f,0.f);
+btVector3 hit_impulse(0.f,750.f,0.f);
 
 Vehicle::Vehicle(const std::string&MeshName, const float&Mass, Player* Player) :
   m_brake(false),
@@ -26,7 +26,9 @@ Vehicle::Vehicle(const std::string&MeshName, const float&Mass, Player* Player) :
   m_reverse(false),
   m_steering(0.f),
   m_wheelRotation(0.f),
-  m_fuel(100)
+  m_fuel(100),
+  m_lastCollisionTime(1),
+  m_invincibleTime(3)
 {
   Ogre::Entity* Entity = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity(MeshName);
   Ogre::SceneNode* Node = TopManager::Instance()->getGraphicManager()->getSceneManager()->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0,0,0));
@@ -180,6 +182,13 @@ void Vehicle::CollideWith(const GameObject::ObjectType&type)
   switch(type)
   {
     case Wall:
+      if (m_lastCollisionTime > m_invincibleTime)
+      {
+          m_lastCollisionTime = 0;
+          m_Player->removeLive();
+      }
+      break;
+    case Ground:
       break;
     case AbstractObject:
       break;
@@ -198,11 +207,12 @@ void Vehicle::ShowYourself()
 
 void Vehicle::PlayCollisionAnimation()
 {
-  getRigidBody()->applyCentralImpulse(hit_impulse);
+    getRigidBody()->applyCentralImpulse(hit_impulse);
 }
 
 void Vehicle::update(const float & timestep)
 {
+  m_lastCollisionTime += timestep;
   float throttle = 0.f;
   float brake = 0.f;
   float kmh = m_RaycastVehicle->getCurrentSpeedKmHour();
