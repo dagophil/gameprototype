@@ -26,7 +26,7 @@ public:
 			this->x = n.x;
 			this->y = n.y;
 			this->z = n.z;
-		};
+        }
 	};
 
     /**
@@ -50,7 +50,7 @@ public:
      * @param v : neighbor
      * @return neighbors of v
      */
-    std::vector<Node*> getNeighbors(Node v);
+    const std::vector<Node*> & getNeighbors(Node v);
 
     /**
      * @brief getNearestNode finds the nearest node of p
@@ -63,7 +63,7 @@ public:
      * @brief getNodes
      * @return
      */
-    std::vector<Node*> getNodes();
+    const std::vector<Node*> & getNodes();
 
 private:
 

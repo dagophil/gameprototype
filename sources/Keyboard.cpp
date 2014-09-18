@@ -95,29 +95,28 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
   if(arg.key == OIS::KC_A)
   {
     std::cout << std::endl;
-	std::cout << "AUTOMATIC" << std::endl;
-	std::cout << std::endl;
+    std::cout << "AUTOMATIC" << std::endl;
+    std::cout << std::endl;
 
-	Ogre::Vector3 position = TopManager::Instance()->getPlayer()->getVehicle()->getSceneNode()->getPosition();
+    Ogre::Vector3 position = TopManager::Instance()->getPlayer()->getVehicle()->getSceneNode()->getPosition();
 
-	Graph* graph = TopManager::Instance()->getGraph();
+    Graph* graph = TopManager::Instance()->getGraph();
 
     std::cout << "nodes.size() from keyboard :  " << graph->getNodes().size() << std::endl;
-	
-	position.y = 0;
-	position = position /2;
-	std::cout << std::endl;
-	std::cout << position << std::endl;
-	std::cout << std:: endl;
+
+    position.y = 0;
+    position = position /2;
+    std::cout << std::endl;
+    std::cout << position << std::endl;
+    std::cout << std:: endl;
 
     Graph::Node* pos(graph->getNearestNode(position));
-	std::vector<Graph::Node*> nodes = graph->getNodes();
-	Graph::Node* goal = nodes[0];
-	
-	AStar* astar = new AStar(graph, pos, goal);
+    std::vector<Graph::Node*> nodes = graph->getNodes();
+    Graph::Node* goal = nodes[0];
 
-	astar->findPath();
+    AStar* astar = new AStar(graph, pos, goal);
 
+    astar->findPath();
     return true;
   }
 

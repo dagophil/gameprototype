@@ -20,11 +20,11 @@ public:
 
 	Graph::Node* popNode();
 
-    std::vector<std::pair<Graph::Node*, double> > getList();
+    const std::vector<std::pair<Graph::Node*, double> > & getList();
 
-	int getIndex(Graph::Node* n);
+    size_t getIndex(Graph::Node* n);
 
-	void remove(int x);
+    void remove(size_t x);
 
 private:
     std::vector<std::pair<Graph::Node*, double> > list;

@@ -17,38 +17,43 @@ void SortedList::add(Graph::Node* n) {
 			list.push_back(std::pair<Graph::Node*, double> (n, dist));
 		}
 		else {
-			for (int i = 0; i < list.size(); i++) {
+            for (size_t i = 0; i < list.size(); i++) {
 				if (list[i].second < dist) {
 					list.insert(list.begin() + i, std::pair<Graph::Node*, double> (n, dist));
 					break;
 				}
 				if ( i + 1 == list.size() ) {
 					list.push_back(std::pair<Graph::Node*, double> (n, dist));
+                    break;
 				}
 			}
 		}
 }
 
 Graph::Node* SortedList::popNode() {
-		std::pair<Graph::Node*, double> temp;
-		temp = list.back();
-		Graph::Node* temp1 = temp.first;
-		list.pop_back();
-		return temp1;
+        std::pair<Graph::Node*, double> temp;
+        temp = list.back();
+        Graph::Node* temp1 = temp.first;
+        list.pop_back();
+        return temp1;
 }
 
-std::vector<std::pair<Graph::Node*, double> > SortedList::getList() {
+//Graph::Node* SortedList::popNode() {
+//    std::pair<Graph::Node*, double> temp;
+//    temp = list[0];
+//    Graph::Node* temp1 = temp.first;
+//    list.erase(list.begin());
+//    return temp1;
+//}
+
+const std::vector<std::pair<Graph::Node*, double> > & SortedList::getList() {
 		return list;
 }
 
-int SortedList::getIndex(Graph::Node* n) {
-	
-	int index = -1;
-
-	std::cout << list.size() << std::endl;
-
-	for (int i = 0; i < list.size(); i++) {
-		if (list[i].first == n) {
+size_t SortedList::getIndex(Graph::Node* n) {
+    size_t index = -1;
+    for (size_t i = 0; i < list.size(); i++) {
+        if (*(list[i].first) == *n) {
 			index = i;
 		}
 	}
@@ -56,11 +61,12 @@ int SortedList::getIndex(Graph::Node* n) {
 	return index;
 }
 
-void SortedList::remove(int x) {
+void SortedList::remove(size_t x) {
+    list.erase(list.begin()+x);
 
-	for (int i = 0; i < list.size(); i++) {
-		if (i == x) {
-			list.erase(list.begin()+(x-1));
-		}
-	}
+//	for (int i = 0; i < list.size(); i++) {
+//		if (i == x) {
+//			list.erase(list.begin()+(x-1));
+//		}
+//	}
 }

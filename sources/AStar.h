@@ -4,7 +4,7 @@
 #include "Graph.h"
 #include "SortedList.h"
 #include <vector>
-#include <OgreVector3.h>
+#include <OGRE/OgreVector3.h>
 #include <map>
 
 /**

@@ -38,7 +38,7 @@ Graph::~Graph()
     neighbors.clear();
 }
 
-std::vector< Graph::Node* > Graph::getNeighbors(Graph::Node v)
+const std::vector< Graph::Node* > & Graph::getNeighbors(Graph::Node v)
 {
     return neighbors[findIndex(v)];
 }
@@ -57,7 +57,7 @@ Graph::Node* Graph::getNearestNode(Ogre::Vector3 p)
     return current;
 }
 
-std::vector<Graph::Node*> Graph::getNodes()
+const std::vector<Graph::Node*> & Graph::getNodes()
 {
     return nodes;
 }
