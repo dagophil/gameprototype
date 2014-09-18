@@ -1,8 +1,6 @@
 Upgrades (Fuel / Health), die man einsammeln kann:
 * Models austauschen
-* Leeren des Tanks optimieren (unabhängig von Framerate)
 * Spiel vorbei wenn Tank leer
-* Respawn der Fuel Upgrades nach 30 Sekunden
 
 Wegplaner:
 * A*

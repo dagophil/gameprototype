@@ -201,7 +201,7 @@ void Vehicle::PlayCollisionAnimation()
   getRigidBody()->applyCentralImpulse(hit_impulse);
 }
 
-void Vehicle::update()
+void Vehicle::update(const float & timestep)
 {
   float throttle = 0.f;
   float brake = 0.f;
@@ -256,9 +256,9 @@ void Vehicle::update()
   }
   if (kmh > 1) {
       // TODO: Find a framerate independent solution
-      m_fuel -= kmh/100;
+      m_fuel -= timestep*kmh/6.5;
   } else if (kmh < -1) {
-      m_fuel += kmh/100;
+      m_fuel += timestep*kmh/6.5;
   }
 }
 

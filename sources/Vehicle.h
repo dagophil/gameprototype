@@ -89,7 +89,7 @@ public:
    *
    * @brief Update function. Is called every frame.
    */
-  void update();
+  void update(const float & timestep);
 
   /**
    * @brief resets vehicle orientation

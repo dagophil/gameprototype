@@ -2,10 +2,11 @@
  * Manager.cpp
  *
  */
-#include <btBulletDynamicsCommon.h>
+#include <bullet/btBulletCollisionCommon.h>
 #include <OGRE/OgreCommon.h>
 #include <time.h>
 #include <typeinfo>
+#include <vector>
 
 
 #include "TopManager.h"
@@ -143,7 +144,7 @@ bool TopManager::isMapLoaded()
     return m_mapLoaded;
 }
 
-void TopManager::update(const float&timestep)
+void TopManager::update(const float & timestep)
 {
 #ifdef PROFILE
   Ogre::Profiler::getSingleton().beginProfile("Physik");
@@ -185,7 +186,7 @@ void TopManager::update(const float&timestep)
 
   for(unsigned int i = 0; i < PlayerList.size(); i++)
   {
-    PlayerList[i]->update();
+    PlayerList[i]->update(timestep);
   }
 
 #ifdef PROFILE
