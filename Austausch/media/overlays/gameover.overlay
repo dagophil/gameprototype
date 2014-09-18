@@ -1,0 +1,31 @@
+Gameover/Overlay
+{
+    zorder 10
+
+    container Panel(Gameover/Container)
+    {
+        element TextArea(Gameover/Largetext)
+        {
+            top 0.2
+            alignment center
+            horz_align center
+
+            font_name SdkTrays/Caption
+            char_height 0.1
+            colour 1.0 1.0 1.0
+            caption Large text
+        }
+        element TextArea(Gameover/Smalltext)
+        {
+            top 0.4
+            alignment center
+            horz_align center
+
+            font_name SdkTrays/Caption
+            char_height 0.07
+            colour 1.0 1.0 1.0
+            caption Small text
+        }
+    }
+}
+
