@@ -22,6 +22,10 @@ public:
 
     std::vector<std::pair<Graph::Node*, double> > getList();
 
+	int getIndex(Graph::Node* n);
+
+	void remove(int x);
+
 private:
     std::vector<std::pair<Graph::Node*, double> > list;
 	Graph::Node* goal;

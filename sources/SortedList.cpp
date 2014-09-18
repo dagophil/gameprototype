@@ -40,3 +40,27 @@ Graph::Node* SortedList::popNode() {
 std::vector<std::pair<Graph::Node*, double> > SortedList::getList() {
 		return list;
 }
+
+int SortedList::getIndex(Graph::Node* n) {
+	
+	int index = -1;
+
+	std::cout << list.size() << std::endl;
+
+	for (int i = 0; i < list.size(); i++) {
+		if (list[i].first == n) {
+			index = i;
+		}
+	}
+
+	return index;
+}
+
+void SortedList::remove(int x) {
+
+	for (int i = 0; i < list.size(); i++) {
+		if (i == x) {
+			list.erase(list.begin()+(x-1));
+		}
+	}
+}

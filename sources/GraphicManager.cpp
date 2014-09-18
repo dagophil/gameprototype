@@ -11,6 +11,9 @@
 #include "GameMapObject.h"
 #include "Map.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 GraphicManager::GraphicManager(){}
 
 GraphicManager::~GraphicManager(){}
@@ -113,7 +116,7 @@ void GraphicManager::createScene()
 
 
   // Draw (or dont draw) the waypoints
-  if (false)
+  if (true)
   {
       //create waypoint
       Ogre::SceneNode* wprnode = mSceneMgr->getRootSceneNode()-> createChildSceneNode("waypointsroot");

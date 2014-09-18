@@ -37,8 +37,38 @@ void AStar::findPath() {
 
 			for (std::vector<Graph::Node*>::iterator iter = successors.begin(); iter != successors.end(); ++iter) {
 
-		//		int oFound = open
+				int oFound = open->getIndex(*iter);
+				std::cout << std::endl;
+				std::cout << "Index Nummer: " << oFound << std::endl;
+				std::cout << std::endl;
+
+				if (oFound > 0) {
+					std:: pair<Graph::Node*, double> existing_node = open->getList()[oFound];
+					if ( existing_node.second <= current_node->distance(*goal) ) {
+						continue;
+					}
+				}
+
+				int cFound = close->getIndex(*iter);
+
+				if (cFound > 0) {
+					std:: pair<Graph::Node*, double> existing_node = close->getList()[cFound];
+					if ( existing_node.second <= current_node->distance(*goal) ) {
+						continue;
+					}
+				}
+
+				if (oFound != -1) {
+					open->remove(oFound);
+				}
+				if (cFound != -1) {
+					close->remove(cFound);
+				}
+
+				open->add(*iter);
+
 			}
 
+			close->add(current_node);
 		}
 }
