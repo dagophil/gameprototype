@@ -29,11 +29,33 @@ public:
      */
     void CollideWith(const ObjectType & type);
 
+    /**
+     * @brief getter for m_type
+     * @return
+     */
     ObjectType getType();
+
+    /**
+     * @brief update method, called every frame
+     * @param timestep
+     */
+    void update(const float & timestep);
+
+    /**
+     * @brief y value after respawn
+     */
+    float m_respawnY;
+
+    /**
+     * @brief time to respawn
+     */
+    float m_respawnTime;
 
 private:
 
     ObjectType m_type;
+    bool m_hidden;
+    float m_hiddenTime;
 
 };
 

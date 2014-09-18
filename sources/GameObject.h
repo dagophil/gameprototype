@@ -111,6 +111,54 @@ public:
   void scale(float dx, float dy, float dz);
 
   /**
+   * @brief getter for the current position
+   * @return
+   */
+  const Ogre::Vector3 & getPosition();
+
+  /**
+   * @brief setter for the current position
+   * @param position
+   */
+  void setPosition(const Ogre::Vector3 & position);
+
+  /**
+   * @brief getter for the x coordinate
+   * @return
+   */
+  const float & getX();
+
+  /**
+   * @brief setter for the x coordinate
+   * @param x
+   */
+  void setX(const float & x);
+
+  /**
+   * @brief getter for the y coordinate
+   * @return
+   */
+  const float & getY();
+
+  /**
+   * @brief setter for the y coordinate
+   * @param y
+   */
+  void setY(const float & y);
+
+  /**
+   * @brief getter for the z coordinate
+   * @return
+   */
+  const float & getZ();
+
+  /**
+   * @brief setter for the z coordinate
+   * @param z
+   */
+  void setZ(const float & z);
+
+  /**
    * @brief sets material name of object
    * @param name
    *

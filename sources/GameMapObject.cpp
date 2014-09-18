@@ -18,6 +18,8 @@
 #include "MotionState.h"
 
 
+GameMapObject::GameMapObject() {}
+
 GameMapObject::GameMapObject(const std::string & MeshName, const bool & contactResponse, const bool & rotates)
 {
   m_Entity = TopManager::Instance()->getGraphicManager()->getSceneManager()->createEntity(MeshName);
@@ -52,7 +54,7 @@ GameMapObject::~GameMapObject()
 //std::cout<<"wall stirbt"<<std::endl;
 }
 
-void GameMapObject::update()
+void GameMapObject::update(const float & timestep)
 {
     if (m_Rotates)
     {

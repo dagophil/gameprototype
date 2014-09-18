@@ -80,6 +80,46 @@ void GameObject::scale(float x, float y, float z)
   m_RigidBody->getCollisionShape()->setLocalScaling(Scale);
 }
 
+const Ogre::Vector3 & GameObject::getPosition()
+{
+    return m_SceneNode->getPosition();
+}
+
+void GameObject::setPosition(const Ogre::Vector3 & position)
+{
+    m_SceneNode->setPosition(position);
+}
+
+const float & GameObject::getX()
+{
+    return m_SceneNode->getPosition().x;
+}
+
+void GameObject::setX(const float & x)
+{
+    this->m_SceneNode->setPosition(x, this->getPosition().y, this->getPosition().z);
+}
+
+const float & GameObject::getY()
+{
+    return m_SceneNode->getPosition().y;
+}
+
+void GameObject::setY(const float & y)
+{
+    this->m_SceneNode->setPosition(this->getPosition().x, y, this->getPosition().z);
+}
+
+const float & GameObject::getZ()
+{
+    return m_SceneNode->getPosition().z;
+}
+
+void GameObject::setZ(const float & z)
+{
+    this->m_SceneNode->setPosition(this->getPosition().x, this->getPosition().y, z);
+}
+
 void GameObject::setMaterialName(const std::string&Name)
 {
   getEntity()->setMaterialName(Name);

@@ -22,7 +22,7 @@ class GameMapObject : public GameObject
 {
 public:
 
-  GameMapObject(){};
+  GameMapObject();
 
   /**
   * @brief contructor
@@ -36,7 +36,7 @@ public:
   /**
    * @brief function to call once per frame
    */
-  void update();
+  virtual void update(const float & timestep);
 
   /**
   * @brief getter for Object type

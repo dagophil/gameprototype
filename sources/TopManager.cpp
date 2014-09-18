@@ -160,7 +160,7 @@ void TopManager::update(const float&timestep)
   Ogre::Profiler::getSingleton().beginProfile("Map Update");
 #endif
 
-  m_Map->update();
+  m_Map->update(timestep);
 
 #ifdef PROFILE
   Ogre::Profiler::getSingleton().endProfile("Map Update");

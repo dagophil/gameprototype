@@ -26,7 +26,7 @@ public:
   /**
    * @brief function to call once per frame
    */
-  void update();
+  void update(const float & timestep);
 
   /**
    * @param Player

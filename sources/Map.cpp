@@ -12,7 +12,7 @@
 #include "Upgrade.h"
 #include "PointReader.h"
 #include <OGRE/Ogre.h>
-#include <OgreVector3.h>
+#include <OGRE/OgreVector3.h>
 
 
 float collison_length = 2.f;
@@ -37,12 +37,12 @@ Map::~Map()
     m_upgrades.clear();
 }
 
-void Map::update()
+void Map::update(const float & timestep)
 {
     typedef std::vector<GameMapObject*>::iterator objIter;
     for (objIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
     {
-        (*iter)->update();
+        (*iter)->update(timestep);
     }
 }
 

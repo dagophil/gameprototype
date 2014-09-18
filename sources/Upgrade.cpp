@@ -9,14 +9,21 @@
 #include "Upgrade.h"
 
 Upgrade::Upgrade(const std::string & MeshName, const ObjectType & type)
-    : GameMapObject(MeshName, false, true)
+    : GameMapObject(MeshName, false, true),
+      m_respawnY(1.5),
+      m_respawnTime(5),
+      m_type(type),
+      m_hidden(false),
+      m_hiddenTime(-1)
 {
-    m_type = type;
+
 }
 
 void Upgrade::CollideWith(const ObjectType & type)
 {
-    this->translate(0.f, -5.f, 0.f);
+    this->setY(-50);
+    m_hidden = true;
+    m_hiddenTime = 0;
 
     switch (m_type) {
     case FuelUpgrade:
@@ -33,4 +40,19 @@ void Upgrade::CollideWith(const ObjectType & type)
 GameObject::ObjectType Upgrade::getType()
 {
     return m_type;
+}
+
+void Upgrade::update(const float & timestep)
+{
+    GameMapObject::update(timestep);
+    if (m_hidden)
+    {
+        m_hiddenTime += timestep;
+        if (m_hiddenTime > m_respawnTime)
+        {
+            m_hidden = false;
+            m_hiddenTime = -1;
+            this->setY(m_respawnY);
+        }
+    }
 }
