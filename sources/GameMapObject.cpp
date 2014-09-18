@@ -58,7 +58,7 @@ void GameMapObject::update(const float & timestep)
 {
     if (m_Rotates)
     {
-        this->yaw(Ogre::Degree(5));
+        this->yaw(Ogre::Degree(timestep*250));
     }
 }
 
