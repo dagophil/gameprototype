@@ -83,6 +83,7 @@ TopManager::TopManager()
   m_graph = new Graph(m_waypoints);
 
   m_mapLoaded = false;
+  m_gameOver = false;
 }
 
 TopManager::~TopManager()
@@ -144,52 +145,80 @@ bool TopManager::isMapLoaded()
     return m_mapLoaded;
 }
 
+void TopManager::game_over(const bool & win)
+{
+    m_gameOver = true;
+
+    long milliseconds = PlayerList[0]->getMilliseconds();
+    long seconds = milliseconds/1000;
+    long minutes = seconds/60;
+    milliseconds = milliseconds % 1000;
+    seconds = seconds % 60;
+
+    std::stringstream ss;
+    ss << std::setfill('0');
+    ss << "Deine Zeit: ";
+    ss << minutes << ":" << std::setw(2) << seconds << ":" << std::setw(3) << milliseconds;
+
+    if (win)
+    {
+        m_OverlayManager->showGameOver("Sieg!", ss.str());
+    }
+    else
+    {
+        m_OverlayManager->showGameOver("Verloren!", ss.str());
+    }
+}
+
 void TopManager::update(const float & timestep)
 {
+    if (!m_gameOver)
+    {
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().beginProfile("Physik");
+        Ogre::Profiler::getSingleton().beginProfile("Physik");
 #endif
 
-  m_PhysicsManager->getDynamicsWorld()->stepSimulation(2.0 * timestep, 10);
+        m_PhysicsManager->getDynamicsWorld()->stepSimulation(2.0 * timestep, 10);
 
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().endProfile("Physik");
+        Ogre::Profiler::getSingleton().endProfile("Physik");
 #endif
 
   // Update the map
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().beginProfile("Map Update");
+        Ogre::Profiler::getSingleton().beginProfile("Map Update");
 #endif
 
-  m_Map->update(timestep);
+        m_Map->update(timestep);
 
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().endProfile("Map Update");
+        Ogre::Profiler::getSingleton().endProfile("Map Update");
 #endif
   // Update all Players
 
 /*
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().beginProfile( "debugDrawer" );
+        Ogre::Profiler::getSingleton().beginProfile( "debugDrawer" );
 #endif
-  DebugDrawer* debugDrawer = static_cast<DebugDrawer*>(m_debugDrawer);
-  debugDrawer->resetLines();
-  m_PhysicsManager->getDynamicsWorld()->debugDrawWorld();
+        DebugDrawer* debugDrawer = static_cast<DebugDrawer*>(m_debugDrawer);
+        debugDrawer->resetLines();
+        m_PhysicsManager->getDynamicsWorld()->debugDrawWorld();
 
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().endProfile( "debugDrawer" );
+        Ogre::Profiler::getSingleton().endProfile( "debugDrawer" );
 #endif
 */
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().beginProfile("Player Update");
+        Ogre::Profiler::getSingleton().beginProfile("Player Update");
 #endif
 
-  for(unsigned int i = 0; i < PlayerList.size(); i++)
-  {
-    PlayerList[i]->update(timestep);
-  }
+        for(unsigned int i = 0; i < PlayerList.size(); i++)
+        {
+            PlayerList[i]->update(timestep);
+        }
 
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().endProfile("Player Update");
+        Ogre::Profiler::getSingleton().endProfile("Player Update");
 #endif
+    }
 }

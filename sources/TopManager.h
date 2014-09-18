@@ -98,6 +98,12 @@ public:
   void update(const float&timestep);
 
   /**
+   * @brief ends the game
+   * @param win
+   */
+  void game_over(const bool & win);
+
+  /**
    * @brief getter for m_waypoints
    * @return
    */
@@ -117,6 +123,7 @@ private:
   btIDebugDraw * m_debugDrawer;
   std::vector<Ogre::Vector3> m_waypoints;
   Graph* m_graph;
+  bool m_gameOver;
 };
 
 #endif /* MANAGER_H_ */

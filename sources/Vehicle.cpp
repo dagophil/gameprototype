@@ -260,6 +260,11 @@ void Vehicle::update(const float & timestep)
   } else if (kmh < -1) {
       m_fuel += timestep*kmh/6.5;
   }
+  if (m_fuel < 0)
+  {
+      m_fuel = 0;
+      TopManager::Instance()->game_over(false);
+  }
 }
 
 void Vehicle::resetOrientation()
