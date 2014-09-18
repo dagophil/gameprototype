@@ -58,6 +58,10 @@ void Player::removeLive()
 {
   m_lives--;
   m_vehicle->PlayCollisionAnimation();
+  if (m_lives <= 0)
+  {
+      TopManager::Instance()->game_over(false);
+  }
   //TopManager::Instance()->getOverlayManager()->update();
 }
 
