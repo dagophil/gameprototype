@@ -50,14 +50,13 @@ const std::vector<std::pair<Graph::Node*, double> > & SortedList::getList() {
 		return list;
 }
 
-size_t SortedList::getIndex(Graph::Node* n) {
-    size_t index = -1;
+int SortedList::getIndex(Graph::Node* n) {
+    int index = -1;
     for (size_t i = 0; i < list.size(); i++) {
         if (*(list[i].first) == *n) {
 			index = i;
 		}
 	}
-
 	return index;
 }
 

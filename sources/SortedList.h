@@ -22,7 +22,7 @@ public:
 
     const std::vector<std::pair<Graph::Node*, double> > & getList();
 
-    size_t getIndex(Graph::Node* n);
+    int getIndex(Graph::Node* n);
 
     void remove(size_t x);
 
