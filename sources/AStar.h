@@ -21,6 +21,8 @@ public:
 
 	void findPath();
 
+	std::vector<Graph::Node*> getPath();
+
 private:
 
 	Graph* graph;

@@ -18,7 +18,7 @@ public:
 
 	void add(Graph::Node* n);
 
-	Graph::Node* popNode();
+	std::pair<Graph::Node*, double> popNode();
 
     const std::vector<std::pair<Graph::Node*, double> > & getList();
 

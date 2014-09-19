@@ -30,12 +30,11 @@ void SortedList::add(Graph::Node* n) {
 		}
 }
 
-Graph::Node* SortedList::popNode() {
+std::pair<Graph::Node*, double> SortedList::popNode() {
         std::pair<Graph::Node*, double> temp;
         temp = list.back();
-        Graph::Node* temp1 = temp.first;
         list.pop_back();
-        return temp1;
+        return temp;
 }
 
 //Graph::Node* SortedList::popNode() {

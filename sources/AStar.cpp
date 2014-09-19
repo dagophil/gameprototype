@@ -22,25 +22,28 @@ void AStar::findPath()
 
     while (open->getList().size() > 0)
     {
-        Graph::Node* current_node = open->popNode();
-        std::cout << "Current node: " << *current_node << std::endl;
+        std::pair<Graph::Node*, double> current_node = open->popNode();
+        std::cout << "Current node: " << *current_node.first << std::endl;
 
-        if (current_node->distance(*goal) < 1)
+        if (current_node.first->distance(*goal) < 1)
         {
             std::cout << "Sie haben das Ziel erreicht!" << std::endl << std::endl;
-            goal->parent = current_node->parent;
+            goal->parent = current_node.first->parent;
             break;
         }
 
-        const std::vector< Graph::Node* > & successors = graph->getNeighbors(*current_node);
+        const std::vector< Graph::Node* > & successors = graph->getNeighbors(*current_node.first);
         for (std::vector<Graph::Node*>::const_iterator iter = successors.begin(); iter != successors.end(); ++iter)
         {
-            int oFound = open->getIndex(*iter);
+			int oFound = open->getIndex(*iter);
+
+			(*iter)->parent = current_node.first;
 
             if (oFound > 0)
             {
                 std:: pair<Graph::Node*, double> existing_node = open->getList()[oFound];
-                if ( existing_node.second <= current_node->distance(*goal) )
+                existing_node.second = current_node.second + current_node.first->distance(**iter);
+				if ( existing_node.second <= current_node.first->distance(*goal) )
                 {
                     continue;
                 }
@@ -50,7 +53,8 @@ void AStar::findPath()
             if (cFound > 0)
             {
                 std:: pair<Graph::Node*, double> existing_node = close->getList()[cFound];
-                if ( existing_node.second <= current_node->distance(*goal) )
+                existing_node.second = current_node.second + current_node.first->distance(**iter);
+				if ( existing_node.second <= current_node.first->distance(*goal) )
                 {
                     continue;
                 }
@@ -70,9 +74,31 @@ void AStar::findPath()
 
         }
 
-        close->add(current_node);
+        close->add(current_node.first);
 
         std::cout << "finished one while iteration" << std::endl << std::endl;
     }
     std::cout << "finished findPath()" << std::endl;
+
+	std::cout << close->getList().size() << std::endl;
 }
+
+std::vector<Graph::Node*> AStar::getPath() {
+
+	std::vector<Graph::Node*> solution;
+
+	Graph::Node* p = goal;
+	int x = 0;
+	while(x < 10) {
+		solution.push_back(p);
+
+		std::cout << "distance: " << p->distance(*start);
+		std::cout << "p: " << (*p) << std::endl;
+		p = p->parent;
+		x++;
+ 
+	}
+
+	return solution;
+}
+

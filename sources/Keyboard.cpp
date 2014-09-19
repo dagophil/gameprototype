@@ -117,6 +117,10 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
     AStar* astar = new AStar(graph, pos, goal);
 
     astar->findPath();
+
+	std::vector<Graph::Node*> path;
+
+	path = astar->getPath();
     return true;
   }
 
