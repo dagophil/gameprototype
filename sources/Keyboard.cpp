@@ -103,6 +103,7 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
     std::cout << "Start position: " << position << std::endl;
 
     Graph* graph = TopManager::Instance()->getGraph();
+    graph->resetNodes();
     const Graph::Node & start(graph->getNearestNode(position));
     std::cout << "Start node: " << start << std::endl;
 

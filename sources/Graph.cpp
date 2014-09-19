@@ -62,6 +62,17 @@ const std::vector<Graph::Node> & Graph::getNodes()
     return m_nodes;
 }
 
+void Graph::resetNodes()
+{
+    typedef std::vector<Node>::iterator NodeIter;
+
+    for (NodeIter iter = m_nodes.begin(); iter != m_nodes.end(); ++iter)
+    {
+        iter->setParent(0);
+        iter->setWeight(10e10);
+    }
+}
+
 std::vector<long> Graph::findIndex(const Graph::Node & node)
 {
     std::vector<long> index(3);

@@ -2,7 +2,6 @@
 #define SORTEDLIST_H_
 
 #include <vector>
-#include <OgreVector3.h>
 
 #include "Graph.h"
 
@@ -15,13 +14,13 @@ class SortedList{
 
 public:
 
-    typedef std::pair<Graph::Node, float> NodeDistPair;
+    typedef std::pair<Graph::Node*, float> NodeDistPair;
 
-    SortedList(const Graph::Node & goal);
+    SortedList();
 
-    void add(const Graph::Node & node);
+    void add(Graph::Node* node, float weight);
 
-    NodeDistPair popNode();
+    Graph::Node* popNode();
 
     const std::vector<NodeDistPair> & getList();
 
@@ -32,7 +31,6 @@ public:
 private:
 
     std::vector<NodeDistPair> m_list;
-    Graph::Node m_goal;
 
 };
 

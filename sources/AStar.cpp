@@ -7,146 +7,77 @@
 
 AStar::AStar (Graph* graph, const Graph::Node & start, const Graph::Node & goal)
     : m_graph(graph), m_start(start), m_goal(goal)
-{
-        m_start.setParent(&m_start);
-}
+{}
 
 void AStar::findPath()
 {
-    typedef SortedList::NodeDistPair NodeDistPair;
     typedef Graph::Node Node;
 
     std::cout << "called findPath()" << std::endl;
-    SortedList open(m_goal);
-    SortedList close(m_goal);
+    SortedList open;
+    SortedList close;
 
-    open.add(m_start);
+    m_start.setWeight(0);
+    open.add(&m_start, m_goal.distance(m_start));
 
+    int c = 0;
     while (!open.getList().empty())
     {
-        NodeDistPair current_node = open.popNode();
-        //std::cout << "Current node: " << *current_node.first << std::endl;
+        c++;
+        // Get node with smallest heuristic distance to goal and remove it from open list.
+        Node* current_node = open.popNode();
 
-        if (current_node.first.distance(m_goal) < 1)
+        // Check if the goal was reached.
+        if (current_node->distance(m_goal) < 1)
         {
-            std::cout << "Sie haben das Ziel erreicht!" << std::endl << std::endl;
-            m_goal.setParent(current_node.first.getParent());
+            std::cout << "Sie haben das Ziel nach " << c << " Iterationen erreicht!" << std::endl;
+            m_goal.setParent(current_node->getParent());
             break;
         }
 
-        // Create the list with successors.
-        const std::vector<Node*> & neighbors = m_graph->getNeighbors(current_node.first);
+        // Add current node to closed list (weight is not important in closed list).
+        close.add(current_node, 0);
+
+        // Get the neighbors.
+        const std::vector<Node*> & neighbors = m_graph->getNeighbors(*current_node);
         for (std::vector<Node*>::const_iterator iter = neighbors.begin(); iter != neighbors.end(); ++iter)
         {
-            (*iter)->setParent(current_node.first.getParent());
+            Node* neighbor = *iter;
 
-            int oFound = open.getIndex(**iter);
-            if (oFound > 0)
-            {
-                NodeDistPair existing_node = open.getList()[oFound];
-                existing_node.second = current_node.second + current_node.first.distance(**iter);
-                if (existing_node.second <= current_node.first.distance(m_goal))
-                {
-                    continue;
-                }
-            }
-
-            int cFound = close.getIndex(**iter);
+            // Neighbors in the closed list are already finished.
+            int cFound = close.getIndex(*neighbor);
             if (cFound > 0)
+                continue;
+
+            // Compute heuristic distance to goal.
+            float heuristicDist = current_node->getWeight() + neighbor->distance(*current_node);
+
+            // Check if a better path was found for the neighbor.
+            int oFound = open.getIndex(*neighbor);
+            if (oFound == -1 || heuristicDist < neighbor->getWeight())
             {
-                NodeDistPair existing_node = close.getList()[cFound];
-                existing_node.second = current_node.second + current_node.first.distance(**iter);
-                if (existing_node.second <= current_node.first.distance(m_goal))
+                neighbor->setParent(current_node);
+                neighbor->setWeight(heuristicDist);
+                if (oFound == -1)
                 {
-                    continue;
+                    open.add(neighbor, heuristicDist + m_goal.distance(*neighbor));
                 }
             }
-
-            if (oFound != -1)
-            {
-                open.remove_at(oFound);
-            }
-            if (cFound != -1)
-            {
-                close.remove_at(cFound);
-            }
-
-            open.add(**iter);
         }
-
-//        std::vector<Node> successors;
-//        for (std::vector<Node*>::const_iterator iter = neighbors.begin(); iter != neighbors.end(); ++iter)
-//        {
-//            successors.push_back(Node(**iter, &(current_node.first)));
-//        }
-
-//        for (std::vector<Node>::iterator iter = successors.begin(); iter != successors.end(); ++iter)
-//        {
-//            int oFound = open.getIndex(*iter);
-//            if (oFound > 0)
-//            {
-//                NodeDistPair existing_node = open.getList()[oFound];
-//                existing_node.second = current_node.second + current_node.first.distance(*iter);
-//                if (existing_node.second <= current_node.first.distance(m_goal))
-//                {
-//                    continue;
-//                }
-//            }
-
-//            int cFound = close.getIndex(*iter);
-//            if (cFound > 0)
-//            {
-//                NodeDistPair existing_node = close.getList()[cFound];
-//                existing_node.second = current_node.second + current_node.first.distance(*iter);
-//                if (existing_node.second <= current_node.first.distance(m_goal))
-//                {
-//                    continue;
-//                }
-//            }
-
-//            if (oFound != -1)
-//            {
-//                open.remove_at(oFound);
-//            }
-//            if (cFound != -1)
-//            {
-//                close.remove_at(cFound);
-//            }
-
-//            //std::cout << "Now adding " << **iter << " to open list." << std::endl;
-//            open.add(*iter);
-//        }
-
-        close.add(current_node.first);
-
-//        std::cout << "finished one while iteration" << std::endl << std::endl;
     }
-    std::cout << "finished findPath()" << std::endl;
 }
 
 std::vector<Graph::Node> AStar::getPath() {
-
     std::vector<Graph::Node> solution;
-    Graph::Node p = m_goal;
+    Graph::Node* p = &m_goal;
 
-    std::cout << "p: " << p << std::endl;
-    std::cout << "parent: " << *p.getParent() << std::endl;
+    while ( p != 0 )
+    {
+        solution.push_back(*p);
+        std::cout << "p: " << *p << std::endl;
+        p = p->getParent();
+    }
 
-
+    std::cout << "Path successfully created." << std::endl;
     return solution;
-
-    //    Graph::Node p = m_goal;
-    //	int x = 0;
-    //	while(x < 10) {
-    //		solution.push_back(p);
-
-    //        std::cout << "distance: " << p.distance(m_start) << "  ";
-    //        std::cout << "p: " << p << std::endl;
-    //        p = *(p.getParent());
-    //		x++;
-
-    //	}
-
-    //	return solution;
 }
-

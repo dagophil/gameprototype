@@ -2,8 +2,8 @@ Upgrades (Fuel / Health), die man einsammeln kann:
 * Models austauschen
 
 Wegplaner:
-* A*
 * Auto fährt von allein
+* In AStar.cpp: close durch std::vector ersetzen (statt SortedList).
 
 Sonstiges:
 * Ziel mit Fahne markieren (Notiz: Ziel ist waypoints[0])

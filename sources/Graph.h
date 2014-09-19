@@ -24,15 +24,16 @@ public:
 
 	public:
 
-        Node(const Ogre::Vector3 & n, Node* parent)
+        Node(const Ogre::Vector3 & n, Node* parent = 0, float weight = 10e10)
         {
             this->x = n.x;
             this->y = n.y;
             this->z = n.z;
             m_parent = parent;
+            m_weight = weight;
         }
 
-        Node* getParent() {
+        Node* getParent() const {
             return m_parent;
         }
 
@@ -40,9 +41,18 @@ public:
             m_parent = parent;
         }
 
+        float getWeight() const {
+            return m_weight;
+        }
+
+        void setWeight(float weight) {
+            m_weight = weight;
+        }
+
     private:
 
         Node* m_parent;
+        float m_weight;
 
 	};
 
@@ -81,6 +91,11 @@ public:
      * @return
      */
     const std::vector<Node> & getNodes();
+
+    /**
+     * @brief resets the nodes (parents and weights)
+     */
+    void resetNodes();
 
 private:
 
