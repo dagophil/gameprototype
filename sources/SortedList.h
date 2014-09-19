@@ -13,22 +13,26 @@
 
 class SortedList{
 
-public: 
-	SortedList(Graph::Node* e);
+public:
 
-	void add(Graph::Node* n);
+    typedef std::pair<Graph::Node, float> NodeDistPair;
 
-	std::pair<Graph::Node*, double> popNode();
+    SortedList(const Graph::Node & goal);
 
-    const std::vector<std::pair<Graph::Node*, double> > & getList();
+    void add(const Graph::Node & node);
 
-    int getIndex(Graph::Node* n);
+    NodeDistPair popNode();
 
-    void remove(size_t x);
+    const std::vector<NodeDistPair> & getList();
+
+    int getIndex(const Graph::Node & node);
+
+    void remove_at(size_t i);
 
 private:
-    std::vector<std::pair<Graph::Node*, double> > list;
-	Graph::Node* goal;
+
+    std::vector<NodeDistPair> m_list;
+    Graph::Node m_goal;
 
 };
 

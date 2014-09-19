@@ -5,66 +5,54 @@
 
 #include "SortedList.h"
 
-SortedList::SortedList(Graph::Node* e) {
-		goal = e;
+SortedList::SortedList(const Graph::Node & goal)
+    : m_goal(goal)
+{
+
 }
 
-void SortedList::add(Graph::Node* n) {
-		
-		double dist = n->distance(*goal);
+void SortedList::add(const Graph::Node & node) {
+    float dist = node.distance(m_goal);
 
-		if (list.size() == 0) {
-			list.push_back(std::pair<Graph::Node*, double> (n, dist));
-		}
-		else {
-            for (size_t i = 0; i < list.size(); i++) {
-				if (list[i].second < dist) {
-					list.insert(list.begin() + i, std::pair<Graph::Node*, double> (n, dist));
-					break;
-				}
-				if ( i + 1 == list.size() ) {
-					list.push_back(std::pair<Graph::Node*, double> (n, dist));
-                    break;
-				}
-			}
-		}
+    if (m_list.empty()) {
+        // The list is empty, so no sorting necessary.
+        m_list.push_back(NodeDistPair(node, dist));
+    }
+    else {
+        // Find the place to insert the new node.
+        for (size_t i = 0; i < m_list.size(); i++) {
+            if (m_list[i].second < dist) {
+                m_list.insert(m_list.begin() + i, NodeDistPair(node, dist));
+                break;
+            }
+            if ( i + 1 == m_list.size() ) {
+                m_list.push_back(NodeDistPair(node, dist));
+                break;
+            }
+        }
+    }
 }
 
-std::pair<Graph::Node*, double> SortedList::popNode() {
-        std::pair<Graph::Node*, double> temp;
-        temp = list.back();
-        list.pop_back();
+SortedList::NodeDistPair SortedList::popNode() {
+        NodeDistPair temp = m_list.back();
+        m_list.pop_back();
         return temp;
 }
 
-//Graph::Node* SortedList::popNode() {
-//    std::pair<Graph::Node*, double> temp;
-//    temp = list[0];
-//    Graph::Node* temp1 = temp.first;
-//    list.erase(list.begin());
-//    return temp1;
-//}
-
-const std::vector<std::pair<Graph::Node*, double> > & SortedList::getList() {
-		return list;
+const std::vector<SortedList::NodeDistPair> & SortedList::getList() {
+        return m_list;
 }
 
-int SortedList::getIndex(Graph::Node* n) {
+int SortedList::getIndex(const Graph::Node & node) {
     int index = -1;
-    for (size_t i = 0; i < list.size(); i++) {
-        if (*(list[i].first) == *n) {
+    for (size_t i = 0; i < m_list.size(); i++) {
+        if (m_list[i].first == node) {
 			index = i;
 		}
 	}
 	return index;
 }
 
-void SortedList::remove(size_t x) {
-    list.erase(list.begin()+x);
-
-//	for (int i = 0; i < list.size(); i++) {
-//		if (i == x) {
-//			list.erase(list.begin()+(x-1));
-//		}
-//	}
+void SortedList::remove_at(size_t i) {
+    m_list.erase(m_list.begin()+i);
 }

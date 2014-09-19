@@ -9,7 +9,6 @@
 #include <vector>
 #include <list>
 #include "GameOverlayManager.h"
-#include "Graph.h"
 
 class Map;
 class Player;
@@ -18,6 +17,7 @@ class PhysicsManager;
 class GameOverlayManager;
 class GameObject;
 class btIDebugDraw;
+class Graph;
 
 //#define PROFILE
 

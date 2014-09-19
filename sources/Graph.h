@@ -7,26 +7,43 @@
 #define GRAPH_H_
 
 #include <vector>
-#include <OgreVector3.h>
+#include <OGRE/OgreVector3.h>
 #include <map>
 
 /**
  * @class Graph
  * @brief Graph structure
  */
-class Graph{
+class Graph
+{
 
 public: 
 
-	class Node : public Ogre::Vector3 {
-	public:
-		Node* parent;
+    class Node : public Ogre::Vector3
+    {
 
-		Node(Ogre::Vector3 n) {
-			this->x = n.x;
-			this->y = n.y;
-			this->z = n.z;
+	public:
+
+        Node(const Ogre::Vector3 & n, Node* parent)
+        {
+            this->x = n.x;
+            this->y = n.y;
+            this->z = n.z;
+            m_parent = parent;
         }
+
+        Node* getParent() {
+            return m_parent;
+        }
+
+        void setParent(Node* parent) {
+            m_parent = parent;
+        }
+
+    private:
+
+        Node* m_parent;
+
 	};
 
     /**
@@ -38,7 +55,7 @@ public:
      * @brief constructor
      * @param wayPoints : list of waypoints to build the graph
      */
-    Graph(std::vector<Ogre::Vector3> wayPoints);
+    Graph(const std::vector<Ogre::Vector3> & wayPoints);
 
     /**
      * @brief destructor
@@ -50,20 +67,20 @@ public:
      * @param v : neighbor
      * @return neighbors of v
      */
-    const std::vector<Node*> & getNeighbors(Node v);
+    const std::vector<Node*> & getNeighbors(const Node & v);
 
     /**
      * @brief getNearestNode finds the nearest node of p
      * @param p : the vector3 to find the nearest node of
      * @return nearest node of p
      */
-    Node* getNearestNode(Ogre::Vector3 p);
+    const Node & getNearestNode(const Ogre::Vector3 & p);
 
     /**
      * @brief getNodes
      * @return
      */
-    const std::vector<Node*> & getNodes();
+    const std::vector<Node> & getNodes();
 
 private:
 
@@ -72,10 +89,10 @@ private:
      * @param node
      * @return map index of node
      */
-    std::vector<long> findIndex(Node node);
+    std::vector<long> findIndex(const Node & node);
 
-    std::vector<Node*> nodes;
-    std::map< std::vector<long> , std::vector<Node*> > neighbors;
+    std::vector<Node> m_nodes;
+    std::map<std::vector<long> , std::vector<Node*> > m_neighbors;
 
 };
 

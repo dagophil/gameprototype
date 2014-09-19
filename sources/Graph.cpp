@@ -5,69 +5,69 @@
 
 #include "Graph.h"
 
-Graph::Graph(std::vector<Ogre::Vector3> wayPoints)
+Graph::Graph(const std::vector<Ogre::Vector3> & wayPoints)
 {
-    typedef std::vector<Node*>::iterator NodeIter;
+    typedef std::vector<Node>::iterator NodeIter;
+    typedef std::pair<std::vector<long>, std::vector<Node*> > IndexNeighborPair;
 
+    // Add the waypoints to the node list.
     for (size_t i=0; i<wayPoints.size(); ++i)
     {
-        nodes.push_back(new Node(wayPoints[i]));
+        m_nodes.push_back(Node(wayPoints[i], 0));
     }
-    std::cout << "nodes.size() in constructor :  " << nodes.size() << std::endl;
+    std::cout << std::endl << "nodes.size() in constructor :  " << m_nodes.size() << std::endl << std::endl;
 
-    for (NodeIter iter = nodes.begin(); iter != nodes.end(); ++iter)
+    // Find the neighbors of each node.
+    for (NodeIter iter = m_nodes.begin(); iter != m_nodes.end(); ++iter)
     {
-        std::vector<Node*> temp;
-        for (NodeIter iter2 = nodes.begin(); iter2 != nodes.end(); ++iter2)
+        std::vector<Node*> neighbors;
+        for (NodeIter iter2 = m_nodes.begin(); iter2 != m_nodes.end(); ++iter2)
         {
-            if ( (**iter) != (**iter2) )
+            if ( (*iter) != (*iter2) )
             {
-                if ( (*iter)->distance(**iter2) <= 3 )
+                if ((*iter).distance(*iter2) <= 3)
                 {
-                    temp.push_back(*iter2);
+                    neighbors.push_back(&(*iter2));
                 }
             }
         }
-        neighbors.insert( std::pair< std::vector<long>, std::vector<Node*> >(findIndex(**iter), temp) );
+        m_neighbors.insert(IndexNeighborPair(findIndex(*iter), neighbors));
     }
 }
 
-Graph::~Graph()
+Graph::~Graph() {}
+
+const std::vector<Graph::Node*> & Graph::getNeighbors(const Graph::Node & v)
 {
-    nodes.clear();
-    neighbors.clear();
+    return m_neighbors[findIndex(v)];
 }
 
-const std::vector< Graph::Node* > & Graph::getNeighbors(Graph::Node v)
+const Graph::Node & Graph::getNearestNode(const Ogre::Vector3 & p)
 {
-    return neighbors[findIndex(v)];
-}
-
-Graph::Node* Graph::getNearestNode(Ogre::Vector3 p)
-{
-    Graph::Node* current = nodes.front();
-    double currentDist = p.distance(*current);
-    for (std::vector<Node*>::iterator iter = nodes.begin(); iter != nodes.end(); ++iter) {
-
-       if (currentDist > p.distance(**iter)) {
-           current = (*iter);
-           currentDist = p.distance(**iter);
-       }
+    size_t nearest = 0;
+    float currentDist = p.distance(m_nodes[0]);
+    for (size_t i = 1; i < m_nodes.size(); ++i)
+    {
+        if (currentDist > p.distance(m_nodes[i]))
+        {
+            nearest = i;
+            currentDist = p.distance(m_nodes[i]);
+        }
     }
-    return current;
+    return m_nodes.at(nearest);
 }
 
-const std::vector<Graph::Node*> & Graph::getNodes()
+const std::vector<Graph::Node> & Graph::getNodes()
 {
-    return nodes;
+    return m_nodes;
 }
 
-std::vector<long> Graph::findIndex(Graph::Node node)
+std::vector<long> Graph::findIndex(const Graph::Node & node)
 {
     std::vector<long> index(3);
     for (int i=0; i<3; ++i)
     {
-        index[i] = node[i]*pow((double)10, (double)Graph::PRECISION);
+        index[i] = node[i]*pow((float)10, (float)Graph::PRECISION);
     }
     return index;
 }
