@@ -2,7 +2,7 @@
  * Manager.cpp
  *
  */
-#include <bullet/btBulletCollisionCommon.h>
+#include <btBulletCollisionCommon.h>
 #include <OGRE/OgreCommon.h>
 #include <time.h>
 #include <typeinfo>
