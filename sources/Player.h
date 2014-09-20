@@ -7,6 +7,7 @@
 #include "TopManager.h"
 #include "GraphicManager.h"
 #include "Graph.h"
+#include "AStar.h"
 #include <iostream>
 #include <sstream>
 #include <stdio.h>
@@ -105,7 +106,19 @@ public:
    * @brief function so set automatic and get path
    *
    */
-  void driveAuto(std::vector<Graph::Node> p);
+  void driveAuto();
+
+  /**
+   * @brief setter for automatic
+   *
+   */
+  void setAutomatic(bool a);
+
+  /**
+   * @brief getter for automatic
+   *
+   */
+  bool getAutomatic();
 
   void disableJoystick();
 private:

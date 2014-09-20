@@ -164,7 +164,36 @@ unsigned long Player::getMilliseconds()
     return m_timer->getMilliseconds();
 }
 
-void Player::driveAuto(std::vector<Graph::Node> p) {
+void Player::driveAuto() {
 	automatic = true;
-	path = p;
+
+	std::cout << std::endl;
+	std::cout << "AUTOMATIC" << std::endl;
+
+	Ogre::Vector3 position = m_vehicle->getSceneNode()->getPosition();
+	position.y = 0;
+	position = position /2;
+	std::cout << "Start position: " << position << std::endl;
+
+	Graph* graph = TopManager::Instance()->getGraph();
+	graph->resetNodes();
+	const Graph::Node & start(graph->getNearestNode(position));
+	std::cout << "Start node: " << start << std::endl;
+
+	const std::vector<Graph::Node> & nodes = graph->getNodes();
+	const Graph::Node & goal = nodes.at(0);
+	std::cout << "Goal node: " << goal << std::endl;
+
+	AStar astar(graph, start, goal);
+	astar.findPath();
+
+	path = astar.getPath();
+}
+
+void Player::setAutomatic(bool a) {
+	automatic = a;	
+}
+
+bool Player::getAutomatic() {
+	return automatic;
 }

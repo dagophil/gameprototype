@@ -27,7 +27,6 @@ Keyboard::Keyboard()
   m_pKeyboard = static_cast<OIS::Keyboard*>(m_pInputManager->createInputObject(OIS::OISKeyboard, true));
   m_pKeyboard->setEventCallback(this);
   m_pPlayerKeys = new OIS::KeyCode[6];
-  automatic = false;
 }
 
 void Keyboard::init()
@@ -95,36 +94,14 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
   // Drive automatically
   if(arg.key == OIS::KC_A)
   {
-	if (automatic == false) {
-
-		std::cout << std::endl;
-		std::cout << "AUTOMATIC" << std::endl;
-
-		Ogre::Vector3 position = TopManager::Instance()->getPlayer()->getVehicle()->getSceneNode()->getPosition();
-		position.y = 0;
-		position = position /2;
-		std::cout << "Start position: " << position << std::endl;
-
-		Graph* graph = TopManager::Instance()->getGraph();
-		graph->resetNodes();
-		const Graph::Node & start(graph->getNearestNode(position));
-		std::cout << "Start node: " << start << std::endl;
-
-		const std::vector<Graph::Node> & nodes = graph->getNodes();
-		const Graph::Node & goal = nodes.at(0);
-		std::cout << "Goal node: " << goal << std::endl;
-
-		AStar astar(graph, start, goal);
-		astar.findPath();
-
-		std::vector<Graph::Node> path(astar.getPath());
-
-		m_pPlayer->driveAuto(path);
+	  if (m_pPlayer->getAutomatic() == false) {
+		m_pPlayer->driveAuto();
 
 		return true;
 	}
 	else {
-		automatic = false;
+		m_pPlayer->setAutomatic(false);
+		
 		return true;
 	}
   }
