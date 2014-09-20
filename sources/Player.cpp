@@ -9,6 +9,7 @@ Player::Player(int playerId) : m_playerId(playerId),m_lives(5)
   m_vehicle = new Vehicle("car.mesh",400.f,this);
   //m_vehicle->translate(10*playerId,10*playerId,10*playerId);
   m_timer = new Ogre::Timer();
+  automatic = false;
 
   try
   {
@@ -32,6 +33,50 @@ void Player::update(const float & timestep)
   {
       m_input->capture();
   }
+
+  if(automatic) {
+	  Graph::Node current_node = path.back();
+//      path.pop_back();
+
+	  // 
+	  float angle1 = m_vehicle->getSceneNode()->getOrientation().getYaw().valueDegrees();
+
+	  Ogre::Vector3 position = TopManager::Instance()->getPlayer()->getVehicle()->getSceneNode()->getPosition();
+	  position.y = 0;
+	  position = position /2;
+
+	  Ogre::Vector3 vec = current_node - position;
+
+	  float l = vec.length();
+
+	  if (l < 5) {
+		  path.pop_back();
+		  std::cout << "Knoten löschen" << std::endl;
+	  }
+
+	  float angle2 = Ogre::Math::ATan(vec.x/vec.z).valueDegrees();
+
+	  angle2 -= angle1;
+	  if (angle2 > 180) {
+		  angle2 -= 360;
+	  }
+	  if (angle2 < -180) {
+		  angle2 += 360;
+	  }
+
+	  m_vehicle->setThrottle(true);
+	  if (angle2 < 0) {
+		  m_vehicle->setSteering(1.f);
+	  }
+	  else if ( angle2 == 0 ) {
+		  m_vehicle->setSteering(0.f);
+	  }
+	  else {
+		  m_vehicle->setSteering(-1.f);
+	  }
+	  
+  }
+
   m_vehicle->update(timestep);
   TopManager::Instance()->getOverlayManager()->update();
 }
@@ -112,4 +157,9 @@ int Player::getId()
 unsigned long Player::getMilliseconds()
 {
     return m_timer->getMilliseconds();
+}
+
+void Player::driveAuto(std::vector<Graph::Node> p) {
+	automatic = true;
+	path = p;
 }
