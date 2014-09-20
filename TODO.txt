@@ -1,9 +1,13 @@
-Upgrades (Fuel / Health), die man einsammeln kann:
-* Models austauschen
+Upgrades:
+* Upgrades für Leben hinzufügen.
 
 Wegplaner:
-* Auto fährt von allein
 * In AStar.cpp: close durch std::vector ersetzen (statt SortedList).
+* Route neu berechnen, falls zu weit weg von current node.
+* Automatik an/aus.
+* Abstand von Wänden.
+* Hin/Herwackeln ausschalten.
+* User-Input ausschalten bei automatischer Steuerung.
 
 Sonstiges:
 * Ziel mit Fahne markieren (Notiz: Ziel ist waypoints[0])
