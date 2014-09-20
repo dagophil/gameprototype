@@ -5,6 +5,11 @@
 //                                                   //
 //***************************************************//
 
+float3 expand(float3 v)
+{
+   return (v - 0.5) * 2;
+}
+
 void Ambient_vp(float4 position : POSITION,
                 out float4 oPosition : POSITION,
                 out float4 colour : COLOR,
@@ -20,10 +25,12 @@ void Simple_Perpixel_Vert(float4 position : POSITION,
                           uniform float4 lightPosition0,
                           uniform float4x4 worldviewproj,
                           uniform float3 spotDirection,
+                          float2 uv : TEXCOORD0,
                           out float4 oClipPos : POSITION,
                           out float3 oNorm : TEXCOORD0,
                           out float4 oLightPos0 : TEXCOORD1,
                           out float3 oSpotDirection : TEXCOORD2,
+                          out float2 oUv : TEXCOORD3,
                           out float4 oPos : TEXCOORD4,
                           out float3 EyeDir : TEXCOORD5)
 {
@@ -32,11 +39,13 @@ void Simple_Perpixel_Vert(float4 position : POSITION,
     oPos = position;
     oNorm = normal;
     oSpotDirection = spotDirection;
+    oUv = uv;
 }
 
 void Simple_PerPixel_Frag(float3 normal : TEXCOORD0,
                           float4 LightPos0 : TEXCOORD1,
                           float3 spotDirection : TEXCOORD2,
+                          float2 uv : TEXCOORD3,
                           float4 position : TEXCOORD4,
                           uniform float3 eyePosition,
                           uniform float4 lightDiffuse0,
@@ -46,6 +55,8 @@ void Simple_PerPixel_Frag(float3 normal : TEXCOORD0,
                           uniform float4 ambient,
                           uniform float4 diffuse,
                           uniform float4 specular,
+                          uniform sampler2D texture,
+                          uniform float usetexture,
                           out float4 oColor : COLOR) 
 {
     float3 N = normalize(normal);
@@ -56,6 +67,11 @@ void Simple_PerPixel_Frag(float3 normal : TEXCOORD0,
     float NdotH = dot(HalfAngle, N);
     float4 Lit = lit(NdotL,NdotH,exponent0);
     oColor = diffuse * lightDiffuse0 * Lit.y + specular * lightSpecular0 * Lit.z + ambient;
+
+    float3 textureColor = expand(tex2D(texture, uv).xyz);
+    if (usetexture > 0.5) {
+        oColor = oColor + float4(textureColor, 1);
+    }
 
     // Spotlights
     float rho = saturate(dot(spotDirection, LightDir));

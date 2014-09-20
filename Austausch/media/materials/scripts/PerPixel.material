@@ -48,6 +48,7 @@ fragment_program Simple_PerPixel_Frag cg
         param_named ambient float4 0.0 0.0 0.0 1.0
         param_named diffuse float4 1.0 1.0 1.0 1.0
         param_named specular float4 1.0 1.0 1.0 1.0
+        param_named usetexture float 0.0
     }
 
     entry_point Simple_PerPixel_Frag
@@ -104,6 +105,44 @@ material Simple_Perpixel_Red
                 param_named diffuse float4 1.0 0.0 0.0 1.0
                 param_named specular float4 0.0 0.0 0.0 1.0
             }
+        }
+    }
+}
+
+material Simple_Perpixel_Oildrum
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 1.0 1.0 1.0 1.0
+                param_named specular float4 0.0 0.0 0.0 1.0
+                param_named usetexture float 1.0
+            }
+
+            texture_unit 
+            {
+                texture oildrum_col.jpg
+                tex_address_mode wrap
+                scale 1.0 1.0
+                colour_op modulate
+            }
+
         }
     }
 }
