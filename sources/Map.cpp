@@ -77,8 +77,8 @@ void Map::createUpgrades()
     PointReader reader("fuelupgrades.txt");
     std::vector<Ogre::Vector3> waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
     for (vecIter iter = waypoints.begin(); iter != waypoints.end(); iter++) {
-        GameMapObject* upgr = new Upgrade("Cube.mesh", GameObject::FuelUpgrade);
-        upgr->setMaterialName("redBlockMat");
+        GameMapObject* upgr = new Upgrade("oildrum.mesh", GameObject::FuelUpgrade);
+        upgr->setMaterialName("Oildrum-ref");
         upgr->translate(2*iter->x, 1.5f, 2*iter->z);
         m_upgrades.push_back(upgr);
     }
@@ -92,7 +92,10 @@ void Map::changeToDayMaterials()
     typedef std::vector<GameMapObject*>::iterator upgrIter;
     for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
     {
-        ((GameMapObject*) *iter)->setMaterialName("redBlockMat");
+        if ((*iter)->getType() == GameObject::FuelUpgrade)
+        {
+            (*iter)->setMaterialName("Oildrum-ref");
+        }
     }
 }
 
@@ -104,7 +107,10 @@ void Map::changeToNightMaterials()
     typedef std::vector<GameMapObject*>::iterator upgrIter;
     for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
     {
-        ((GameMapObject*) *iter)->setMaterialName("Simple_Perpixel_Red");
+        if ((*iter)->getType() == GameObject::FuelUpgrade)
+        {
+            (*iter)->setMaterialName("Simple_Perpixel_Oildrum");
+        }
     }
 }
 

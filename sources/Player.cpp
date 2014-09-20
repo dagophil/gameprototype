@@ -41,17 +41,22 @@ void Player::update(const float & timestep)
 	  // 
 	  float angle1 = m_vehicle->getSceneNode()->getOrientation().getYaw().valueDegrees();
 
-	  Ogre::Vector3 position = TopManager::Instance()->getPlayer()->getVehicle()->getSceneNode()->getPosition();
+      Ogre::Vector3 position = m_vehicle->getSceneNode()->getPosition();
 	  position.y = 0;
 	  position = position /2;
 
 	  Ogre::Vector3 vec = current_node - position;
 
+//      std::cout << angle1 << std::endl;
+//      std::cout << "Position: " << position << std::endl;
+//      std::cout << "Current node: " << current_node << std::endl << std::endl;
+
 	  float l = vec.length();
 
 	  if (l < 5) {
 		  path.pop_back();
-		  std::cout << "Knoten löschen" << std::endl;
+          std::cout << "Knoten " << current_node << " entfernt." << std::endl;
+          std::cout << "Next: " << path.back() << std::endl << std::endl;
 	  }
 
 	  float angle2 = Ogre::Math::ATan(vec.x/vec.z).valueDegrees();
@@ -65,7 +70,7 @@ void Player::update(const float & timestep)
 	  }
 
 	  m_vehicle->setThrottle(true);
-	  if (angle2 < 0) {
+      if (angle2 > 0) {
 		  m_vehicle->setSteering(1.f);
 	  }
 	  else if ( angle2 == 0 ) {
