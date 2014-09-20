@@ -44,8 +44,8 @@ void Player::update(const float & timestep)
       Graph::Node current_node = m_path.back();
 
       Ogre::Vector3 forwardVector = m_vehicle->getForwardVector();
-      float angle1 = Ogre::Math::ATan(forwardVector.x / forwardVector.z).valueDegrees();
-      if (forwardVector.z < 0) {
+      float angle1 = Ogre::Math::ATan(forwardVector.z / forwardVector.x).valueDegrees();
+      if (forwardVector.x < 0) {
           angle1 += 180;
       }
       while (angle1 > 180) {
@@ -82,8 +82,8 @@ void Player::update(const float & timestep)
           this->findNewPath();
       }
 
-      float angle2 = Ogre::Math::ATan(vec.x/vec.z).valueDegrees();
-      if (vec.z < 0) {
+      float angle2 = Ogre::Math::ATan(vec.z/vec.x).valueDegrees();
+      if (vec.x < 0) {
           angle2 += 180;
       }
       while (angle2 > 180) {
@@ -100,7 +100,7 @@ void Player::update(const float & timestep)
       std::cout << "Position angle: " << angle1 << std::endl;
       std::cout << "Vektor angle: " << angle2 << std::endl;
 //      std::cout << "Noch " << m_path.size() << " Knoten bis zum Ziel." << std::endl;
-
+	  
       angle2 -= angle1;
       while (angle2 > 180) {
           angle2 -= 360;
@@ -110,7 +110,7 @@ void Player::update(const float & timestep)
       }
 
       std::cout << "Delta angle: " << angle2 << std::endl;
-
+	  
 
 
 
