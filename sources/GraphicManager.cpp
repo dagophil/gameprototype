@@ -116,7 +116,7 @@ void GraphicManager::createScene()
 
 
   // Draw (or dont draw) the waypoints
-  if (true)
+  if (false)
   {
       //create waypoint
       Ogre::SceneNode* wprnode = mSceneMgr->getRootSceneNode()-> createChildSceneNode("waypointsroot");
