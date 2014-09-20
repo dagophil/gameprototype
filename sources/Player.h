@@ -103,10 +103,9 @@ public:
   unsigned long getMilliseconds();
 
   /**
-   * @brief function so set automatic and get path
-   *
+   * @brief toggle the automatic driving
    */
-  void driveAuto();
+  void toggleAutomatic();
 
   /**
    * @brief setter for automatic
@@ -133,8 +132,8 @@ private:
   Ogre::Camera * m_playerCam;
   Ogre::Timer * m_timer;
   int m_joystick;
-  bool automatic;
-  std::vector<Graph::Node> path;
+  bool m_automatic;
+  std::vector<Graph::Node> m_path;
 };
 
 #endif

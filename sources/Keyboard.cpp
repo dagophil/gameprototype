@@ -96,16 +96,8 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
   // Drive automatically
   if(arg.key == OIS::KC_A)
   {
-	  if (m_pPlayer->getAutomatic() == false) {
-		m_pPlayer->driveAuto();
-
-		return true;
-	}
-	else {
-		m_pPlayer->setAutomatic(false);
-		
-		return true;
-	}
+      m_pPlayer->toggleAutomatic();
+      return true;
   }
 
   // Lighting (day / night)

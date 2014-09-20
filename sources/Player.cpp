@@ -9,7 +9,7 @@ Player::Player(int playerId) : m_playerId(playerId),m_lives(5)
   m_vehicle = new Vehicle("car.mesh",400.f,this);
   //m_vehicle->translate(10*playerId,10*playerId,10*playerId);
   m_timer = new Ogre::Timer();
-  automatic = false;
+  m_automatic = false;
 
   try
   {
@@ -34,8 +34,8 @@ void Player::update(const float & timestep)
       m_input->capture();
   }
 
-  if(automatic) {
-	  Graph::Node current_node = path.back();
+  if(m_automatic) {
+      Graph::Node current_node = m_path.back();
 //      path.pop_back();
 
 	  // 
@@ -54,9 +54,9 @@ void Player::update(const float & timestep)
 	  float l = vec.length();
 
 	  if (l < 5) {
-		  path.pop_back();
+          m_path.pop_back();
           std::cout << "Knoten " << current_node << " entfernt." << std::endl;
-          std::cout << "Next: " << path.back() << std::endl << std::endl;
+          std::cout << "Next: " << m_path.back() << std::endl << std::endl;
 	  }
 
 	  float angle2 = Ogre::Math::ATan(vec.x/vec.z).valueDegrees();
@@ -164,36 +164,45 @@ unsigned long Player::getMilliseconds()
     return m_timer->getMilliseconds();
 }
 
-void Player::driveAuto() {
-	automatic = true;
+void Player::toggleAutomatic()
+{
+    // Toggle automatic driving.
+    m_automatic = !m_automatic;
 
-	std::cout << std::endl;
-	std::cout << "AUTOMATIC" << std::endl;
+    // If automatic driving was started, find a new path.
+    if (m_automatic)
+    {
+        std::cout << "AUTOMATIC ON" << std::endl;
 
-	Ogre::Vector3 position = m_vehicle->getSceneNode()->getPosition();
-	position.y = 0;
-	position = position /2;
-	std::cout << "Start position: " << position << std::endl;
+        Ogre::Vector3 position = m_vehicle->getSceneNode()->getPosition();
+        position.y = 0;
+        position = position /2;
+        std::cout << "Start position: " << position << std::endl;
 
-	Graph* graph = TopManager::Instance()->getGraph();
-	graph->resetNodes();
-	const Graph::Node & start(graph->getNearestNode(position));
-	std::cout << "Start node: " << start << std::endl;
+        Graph* graph = TopManager::Instance()->getGraph();
+        graph->resetNodes();
+        const Graph::Node & start(graph->getNearestNode(position));
+        std::cout << "Start node: " << start << std::endl;
 
-	const std::vector<Graph::Node> & nodes = graph->getNodes();
-	const Graph::Node & goal = nodes.at(0);
-	std::cout << "Goal node: " << goal << std::endl;
+        const std::vector<Graph::Node> & nodes = graph->getNodes();
+        const Graph::Node & goal = nodes.at(0);
+        std::cout << "Goal node: " << goal << std::endl;
 
-	AStar astar(graph, start, goal);
-	astar.findPath();
+        AStar astar(graph, start, goal);
+        astar.findPath();
 
-	path = astar.getPath();
+        m_path = astar.getPath();
+    }
+    else
+    {
+        std::cout << "AUTOMATIC OFF" << std::endl;
+    }
 }
 
 void Player::setAutomatic(bool a) {
-	automatic = a;	
+    m_automatic = a;
 }
 
 bool Player::getAutomatic() {
-	return automatic;
+    return m_automatic;
 }
