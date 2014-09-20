@@ -1,14 +1,19 @@
 Upgrades:
-* Upgrades für Leben hinzufügen.
+(* Upgrades für Leben hinzufügen.)
 
 Wegplaner:
-* Richtig fahren bei AStar.
+* Bessere Wegpunkte.
 * Abstand von Wänden.
 * Hin/Herwackeln ausschalten.
 
+Möglichkeiten zum Wenden:
+* Vor+rechts / links+zurück und immer so weiter (ca 0.25 sec Takt).
+
 Sonstiges:
-* Ziel mit Fahne markieren (Notiz: Ziel ist waypoints[0])
-* Wände mit Textur
+* Ziel mit Fahne markieren.
+* Wände mit Textur.
+* Start am Eingang des Labyrinths (entweder immer das selbe oder zufällig).
+* Ziel ist zufälliger Wegpunkt, aber weit genug weg vom Start.
 
 
 

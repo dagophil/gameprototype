@@ -35,93 +35,73 @@ void Player::update(const float & timestep)
   }
 
   if(m_automatic) {
+      // Beschleunigen.
       if (m_vehicle->getKmh() < 20) {
           m_vehicle->setThrottle(true);
       } else {
           m_vehicle->setThrottle(false);
       }
 
-      Graph::Node current_node = m_path.back();
+      std::cout << std::endl;
 
       Ogre::Vector3 forwardVector = m_vehicle->getForwardVector();
-      float angle1 = Ogre::Math::ATan(forwardVector.z / forwardVector.x).valueDegrees();
-      if (forwardVector.x < 0) {
-          angle1 += 180;
-      }
-      while (angle1 > 180) {
-          angle1 -= 360;
-      }
-      while(angle1 < -180) {
-          angle1 += 360;
-      }
+      std::cout << "Forwards: " << forwardVector << std::endl;
 
       Ogre::Vector3 position = m_vehicle->getSceneNode()->getPosition() / 2;
       position.y = 0;
+      std::cout << "Current position: " << position << std::endl;
 
-      Ogre::Vector3 vec = current_node - position;
-      float len = vec.length();
-
-      if (len < 5)
-      {
-          if (m_path.empty())
-          {
-              m_automatic = false;
-              std::cout << "Ziel erreicht!" << std::endl;
-              std::cout << "Party!" << std::endl << std::endl;
-          }
-          else
-          {
-              m_path.pop_back();
-              std::cout << "Knoten " << current_node << " entfernt." << std::endl;
-              std::cout << "Next: " << m_path.back() << std::endl << std::endl;
-          }
-
+      float positionAngle = Ogre::Math::ATan(forwardVector.z / forwardVector.x).valueRadians();
+      if (forwardVector.x < 0) {
+          positionAngle += Ogre::Math::PI;
       }
-
-      if (len > 15) {
-          this->findNewPath();
+      while (positionAngle > Ogre::Math::PI) {
+          positionAngle -= 2*Ogre::Math::PI;
       }
-
-      float angle2 = Ogre::Math::ATan(vec.z/vec.x).valueDegrees();
-      if (vec.x < 0) {
-          angle2 += 180;
+      while (positionAngle < -Ogre::Math::PI) {
+          positionAngle += 2*Ogre::Math::PI;
       }
-      while (angle2 > 180) {
-          angle2 -= 360;
+      std::cout << "Position angle: " << positionAngle << std::endl;
+
+      Graph::Node current_node = m_path.back();
+      std::cout << "Current node: " << current_node << std::endl;
+
+      Ogre::Vector3 delta = current_node - position;
+      std::cout << "Delta vector: " << delta << std::endl;
+
+      float deltaAngle = Ogre::Math::ATan(delta.z / delta.x).valueRadians();
+      if (delta.x < 0) {
+          deltaAngle += Ogre::Math::PI;
       }
-      while (angle2 < -180) {
-          angle2 += 360;
+      deltaAngle -= Ogre::Math::PI/2;
+      deltaAngle -= positionAngle;
+      while (deltaAngle > Ogre::Math::PI) {
+          deltaAngle -= 2*Ogre::Math::PI;
       }
-
-      std::cout << std::endl;
-//      std::cout << "Position: " << position << std::endl;
-//      std::cout << "Next node: " << current_node << std::endl;
-//      std::cout << "Vektor: " << vec << std::endl;
-      std::cout << "Position angle: " << angle1 << std::endl;
-      std::cout << "Vektor angle: " << angle2 << std::endl;
-//      std::cout << "Noch " << m_path.size() << " Knoten bis zum Ziel." << std::endl;
-	  
-      angle2 -= angle1;
-      while (angle2 > 180) {
-          angle2 -= 360;
+      while (deltaAngle < -Ogre::Math::PI) {
+          deltaAngle += 2*Ogre::Math::PI;
       }
-      while (angle2 < -180) {
-          angle2 += 360;
-      }
+      std::cout << "Delta angle (corrected): " << deltaAngle << std::endl;
 
-      std::cout << "Delta angle: " << angle2 << std::endl;
-	  
-
-
-
-      if (angle2 < 0) {
+      // Rechts / Links bestimmen.
+      if (deltaAngle > 10 * Ogre::Math::PI / 180) {
+          std::cout << "Rechts!" << std::endl;
           m_vehicle->setSteering(1.f);
-      } else if (angle2 > 0) {
-        m_vehicle->setSteering(-1.f);
+      } else if (deltaAngle < 10 * Ogre::Math::PI / 180) {
+          std::cout << "Links!" << std::endl;
+          m_vehicle->setSteering(-1.f);
       } else {
           m_vehicle->setSteering(0.f);
       }
 
+      if (delta.length() < 5) {
+          m_path.pop_back();
+          std::cout << "Knoten " << current_node << " entfernt." << std::endl;
+      }
+
+      if (delta.length() > 15) {
+          findNewPath();
+      }
   }
 
   m_vehicle->update(timestep);
