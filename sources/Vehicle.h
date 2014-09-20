@@ -95,6 +95,19 @@ public:
    * @brief resets vehicle orientation
    */
   void resetOrientation();
+
+  /**
+   * @brief returns current speed in km/h.
+   * @return
+   */
+  float getKmh();
+
+  /**
+   * @brief get the forward vector.
+   * @return
+   */
+  Ogre::Vector3 getForwardVector();
+
 private:
   bool m_brake;
   bool m_throttle;

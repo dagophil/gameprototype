@@ -24,6 +24,8 @@ public:
 
 	public:
 
+        Node() {}
+
         Node(const Ogre::Vector3 & n, Node* parent = 0, float weight = 10e10)
         {
             this->x = n.x;

@@ -15,7 +15,6 @@ Graph::Graph(const std::vector<Ogre::Vector3> & wayPoints)
     {
         m_nodes.push_back(Node(wayPoints[i], 0));
     }
-    std::cout << std::endl << "nodes.size() in constructor :  " << m_nodes.size() << std::endl << std::endl;
 
     // Find the neighbors of each node.
     for (NodeIter iter = m_nodes.begin(); iter != m_nodes.end(); ++iter)

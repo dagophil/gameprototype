@@ -13,24 +13,20 @@ void AStar::findPath()
 {
     typedef Graph::Node Node;
 
-    std::cout << "called findPath()" << std::endl;
     SortedList open;
     std::vector<Graph::Node*> close;
 
     m_start.setWeight(0);
     open.add(&m_start, m_goal.distance(m_start));
 
-    int c = 0;
     while (!open.getList().empty())
     {
-        c++;
         // Get node with smallest heuristic distance to goal and remove it from open list.
         Node* current_node = open.popNode();
 
         // Check if the goal was reached.
         if (current_node->distance(m_goal) < 1)
         {
-            std::cout << "Sie haben das Ziel nach " << c << " Iterationen erreicht!" << std::endl;
             m_goal.setParent(current_node->getParent());
             break;
         }
@@ -83,10 +79,8 @@ std::vector<Graph::Node> AStar::getPath() {
     while ( p != 0 )
     {
         solution.push_back(*p);
-        std::cout << "p: " << *p << std::endl;
         p = p->getParent();
     }
 
-    std::cout << "Path successfully created." << std::endl;
     return solution;
 }

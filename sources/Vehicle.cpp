@@ -171,6 +171,18 @@ void Vehicle::setReverse(bool reverse)
   m_reverse = reverse;
 }
 
+float Vehicle::getKmh()
+{
+    return m_RaycastVehicle->getCurrentSpeedKmHour();
+}
+
+Ogre::Vector3 Vehicle::getForwardVector()
+{
+    Ogre::Vector3 rota;
+    this->getSceneNode()->getOrientation().ToAxes(&rota);
+    return rota;
+}
+
 GameObject::ObjectType Vehicle::getType()
 {
   return GameObject::Vehicle;
@@ -289,7 +301,6 @@ void Vehicle::resetOrientation()
   Transform.setBasis(Matrix);
   getRigidBody()->setWorldTransform(Transform);
 }
-
 
 float Vehicle::getFuel()
 {
