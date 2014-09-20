@@ -60,7 +60,8 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
     TopManager::Instance()->getGraphicManager()->setShutdown(true);
     return false;
   }
-  if (m_pPlayer->getAutomatic() == false) {
+  //if (m_pPlayer->getAutomatic() == false) {
+  if (true) {
 	  if(arg.key == m_pPlayerKeys[THROTTLE])
 	  {
 		m_pVehicle->setThrottle(true);
