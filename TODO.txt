@@ -2,12 +2,9 @@ Upgrades:
 * Upgrades für Leben hinzufügen.
 
 Wegplaner:
-* In AStar.cpp: close durch std::vector ersetzen (statt SortedList).
-* Route neu berechnen, falls zu weit weg von current node.
-* Automatik an/aus.
+* Richtig fahren bei AStar.
 * Abstand von Wänden.
 * Hin/Herwackeln ausschalten.
-* User-Input ausschalten bei automatischer Steuerung.
 
 Sonstiges:
 * Ziel mit Fahne markieren (Notiz: Ziel ist waypoints[0])

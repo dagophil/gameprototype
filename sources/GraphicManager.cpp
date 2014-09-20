@@ -126,14 +126,11 @@ void GraphicManager::createScene()
         std::stringstream ss;
         ss << "wp" << i;
 
-        std::stringstream ss2;
-        ss2 << "wpnode" << i;
-
         Ogre::SceneNode* citynode = wprnode->createChildSceneNode();
 
-        Ogre::Entity* entCity = mSceneMgr->createEntity( ss.str(), "Cube.mesh");
-        entCity->setCastShadows(true);
-        citynode->attachObject(entCity);
+        Ogre::Entity* entCube = mSceneMgr->createEntity(ss.str(), "Cube.mesh");
+        entCube->setCastShadows(true);
+        citynode->attachObject(entCube);
         citynode->setPosition(m_waypoints[i].x, 0, m_waypoints[i].z);
         citynode->scale(0.5, 0.5, 0.5);
         //citynode->setPosition(-20, 1,-75);     //TEST

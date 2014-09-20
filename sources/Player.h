@@ -108,6 +108,11 @@ public:
   void toggleAutomatic();
 
   /**
+   * @brief Computes a new path for the automatic driving.
+   */
+  void findNewPath();
+
+  /**
    * @brief setter for automatic
    *
    */
