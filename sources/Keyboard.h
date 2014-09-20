@@ -40,6 +40,7 @@ private:
   OIS::InputManager *m_pInputManager;
   Vehicle *m_pVehicle;
   Player  *m_pPlayer;
+  bool automatic;
 };
 
 #endif /* KEYBOARD_H_ */
