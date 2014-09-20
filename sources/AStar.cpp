@@ -15,7 +15,7 @@ void AStar::findPath()
 
     std::cout << "called findPath()" << std::endl;
     SortedList open;
-    SortedList close;
+    std::vector<Graph::Node*> close;
 
     m_start.setWeight(0);
     open.add(&m_start, m_goal.distance(m_start));
@@ -36,7 +36,7 @@ void AStar::findPath()
         }
 
         // Add current node to closed list (weight is not important in closed list).
-        close.add(current_node, 0);
+        close.push_back(current_node);
 
         // Get the neighbors.
         const std::vector<Node*> & neighbors = m_graph->getNeighbors(*current_node);
@@ -45,7 +45,16 @@ void AStar::findPath()
             Node* neighbor = *iter;
 
             // Neighbors in the closed list are already finished.
-            int cFound = close.getIndex(*neighbor);
+			int cFound = -1;
+			for (int i = 0; i < close.size(); ++i) {
+				if (*(close[i]) == *neighbor) {
+					cFound = i;
+					break;
+				}
+			}
+
+
+            //int cFound = close.getIndex(*neighbor);
             if (cFound > 0)
                 continue;
 
