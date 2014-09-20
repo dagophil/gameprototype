@@ -6,6 +6,7 @@
 #include "PlayerInput.h"
 #include "TopManager.h"
 #include "GraphicManager.h"
+#include "Graph.h"
 #include <iostream>
 #include <sstream>
 #include <stdio.h>
@@ -13,6 +14,7 @@
 #include <time.h>
 #include <OGRE/OgreCommon.h>
 #include <cstdlib>
+
 /**
  *
  * @class Player
@@ -99,6 +101,12 @@ public:
    */
   unsigned long getMilliseconds();
 
+  /**
+   * @brief function so set automatic and get path
+   *
+   */
+  void driveAuto(std::vector<Graph::Node> p);
+
   void disableJoystick();
 private:
   void createViewport();
@@ -112,6 +120,8 @@ private:
   Ogre::Camera * m_playerCam;
   Ogre::Timer * m_timer;
   int m_joystick;
+  bool automatic;
+  std::vector<Graph::Node> path;
 };
 
 #endif

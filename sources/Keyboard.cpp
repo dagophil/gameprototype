@@ -116,6 +116,8 @@ bool Keyboard::keyPressed(const OIS::KeyEvent&arg)
 
     std::vector<Graph::Node> path(astar.getPath());
 
+	m_pPlayer->driveAuto(path);
+
     return true;
   }
 
