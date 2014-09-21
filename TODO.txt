@@ -3,17 +3,17 @@ Upgrades:
 
 Wegplaner:
 * Bessere Wegpunkte.
-* Abstand von Wänden.
-* Hin/Herwackeln ausschalten.
 
-Möglichkeiten zum Wenden:
-* Vor+rechts / links+zurück und immer so weiter (ca 0.25 sec Takt).
+Gegner:
+* Gegner auf Karte hinzufügen (Klasse Map).
+* Gegner suchen sich einen Weg durchs Labyrinth (zufälliger Wegpunkt als Ziel, aber weit genug weg).
+* A* im Konstruktor aufrufen, update Funktion zum Bewegen benutzen.
+* Kollision mit Auto
 
 Sonstiges:
-* Ziel mit Fahne markieren.
 * Wände mit Textur.
 * Start am Eingang des Labyrinths (entweder immer das selbe oder zufällig).
-* Ziel ist zufälliger Wegpunkt, aber weit genug weg vom Start.
+* Alten A* Code von Keyboard, Player, Vehicle entfernen.
 
 
 

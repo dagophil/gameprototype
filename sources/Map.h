@@ -8,6 +8,7 @@
 #include <vector>
 #include "GameMapObject.h"
 #include "Player.h"
+#include "Opponent.h"
 #include <map>
 
 /**
@@ -47,10 +48,12 @@ private:
   void createGround();
   void createCity();
   void createUpgrades();
+  void createOpponents();
 
   GameMapObject* m_city;
   GameMapObject* m_ground;
   std::vector<GameMapObject*> m_upgrades;
+  std::vector<Opponent*> m_opponents;
   btVector4 m_startPositions[4];
 };
 

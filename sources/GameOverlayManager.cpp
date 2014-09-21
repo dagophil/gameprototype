@@ -27,7 +27,7 @@ void GameOverlayManager::init()
   m_dimY = TopManager::Instance()->getGraphicManager()->getViewport()->getActualHeight();
 
   // Load the font (fixes bug with invisible overlays).
-  Ogre::FontManager::getSingleton().getByName("SdkTrays/Caption")->load();
+//  Ogre::FontManager::getSingleton().getByName("SdkTrays/Caption")->load();
 
   // creates overlays (for all players)
   Ogre::Overlay* overlayPlayer = Ogre::OverlayManager::getSingleton().getByName("Player/Overlay");

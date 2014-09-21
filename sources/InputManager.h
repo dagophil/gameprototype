@@ -16,8 +16,8 @@
 #include <OIS/OISMouse.h>
 #include <OIS/OISJoyStick.h>
 
-#include <OGRE/SdkTrays.h>
-#include <OGRE/SdkCameraMan.h>
+//#include <OGRE/SdkTrays.h>
+//#include <OGRE/SdkCameraMan.h>
 
 #include "TopManager.h"
 #include "GraphicManager.h"

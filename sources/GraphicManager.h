@@ -24,8 +24,8 @@
 #include <OIS/OISKeyboard.h>
 #include <OIS/OISMouse.h>
 
-#include <OGRE/SdkTrays.h>
-#include <OGRE/SdkCameraMan.h>
+//#include <OGRE/SdkTrays.h>
+//#include <OGRE/SdkCameraMan.h>
 
 
 /**

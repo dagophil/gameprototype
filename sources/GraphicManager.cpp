@@ -20,31 +20,31 @@ GraphicManager::~GraphicManager(){}
 
 void GraphicManager::chooseSceneManager()
 {
-  mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
+    mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 }
 
 void GraphicManager::createLightNShadow()
 {
-  // Create sunlight
-  Ogre::Light* light = mSceneMgr->createLight("Light1");
-  light->setType(Ogre::Light::LT_POINT);
-  light->setPosition(Ogre::Vector3(0, 1500, 0));
-  light->setDiffuseColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
-  light->setSpecularColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
+    // Create sunlight
+    Ogre::Light* light = mSceneMgr->createLight("Light1");
+    light->setType(Ogre::Light::LT_POINT);
+    light->setPosition(Ogre::Vector3(0, 1500, 0));
+    light->setDiffuseColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
+    light->setSpecularColour(Ogre::ColourValue(0.8f, 0.8f, 0.8f));
 
-  // Create headlights for the car
-  Ogre::Light* headlights[] = {mSceneMgr->createLight("Headlight1"),
-                               mSceneMgr->createLight("Headlight2")};
-  for (int i=0; i<2; ++i)
-  {
-      headlights[i]->setCastShadows(false);
-      headlights[i]->setType(Ogre::Light::LT_SPOTLIGHT);
-      headlights[i]->setSpotlightRange(Ogre::Radian(0.1), Ogre::Radian(M_PI/3.f));
-      headlights[i]->setDiffuseColour(Ogre::ColourValue(1.f, 1.f, 1.f));
-      headlights[i]->setSpecularColour(Ogre::ColourValue(1.f, 1.f, 1.f));
-  }
+    // Create headlights for the car
+    Ogre::Light* headlights[] = {mSceneMgr->createLight("Headlight1"),
+                                 mSceneMgr->createLight("Headlight2")};
+    for (int i=0; i<2; ++i)
+    {
+        headlights[i]->setCastShadows(false);
+        headlights[i]->setType(Ogre::Light::LT_SPOTLIGHT);
+        headlights[i]->setSpotlightRange(Ogre::Radian(0.1), Ogre::Radian(M_PI/3.f));
+        headlights[i]->setDiffuseColour(Ogre::ColourValue(1.f, 1.f, 1.f));
+        headlights[i]->setSpecularColour(Ogre::ColourValue(1.f, 1.f, 1.f));
+    }
 
-  makeDayLights();
+    makeDayLights();
 }
 
 void GraphicManager::toggleDayNight()
@@ -107,120 +107,118 @@ void GraphicManager::makeNightLights()
 
 void GraphicManager::createScene()
 {
-  mCamNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(100, 0, 100));
-  mCamNode->attachObject(mCamera);
+    mCamNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(100, 0, 100));
+    mCamNode->attachObject(mCamera);
 
-  createLightNShadow();
+    createLightNShadow();
 
-  m_waypoints = TopManager::Instance()->getWaypoints();
-
-
-  // Draw (or dont draw) the waypoints
-  if (false)
-  {
-      //create waypoint
-      Ogre::SceneNode* wprnode = mSceneMgr->getRootSceneNode()-> createChildSceneNode("waypointsroot");
-
-      for (std::size_t i = 0; i < m_waypoints.size(); ++i)
-      {
-        std::stringstream ss;
-        ss << "wp" << i;
-
-        Ogre::SceneNode* citynode = wprnode->createChildSceneNode();
-
-        Ogre::Entity* entCube = mSceneMgr->createEntity(ss.str(), "Cube.mesh");
-        entCube->setCastShadows(true);
-        citynode->attachObject(entCube);
-        citynode->setPosition(m_waypoints[i].x, 0, m_waypoints[i].z);
-        citynode->scale(0.5, 0.5, 0.5);
-        //citynode->setPosition(-20, 1,-75);     //TEST
-      }
-      wprnode->scale(2,2,2);
-  }
+    m_waypoints = TopManager::Instance()->getWaypoints();
 
 
+    // Draw (or dont draw) the waypoints
+    if (false)
+    {
+        //create waypoint
+        Ogre::SceneNode* wprnode = mSceneMgr->getRootSceneNode()-> createChildSceneNode("waypointsroot");
 
-  TopManager::Instance()->loadMap();
-  TopManager::Instance()->addPlayer();
-  TopManager::Instance()->getOverlayManager()->init();
-  Keyboard::Instance()->init();
-  mSceneMgr->setSkyDome(true, "skymat", 76.0, 16.0, 5000.0,true);
+        for (std::size_t i = 0; i < m_waypoints.size(); ++i)
+        {
+            std::stringstream ss;
+            ss << "wp" << i;
+
+            Ogre::SceneNode* cubenode = wprnode->createChildSceneNode();
+
+            Ogre::Entity* entCube = mSceneMgr->createEntity(ss.str(), "Cube.mesh");
+            entCube->setCastShadows(true);
+            cubenode->attachObject(entCube);
+            cubenode->setPosition(m_waypoints[i].x, 0, m_waypoints[i].z);
+            cubenode->scale(0.5, 0.5, 0.5);
+            //citynode->setPosition(-20, 1,-75);     //TEST
+        }
+        wprnode->scale(2,2,2);
+    }
+
+
+
+    TopManager::Instance()->loadMap();
+    TopManager::Instance()->addPlayer();
+    TopManager::Instance()->getOverlayManager()->init();
+    Keyboard::Instance()->init();
+    mSceneMgr->setSkyDome(true, "skymat", 76.0, 16.0, 5000.0,true);
 
 #ifdef PROFILE
-  new Ogre::Profiler();
-  Ogre::Timer* timer = new Ogre::Timer();
+    new Ogre::Profiler();
+    Ogre::Timer* timer = new Ogre::Timer();
 
-  Ogre::Profiler::getSingleton().setTimer(timer);
-  Ogre::Profiler::getSingleton().setEnabled(true);
-  Ogre::Profiler::getSingleton().setUpdateDisplayFrequency(60);
+    Ogre::Profiler::getSingleton().setTimer(timer);
+    Ogre::Profiler::getSingleton().setEnabled(true);
+    Ogre::Profiler::getSingleton().setUpdateDisplayFrequency(60);
 #endif
 }
 
 Ogre::SceneManager* GraphicManager::getSceneManager()
 {
-  return mSceneMgr;
+    return mSceneMgr;
 }
 
 Ogre::RenderWindow* GraphicManager::getRenderWindow()
 {
-  return mWindow;
+    return mWindow;
 }
 
 bool GraphicManager::frameRenderingQueued(const Ogre::FrameEvent&evt)
 {
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().beginProfile("Ogre Main Loop");
+    Ogre::Profiler::getSingleton().beginProfile("Ogre Main Loop");
 #endif
 
-  if(mWindow->isClosed())
-    return false;
+    if(mWindow->isClosed())
+        return false;
 
-  if(mShutDown)
-    return false;
+    if(mShutDown)
+        return false;
 
-  //Need to capture/update each device
-  Keyboard::Instance()->capture();
-  mTrayMgr->frameRenderingQueued(evt);
-  TopManager::Instance()->update(evt.timeSinceLastFrame);
+    //Need to capture/update each device
+    Keyboard::Instance()->capture();
+    //mTrayMgr->frameRenderingQueued(evt);
+    TopManager::Instance()->update(evt.timeSinceLastFrame);
 #ifdef PROFILE
-  Ogre::Profiler::getSingleton().endProfile("Ogre Main Loop");
+    Ogre::Profiler::getSingleton().endProfile("Ogre Main Loop");
 #endif
-  return true;
+    return true;
 }
 
 
 void GraphicManager::createViewports(void)
 {
-  // Create one viewport, entire window
-  m_vp = mWindow->addViewport(mCamera,500,0,0,1,1);
-  m_vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
+    // Create one viewport, entire window
+    m_vp = mWindow->addViewport(mCamera,500,0,0,1,1);
+    m_vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
 
-  // Alter the camera aspect ratio to match the viewport
-  mCamera->setAspectRatio(Ogre::Real(m_vp->getActualWidth()) / Ogre::Real(m_vp->getActualHeight()));
+    // Alter the camera aspect ratio to match the viewport
+    mCamera->setAspectRatio(Ogre::Real(m_vp->getActualWidth()) / Ogre::Real(m_vp->getActualHeight()));
 
-  m_vp->setClearEveryFrame(false);
+    m_vp->setClearEveryFrame(false);
 }
 
 Ogre::Viewport* GraphicManager::getViewport()
 {
-  return m_vp;
+    return m_vp;
 }
 
 void GraphicManager::setShutdown(bool shutdown)
 {
-  mShutDown = shutdown;
+    mShutDown = shutdown;
 }
 
 void GraphicManager::createCamera(void)
 {
-  // Create the camera
-  mCamera = mSceneMgr->createCamera("PlayerCam");
+    // Create the camera
+    mCamera = mSceneMgr->createCamera("PlayerCam");
 
-  // Position it at 500 in Z direction
-  mCamera->setPosition(Ogre::Vector3(0,0,80));
-  // Look back along -Z
-  mCamera->lookAt(Ogre::Vector3(0,0,-300));
-  mCamera->setNearClipDistance(0.1);
-
-  //mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
+    // Position it at 500 in Z direction
+    mCamera->setPosition(Ogre::Vector3(0,0,80));
+    // Look back along -Z
+    mCamera->lookAt(Ogre::Vector3(0,0,-300));
+    mCamera->setNearClipDistance(0.1);
 }

@@ -11,6 +11,7 @@
 #include "Vehicle.h"
 #include "Upgrade.h"
 #include "PointReader.h"
+#include "Opponent.h"
 #include <OGRE/Ogre.h>
 #include <OGRE/OgreVector3.h>
 
@@ -25,6 +26,7 @@ Map::Map()
   createGround();
   createCity();
   createUpgrades();
+  createOpponents();
 
   m_startPositions[0] = btVector4(-22.f, 2.f,-84.f,0.f);
   m_startPositions[1] = btVector4(190.f,2.f,190.f,180.f);
@@ -40,7 +42,13 @@ Map::~Map()
 void Map::update(const float & timestep)
 {
     typedef std::vector<GameMapObject*>::iterator objIter;
-    for (objIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
+    for (objIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
+    {
+        (*iter)->update(timestep);
+    }
+
+    typedef std::vector<Opponent*>::iterator oppIter;
+    for(oppIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
     {
         (*iter)->update(timestep);
     }
@@ -82,6 +90,14 @@ void Map::createUpgrades()
         upgr->translate(2*iter->x, 1.5f, 2*iter->z);
         m_upgrades.push_back(upgr);
     }
+}
+
+void Map::createOpponents()
+{
+    Opponent* opp = new Opponent("Sphere.mesh", GameObject::Opponent);
+    opp->translate(-16, 1.5, -74);
+    opp->scale(0.5, 0.5, 0.5);
+    m_opponents.push_back(opp);
 }
 
 void Map::changeToDayMaterials()

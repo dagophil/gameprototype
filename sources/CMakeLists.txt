@@ -43,6 +43,9 @@ IF(UNIX)
 	  SET(CMAKE_MODULE_PATH "/usr/lib/OGRE/cmake/;${CMAKE_MODULE_PATH}")
 	  SET(OGRE_SAMPLES_INCLUDEPATH "/usr/share/OGRE/samples/Common/include/") # Otherwise, this one
 
+    ELSEIF(EXISTS "/usr/share/OGRE/cmake")
+      SET(CMAKE_MODULE_PATH "/usr/share/OGRE/cmake/;${CMAKE_MODULE_PATH}")
+
   ELSE()
 	  MESSAGE(SEND_ERROR "Failed to find module path.")
     ENDIF(EXISTS "/usr/local/lib/OGRE/cmake")
@@ -104,12 +107,12 @@ SET(SRCS
 	./GameMapObject.cpp
 	./PlayerInput.cpp
 	./GameOverlayManager.cpp
-	./DebugDrawer.cpp
 	./Upgrade.cpp
 	./Graph.cpp
 	./PointReader.cpp
 	./AStar.cpp
 	./SortedList.cpp
+    ./Opponent.cpp
 	./main.cpp	
 )
 
@@ -132,11 +135,11 @@ SET(HDRS
 	./GameMapObject.h
 	./PlayerInput.h
 	./GameOverlayManager.h
-	./DebugDrawer.h
 	./PointReader.h
 	./AStar.h
 	./SortedList.h
 	./Graph.h
+    ./Opponent.h
 	./Upgrade.h
 )
 

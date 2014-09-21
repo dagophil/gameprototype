@@ -18,7 +18,6 @@
 #include "GameObject.h"
 #include "GameMapObject.h"
 #include "Vehicle.h"
-#include "DebugDrawer.h"
 #include "PointReader.h"
 #include "Graph.h"
 
@@ -26,108 +25,105 @@ TopManager* TopManager::m_Instance = 0;
 
 TopManager* TopManager::Instance()
 {
-  if(m_Instance == 0)
-    m_Instance = new TopManager();
-  return m_Instance;
+    if(m_Instance == 0)
+        m_Instance = new TopManager();
+    return m_Instance;
 }
 
 void collisionCallback(btDynamicsWorld *world, btScalar timeStep)
 {
-  int numManifolds = world->getDispatcher()->getNumManifolds();
-  for (int i = 0; i < numManifolds; i++)
-  {
-    btPersistentManifold* contactManifold =  world->getDispatcher()->getManifoldByIndexInternal(i);
-    btCollisionObject* obA = const_cast<btCollisionObject*>(contactManifold->getBody0());
-    btCollisionObject* obB = const_cast<btCollisionObject*>(contactManifold->getBody1());
-    if(obA && obB)
+    int numManifolds = world->getDispatcher()->getNumManifolds();
+    for (int i = 0; i < numManifolds; i++)
     {
-      GameObject* obAF = reinterpret_cast<GameObject*>(obA->getUserPointer());
-      GameObject* obBF = reinterpret_cast<GameObject*>(obB->getUserPointer());
-
-      if(obAF&&obBF)
-      {
-        int numContacts = contactManifold->getNumContacts();
-
-        for (int j = 0; j < numContacts; j++)
+        btPersistentManifold* contactManifold =  world->getDispatcher()->getManifoldByIndexInternal(i);
+        btCollisionObject* obA = const_cast<btCollisionObject*>(contactManifold->getBody0());
+        btCollisionObject* obB = const_cast<btCollisionObject*>(contactManifold->getBody1());
+        if(obA && obB)
         {
-          if(contactManifold->getContactPoint(j).getDistance() < 0.f)
-          {
-            obAF->CollideWith(obBF->getType());
-            obBF->CollideWith(obAF->getType());
-            break;
-          }
+            GameObject* obAF = reinterpret_cast<GameObject*>(obA->getUserPointer());
+            GameObject* obBF = reinterpret_cast<GameObject*>(obB->getUserPointer());
+
+            if(obAF&&obBF)
+            {
+                int numContacts = contactManifold->getNumContacts();
+
+                for (int j = 0; j < numContacts; j++)
+                {
+                    if(contactManifold->getContactPoint(j).getDistance() < 0.f)
+                    {
+                        obAF->CollideWith(obBF->getType());
+                        obBF->CollideWith(obAF->getType());
+                        break;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 TopManager::TopManager()
 {
-  srand(time(NULL));
-  m_GraphicManager  = new GraphicManager;
-  m_PhysicsManager  = new PhysicsManager;
-  m_OverlayManager  = new GameOverlayManager;
-  m_debugDrawer = new DebugDrawer();
+    srand(time(NULL));
+    m_GraphicManager  = new GraphicManager;
+    m_PhysicsManager  = new PhysicsManager;
+    m_OverlayManager  = new GameOverlayManager;
 
-  m_PhysicsManager->getDynamicsWorld()->setDebugDrawer(m_debugDrawer);
-  m_PhysicsManager->getDynamicsWorld()->setInternalTickCallback(collisionCallback);
+    m_PhysicsManager->getDynamicsWorld()->setInternalTickCallback(collisionCallback);
 
-  PointReader reader("waypoints1.txt");
+    PointReader reader("waypoints1.txt");
 
-  std::vector<Ogre::Vector3> waypoints = reader.getWayPoints();
-  for (size_t i = 0; i < waypoints.size(); ++i) {
-      m_waypoints.push_back(Ogre::Vector3(waypoints[i]));
-  }
+    std::vector<Ogre::Vector3> waypoints = reader.getWayPoints();
+    for (size_t i = 0; i < waypoints.size(); ++i) {
+        m_waypoints.push_back(Ogre::Vector3(waypoints[i]));
+    }
 
-  m_graph = new Graph(m_waypoints);
+    m_graph = new Graph(m_waypoints);
 
-  m_mapLoaded = false;
-  m_gameOver = false;
+    m_mapLoaded = false;
+    m_gameOver = false;
 }
 
 TopManager::~TopManager()
 {
-  delete m_PhysicsManager;
-  delete m_debugDrawer;
-  delete m_OverlayManager;
-  delete m_GraphicManager;
+    delete m_PhysicsManager;
+    delete m_OverlayManager;
+    delete m_GraphicManager;
 }
 
 PhysicsManager* TopManager::getPhysicsManager()
 {
-  return m_PhysicsManager;
+    return m_PhysicsManager;
 }
 
 GraphicManager* TopManager::getGraphicManager()
 {
-  return m_GraphicManager;
+    return m_GraphicManager;
 }
 
 GameOverlayManager* TopManager::getOverlayManager()
 {
-  return m_OverlayManager;
+    return m_OverlayManager;
 }
 
 Map* TopManager::getMap()
 {
-  return m_Map;
+    return m_Map;
 }
 
 Player* TopManager::getPlayer()
 {
-  return PlayerList[0];
+    return PlayerList[0];
 }
 
 Graph* TopManager::getGraph()
 {
-	return m_graph;
+    return m_graph;
 }
 
 void TopManager::addPlayer()
 {
-  Player * newPlayer = new Player(PlayerList.size());
-  PlayerList.push_back(newPlayer);
+    Player * newPlayer = new Player(PlayerList.size());
+    PlayerList.push_back(newPlayer);
 }
 
 std::vector<Ogre::Vector3> TopManager::getWaypoints() {
@@ -136,8 +132,8 @@ std::vector<Ogre::Vector3> TopManager::getWaypoints() {
 
 void TopManager::loadMap()
 {
-  m_Map = new Map;
-  m_mapLoaded = true;
+    m_Map = new Map;
+    m_mapLoaded = true;
 }
 
 bool TopManager::isMapLoaded()
@@ -184,7 +180,7 @@ void TopManager::update(const float & timestep)
         Ogre::Profiler::getSingleton().endProfile("Physik");
 #endif
 
-  // Update the map
+        // Update the map
 #ifdef PROFILE
         Ogre::Profiler::getSingleton().beginProfile("Map Update");
 #endif
@@ -194,20 +190,8 @@ void TopManager::update(const float & timestep)
 #ifdef PROFILE
         Ogre::Profiler::getSingleton().endProfile("Map Update");
 #endif
-  // Update all Players
 
-/*
-#ifdef PROFILE
-        Ogre::Profiler::getSingleton().beginProfile( "debugDrawer" );
-#endif
-        DebugDrawer* debugDrawer = static_cast<DebugDrawer*>(m_debugDrawer);
-        debugDrawer->resetLines();
-        m_PhysicsManager->getDynamicsWorld()->debugDrawWorld();
-
-#ifdef PROFILE
-        Ogre::Profiler::getSingleton().endProfile( "debugDrawer" );
-#endif
-*/
+        // Update all Players
 #ifdef PROFILE
         Ogre::Profiler::getSingleton().beginProfile("Player Update");
 #endif

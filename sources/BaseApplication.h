@@ -31,59 +31,53 @@ This source file is part of the
 #include <OIS/OISKeyboard.h>
 #include <OIS/OISMouse.h>
 
-#include <OGRE/SdkTrays.h>
-#include <OGRE/SdkCameraMan.h>
 
 /**
  * @class BaseApplication
  * @brief Main Connection point to OGRE graphics, Window events, etc.
  */
-class BaseApplication : public Ogre::FrameListener, public Ogre::WindowEventListener, OgreBites::SdkTrayListener
+class BaseApplication : public Ogre::FrameListener//, public Ogre::WindowEventListener
 {
 public:
-  BaseApplication(void);
-  virtual ~BaseApplication(void);
+    BaseApplication(void);
+    virtual ~BaseApplication(void);
 
-  virtual void go(void);
+    virtual void go(void);
 
 protected:
-  virtual bool setup();
-  virtual bool configure(void);
-  virtual void chooseSceneManager(void);
-  virtual void createCamera(void);
-  virtual void createFrameListener(void);
-  virtual void createScene(void) = 0;   // Override me!
-  virtual void destroyScene(void);
-  virtual void createViewports(void);
-  virtual void setupResources(void);
-  virtual void createResourceListener(void);
-  virtual void loadResources(void);
+    virtual bool setup();
+    virtual bool configure(void);
+    virtual void chooseSceneManager(void);
+    virtual void createCamera(void);
+    virtual void createFrameListener(void);
+    virtual void createScene(void) = 0;   // Override me!
+    virtual void destroyScene(void);
+    virtual void createViewports(void);
+    virtual void setupResources(void);
+    virtual void createResourceListener(void);
+    virtual void loadResources(void);
 
-// Ogre::WindowEventListener
-//Adjust mouse clipping area
-  virtual void windowResized(Ogre::RenderWindow* rw);
-//Unattach OIS before window shutdown (very important under Linux)
-  virtual void windowClosed(Ogre::RenderWindow* rw);
+    // Ogre::WindowEventListener
+    //Adjust mouse clipping area
+    virtual void windowResized(Ogre::RenderWindow* rw);
+    //Unattach OIS before window shutdown (very important under Linux)
+    virtual void windowClosed(Ogre::RenderWindow* rw);
 
-  Ogre::Root *mRoot;
-  Ogre::Camera* mCamera;
-  Ogre::SceneManager* mSceneMgr;
-  Ogre::RenderWindow* mWindow;
-  Ogre::String mResourcesCfg;
-  Ogre::String mPluginsCfg;
-  Ogre::SceneNode * mCamNode;
+    Ogre::Root *mRoot;
+    Ogre::Camera* mCamera;
+    Ogre::SceneManager* mSceneMgr;
+    Ogre::RenderWindow* mWindow;
+    Ogre::String mResourcesCfg;
+    Ogre::String mPluginsCfg;
+    Ogre::SceneNode * mCamNode;
 
-// OgreBites
-  OgreBites::SdkTrayManager* mTrayMgr;
-  OgreBites::SdkCameraMan* mCameraMan;         // basic camera controller
-  OgreBites::ParamsPanel* mDetailsPanel;       // sample details panel
-  bool mCursorWasVisible;                      // was cursor visible before dialog appeared
-  bool mShutDown;
+    bool mCursorWasVisible;                      // was cursor visible before dialog appeared
+    bool mShutDown;
 
-//OIS Input devices
-  OIS::InputManager* mInputManager;
-  OIS::Mouse*    mMouse;
-  OIS::Keyboard* mKeyboard;
+    //OIS Input devices
+    OIS::InputManager* mInputManager;
+    OIS::Mouse*    mMouse;
+    OIS::Keyboard* mKeyboard;
 };
 
 #endif // #ifndef __BaseApplication_h_

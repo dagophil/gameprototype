@@ -16,7 +16,6 @@ class GraphicManager;
 class PhysicsManager;
 class GameOverlayManager;
 class GameObject;
-class btIDebugDraw;
 class Graph;
 
 //#define PROFILE
@@ -25,7 +24,7 @@ class Graph;
  * @class TopManager
  * @brief Singelton class. Manager class to get other managers
  * Use that class to get anything you need in any place in the code.
- * You may get  PhysicsManager, GraphicManager, GameOverlayManager, Map, Players, debugDrawer or Waypoints
+ * You may get  PhysicsManager, GraphicManager, GameOverlayManager, Map, Players or Waypoints
  */
 class TopManager
 {
@@ -120,7 +119,6 @@ private:
   Map*        m_Map;
   bool m_mapLoaded;
   std::vector<Player*>  PlayerList;
-  btIDebugDraw * m_debugDrawer;
   std::vector<Ogre::Vector3> m_waypoints;
   Graph* m_graph;
   bool m_gameOver;
