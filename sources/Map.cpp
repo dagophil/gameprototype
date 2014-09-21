@@ -94,7 +94,7 @@ void Map::createUpgrades()
 
 void Map::createOpponents()
 {
-    Opponent* opp = new Opponent("Sphere.mesh", GameObject::Opponent);
+    Opponent* opp = new Opponent("opponent.mesh", GameObject::Opponent);
     opp->translate(-16, 1.5, -74);
     opp->scale(0.5, 0.5, 0.5);
     m_opponents.push_back(opp);
