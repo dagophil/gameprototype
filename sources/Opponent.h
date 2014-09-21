@@ -54,6 +54,8 @@ public:
      */
     void translateLocal(const Ogre::Vector3 & dir);
 
+    void findPath();
+
 
 private:
 

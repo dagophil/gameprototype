@@ -41,25 +41,28 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
     drawNode->attachObject(m_Entity);
     drawNode->pitch(-Ogre::Radian(Ogre::Math::PI/2));
     drawNode->yaw(-Ogre::Radian(Ogre::Math::PI));
+}
 
-	// Create path with AStar algorithm
-	Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
+void Opponent::findPath()
+{
+    // Create path with AStar algorithm
+    Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
 
-	std::cout << "Start position: " << position << std::endl;
+    std::cout << "Start position: " << position << std::endl;
 
-	Graph* graph = TopManager::Instance()->getGraph();
-	const Graph::Node & start(graph->getNearestNode(position));
-	std::cout << "Start node: " << start << std::endl;
+    Graph* graph = TopManager::Instance()->getGraph();
+    const Graph::Node & start(graph->getNearestNode(position));
+    std::cout << "Start node: " << start << std::endl;
 
-	const std::vector<Graph::Node> & nodes = graph->getNodes();
+    const std::vector<Graph::Node> & nodes = graph->getNodes();
 
-	// generate random number and goal node
-	int random = rand() % nodes.size() + 1;
-	const Graph::Node & goal = nodes.at(random);
-	std::cout << "Goal node: " << goal << std::endl;
+    // generate random number and goal node
+    int random = rand() % nodes.size() + 1;
+    const Graph::Node & goal = nodes.at(random);
+    std::cout << "Goal node: " << goal << std::endl;
 
-	AStar astar(graph);
-	m_path = astar.findPath(start, goal);
+    AStar astar(graph);
+    m_path = astar.findPath(start, goal);
 }
 
 void Opponent::CollideWith(const ObjectType & type)
@@ -69,25 +72,34 @@ void Opponent::CollideWith(const ObjectType & type)
 
 void Opponent::update(const float & timestep)
 {
-    // Nach rechts drehen.
-    this->roll(Ogre::Degree(timestep*100));
+//    // Nach rechts drehen.
+//    this->roll(Ogre::Degree(timestep*100));
 
-    // Vorwaerts bewegen.
+//    // Vorwaerts bewegen.
+//    Ogre::Vector3 forwards(0, 0, 0.03);
+//    translateLocal(forwards);
 	
-    Ogre::Vector3 forwards(0, 0, 0.03);
-    translateLocal(forwards);
-	
+    // Get next waypoint and position.
 	Graph::Node current_node = m_path.back();
 	Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
-	
-	std::cout << "Differenz: " << current_node - position << std::endl;
-	// Follow generated path
-	Ogre::Vector3 moveVector((current_node - position) * 0.001);
-	translate(moveVector.x, moveVector.y, moveVector.z);
+    position.y = 0;
 
-	if ( moveVector.x <= 1 && moveVector.z <= 2) {
-		m_path.pop_back();
-	}
+    std::cout << "Pos: " << position << std::endl;
+    std::cout << "Curr: " << current_node << std::endl;
+
+    // Get the movement vector.
+    Ogre::Vector3 delta = current_node - position;
+
+    // Next waypoint is close, remove it from the current path.
+    if (delta.length() < 5) {
+        m_path.pop_back();
+    }
+
+    // Scale delta (here: move 2 units per second).
+    delta = 2 * delta.normalisedCopy() * timestep;
+
+    // Move.
+    translate(delta.x, delta.y, delta.z);
 }
 
 void Opponent::translateLocal(const Ogre::Vector3 & dir)
