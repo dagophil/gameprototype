@@ -17,17 +17,13 @@ class AStar{
 
 public: 
 
-    AStar (Graph* graph, const Graph::Node & start, const Graph::Node & goal);
+    AStar (Graph* graph);
 
-	void findPath();
-
-    std::vector<Graph::Node> getPath();
+    std::vector<Graph::Node> findPath(Graph::Node start, Graph::Node goal);
 
 private:
 
     Graph* m_graph;
-    Graph::Node m_start;
-    Graph::Node m_goal;
 };
 
 #endif /* ASTAR_H_ */

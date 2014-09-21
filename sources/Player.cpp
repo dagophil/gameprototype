@@ -212,7 +212,6 @@ void Player::findNewPath()
     std::cout << "Start position: " << position << std::endl;
 
     Graph* graph = TopManager::Instance()->getGraph();
-    graph->resetNodes();
     const Graph::Node & start(graph->getNearestNode(position));
     std::cout << "Start node: " << start << std::endl;
 
@@ -220,10 +219,8 @@ void Player::findNewPath()
     const Graph::Node & goal = nodes.at(0);
     std::cout << "Goal node: " << goal << std::endl;
 
-    AStar astar(graph, start, goal);
-    astar.findPath();
-
-    m_path = astar.getPath();
+    AStar astar(graph);
+    m_path = astar.findPath(start, goal);
 }
 
 void Player::setAutomatic(bool a) {

@@ -5,19 +5,25 @@
 
 #include "AStar.h"
 
-AStar::AStar (Graph* graph, const Graph::Node & start, const Graph::Node & goal)
-    : m_graph(graph), m_start(start), m_goal(goal)
+AStar::AStar (Graph* graph)
+    : m_graph(graph)
 {}
 
-void AStar::findPath()
+std::vector<Graph::Node> AStar::findPath(Graph::Node start, Graph::Node goal)
 {
     typedef Graph::Node Node;
 
+    // Reset the nodes.
+    m_graph->resetNodes();
+    start.setParent(0);
+    start.setWeight(0);
+    goal.setParent(0);
+    goal.setWeight(10e10);
+
+    // Create open and closed list.
     SortedList open;
     std::vector<Graph::Node*> close;
-
-    m_start.setWeight(0);
-    open.add(&m_start, m_goal.distance(m_start));
+    open.add(&start, goal.distance(start));
 
     while (!open.getList().empty())
     {
@@ -25,9 +31,9 @@ void AStar::findPath()
         Node* current_node = open.popNode();
 
         // Check if the goal was reached.
-        if (current_node->distance(m_goal) < 1)
+        if (current_node->distance(goal) < 1)
         {
-            m_goal.setParent(current_node->getParent());
+            goal.setParent(current_node->getParent());
             break;
         }
 
@@ -42,7 +48,7 @@ void AStar::findPath()
 
             // Neighbors in the closed list are already finished.
 			int cFound = -1;
-			for (int i = 0; i < close.size(); ++i) {
+            for (size_t i = 0; i < close.size(); ++i) {
 				if (*(close[i]) == *neighbor) {
 					cFound = i;
 					break;
@@ -65,22 +71,19 @@ void AStar::findPath()
                 neighbor->setWeight(heuristicDist);
                 if (oFound == -1)
                 {
-                    open.add(neighbor, heuristicDist + m_goal.distance(*neighbor));
+                    open.add(neighbor, heuristicDist + goal.distance(*neighbor));
                 }
             }
         }
     }
-}
 
-std::vector<Graph::Node> AStar::getPath() {
+    // Create the vector with the shortest path.
     std::vector<Graph::Node> solution;
-    Graph::Node* p = &m_goal;
-
+    Graph::Node* p = &goal;
     while ( p != 0 )
     {
         solution.push_back(*p);
         p = p->getParent();
     }
-
     return solution;
 }
