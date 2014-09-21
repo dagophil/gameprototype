@@ -33,7 +33,7 @@ void Player::update(const float & timestep)
     {
         m_input->capture();
     }
-
+	/*
     if(m_automatic) {
         // Beschleunigen.
         if (m_vehicle->getKmh() < 20) {
@@ -103,7 +103,7 @@ void Player::update(const float & timestep)
             findNewPath();
         }
     }
-
+	*/
     m_vehicle->update(timestep);
     TopManager::Instance()->getOverlayManager()->update();
 }
@@ -185,7 +185,7 @@ unsigned long Player::getMilliseconds()
 {
     return m_timer->getMilliseconds();
 }
-
+/*
 void Player::toggleAutomatic()
 {
     // Toggle automatic driving.
@@ -201,7 +201,7 @@ void Player::toggleAutomatic()
         std::cout << "AUTOMATIC OFF" << std::endl;
     }
 }
-
+*/
 void Player::findNewPath()
 {
     std::cout << "AUTOMATIC ON" << std::endl;

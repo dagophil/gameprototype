@@ -2,6 +2,7 @@
 #define OPPONENT_H_
 
 #include "GameMapObject.h"
+#include "Graph.h"
 
 /**
  * @class Opponent
@@ -53,9 +54,11 @@ public:
      */
     void translateLocal(const Ogre::Vector3 & dir);
 
+
 private:
 
     ObjectType m_type;
+	std::vector<Graph::Node> m_path;
 
 };
 

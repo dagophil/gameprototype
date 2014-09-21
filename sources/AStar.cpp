@@ -86,5 +86,6 @@ std::vector<Graph::Node> AStar::findPath(Graph::Node start, Graph::Node goal)
         solution.push_back(*p);
         p = p->getParent();
     }
+	
     return solution;
 }

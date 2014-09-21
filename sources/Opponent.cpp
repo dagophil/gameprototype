@@ -3,6 +3,7 @@
 #include "GraphicManager.h"
 #include "PhysicsManager.h"
 #include "MotionState.h"
+#include "AStar.h"
 #include <OGRE/OgreQuaternion.h>
 
 Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
@@ -40,6 +41,25 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
     drawNode->attachObject(m_Entity);
     drawNode->pitch(-Ogre::Radian(Ogre::Math::PI/2));
     drawNode->yaw(-Ogre::Radian(Ogre::Math::PI));
+
+	// Create path with AStar algorithm
+	Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
+
+	std::cout << "Start position: " << position << std::endl;
+
+	Graph* graph = TopManager::Instance()->getGraph();
+	const Graph::Node & start(graph->getNearestNode(position));
+	std::cout << "Start node: " << start << std::endl;
+
+	const std::vector<Graph::Node> & nodes = graph->getNodes();
+
+	// generate random number and goal node
+	int random = rand() % nodes.size() + 1;
+	const Graph::Node & goal = nodes.at(random);
+	std::cout << "Goal node: " << goal << std::endl;
+
+	AStar astar(graph);
+	m_path = astar.findPath(start, goal);
 }
 
 void Opponent::CollideWith(const ObjectType & type)
@@ -53,8 +73,21 @@ void Opponent::update(const float & timestep)
     this->roll(Ogre::Degree(timestep*100));
 
     // Vorwaerts bewegen.
+	
     Ogre::Vector3 forwards(0, 0, 0.03);
     translateLocal(forwards);
+	
+	Graph::Node current_node = m_path.back();
+	Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
+	
+	std::cout << "Differenz: " << current_node - position << std::endl;
+	// Follow generated path
+	Ogre::Vector3 moveVector((current_node - position) * 0.001);
+	translate(moveVector.x, moveVector.y, moveVector.z);
+
+	if ( moveVector.x <= 1 && moveVector.z <= 2) {
+		m_path.pop_back();
+	}
 }
 
 void Opponent::translateLocal(const Ogre::Vector3 & dir)
@@ -72,3 +105,5 @@ GameObject::ObjectType Opponent::getType()
 void Opponent::ShowYourself(){}
 
 void Opponent::PlayCollisionAnimation(){}
+
+

@@ -91,14 +91,14 @@ bool Keyboard::keyPressed(const OIS::KeyEvent& arg)
             return true;
         }
     }
-
+	/*
     // Drive automatically
     if(arg.key == OIS::KC_A)
     {
         m_pPlayer->toggleAutomatic();
         return true;
     }
-
+	*/
     // Lighting (day / night)
     if (arg.key == OIS::KC_L)
     {
