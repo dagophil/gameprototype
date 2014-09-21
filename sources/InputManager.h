@@ -16,9 +16,6 @@
 #include <OIS/OISMouse.h>
 #include <OIS/OISJoyStick.h>
 
-//#include <OGRE/SdkTrays.h>
-//#include <OGRE/SdkCameraMan.h>
-
 #include "TopManager.h"
 #include "GraphicManager.h"
 
@@ -29,24 +26,28 @@
  * Singelton class, that initialises OIS at first call.
  *
  */
-
 class InputManager
 {
-public:
-  /**
-   * @brief Singelton Instance
-   * @return Pointer to InputManager
-   */
-  static InputManager *Instance();
 
-  /**
-   * @brief getter for OISInputManager
-   * @return pointer to OISInputManager
-   */
-  OIS::InputManager*getOIS();
+public:
+
+    /**
+     * @brief Singelton Instance
+     * @return Pointer to InputManager
+     */
+    static InputManager* Instance();
+
+    /**
+     * @brief getter for OISInputManager
+     * @return pointer to OISInputManager
+     */
+    OIS::InputManager* getOIS();
+
 private:
-  InputManager();
-  static InputManager * m_Instance;
-  OIS::InputManager * m_OIS;
+
+    InputManager();
+    static InputManager* m_Instance;
+    OIS::InputManager* m_OIS;
+
 };
 #endif

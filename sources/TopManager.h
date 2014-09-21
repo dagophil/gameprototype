@@ -18,8 +18,6 @@ class GameOverlayManager;
 class GameObject;
 class Graph;
 
-//#define PROFILE
-
 /**
  * @class TopManager
  * @brief Singelton class. Manager class to get other managers
@@ -28,100 +26,102 @@ class Graph;
  */
 class TopManager
 {
+
 public:
-  ~TopManager();
 
-  /**
-   * @brief Instance for singelton
-   * @return pointer to Manager
-   */
-  static TopManager* Instance();
+    ~TopManager();
 
-  /**
-   * @brief getter PhsicsManager
-   * @return Pointer to PhysicsManager
-   */
-  PhysicsManager* getPhysicsManager();
+    /**
+     * @brief Instance for singelton
+     * @return pointer to Manager
+     */
+    static TopManager* Instance();
 
-  /**
-   * @brief getter for GraphicsManager
-   * @return pointer to GraphicManager
-   */
-  GraphicManager* getGraphicManager();
+    /**
+     * @brief getter PhsicsManager
+     * @return Pointer to PhysicsManager
+     */
+    PhysicsManager* getPhysicsManager();
 
-  /**
-   * @brief getter for OverlayManager
-   * @return pointer to OverlayManager
-   */
-  GameOverlayManager* getOverlayManager();
+    /**
+     * @brief getter for GraphicsManager
+     * @return pointer to GraphicManager
+     */
+    GraphicManager* getGraphicManager();
 
-  /**
-   * @brief getter fo Map
-   * @return pointer to Map
-   */
-  Map* getMap();
+    /**
+     * @brief getter for OverlayManager
+     * @return pointer to OverlayManager
+     */
+    GameOverlayManager* getOverlayManager();
 
-  /**
-   * @brief getter for Player
-   * @param playerId
-   * @return pointer to Player
-   */
-  Player* getPlayer();
+    /**
+     * @brief getter fo Map
+     * @return pointer to Map
+     */
+    Map* getMap();
 
-  /**
-   * @brief getter for Graph
-   * @return pointer to Graph
-   */
-  Graph* getGraph();
+    /**
+     * @brief getter for Player
+     * @param playerId
+     * @return pointer to Player
+     */
+    Player* getPlayer();
 
-  /**
-   * @brief Adds player to game
-   */
-  void addPlayer();
+    /**
+     * @brief getter for Graph
+     * @return pointer to Graph
+     */
+    Graph* getGraph();
 
-  /**
-   * @brief load the map
-   */
-  void loadMap();
+    /**
+     * @brief Adds player to game
+     */
+    void addPlayer();
 
-  /**
-   * @brief getter for m_mapLoaded
-   * @return
-   */
-  bool isMapLoaded();
+    /**
+     * @brief load the map
+     */
+    void loadMap();
 
-  /**
-   * @brief update function. is called every frame
-   * @param timestep
-   */
-  void update(const float&timestep);
+    /**
+     * @brief getter for m_mapLoaded
+     * @return
+     */
+    bool isMapLoaded();
 
-  /**
-   * @brief ends the game
-   * @param win
-   */
-  void game_over(const bool & win);
+    /**
+     * @brief update function. is called every frame
+     * @param timestep
+     */
+    void update(const float& timestep);
 
-  /**
-   * @brief getter for m_waypoints
-   * @return
-   */
-  std::vector<Ogre::Vector3> getWaypoints();
+    /**
+     * @brief ends the game
+     * @param win
+     */
+    void game_over(const bool & win);
 
-//	void						collisionCallback(btDynamicsWorld *world, btScalar timeStep);
+    /**
+     * @brief getter for m_waypoints
+     * @return
+     */
+    std::vector<Ogre::Vector3> getWaypoints();
 
 private:
-  TopManager();
-  static TopManager*     m_Instance;
-  PhysicsManager*   m_PhysicsManager;
-  GraphicManager*   m_GraphicManager;
-  GameOverlayManager*   m_OverlayManager;
-  Map*        m_Map;
-  bool m_mapLoaded;
-  std::vector<Player*>  PlayerList;
-  std::vector<Ogre::Vector3> m_waypoints;
-  Graph* m_graph;
-  bool m_gameOver;
+
+    TopManager();
+    static TopManager* m_Instance;
+    PhysicsManager* m_PhysicsManager;
+    GraphicManager* m_GraphicManager;
+    GameOverlayManager* m_OverlayManager;
+    Map* m_Map;
+    bool m_mapLoaded;
+    std::vector<Player*> PlayerList;
+    std::vector<Ogre::Vector3> m_waypoints;
+    Graph* m_graph;
+    bool m_gameOver;
+
 };
 
 #endif /* MANAGER_H_ */

@@ -8,8 +8,6 @@
 #include <OGRE/OgreCommon.h>
 #include <btBulletDynamicsCommon.h>
 #include <btBulletCollisionCommon.h>
-//#include <BulletCollision/Gimpact/btGImpactShape.h>
-#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 
 #include "MeshStrider.h"
 #include "TopManager.h"

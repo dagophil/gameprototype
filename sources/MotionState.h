@@ -15,46 +15,47 @@
  */
 class MotionState : public btMotionState
 {
+
 public:
 
-  /**
-   * @brief constructor
-   * @param initialpos	not used
-   * @param node			scene node of moved object
-   *
-   */
-  MotionState(const btTransform &initialpos, Ogre::SceneNode *node);
+    /**
+     * @brief constructor
+     * @param initialpos	not used
+     * @param node			scene node of moved object
+     */
+    MotionState(const btTransform & initialpos, Ogre::SceneNode* node);
 
-  virtual ~MotionState();
+    virtual ~MotionState();
 
-  /**
-   * @brief not used
-   * @param node
-   */
-  void setNode(Ogre::SceneNode *node);
+    /**
+     * @brief not used
+     * @param node
+     */
+    void setNode(Ogre::SceneNode* node);
 
-  /**
-   * @brief getter for world transform
-   * @param worldTrans
-   */
-  virtual void getWorldTransform(btTransform &worldTrans) const;
+    /**
+     * @brief getter for world transform
+     * @param worldTrans
+     */
+    virtual void getWorldTransform(btTransform& worldTrans) const;
 
-  /**
-   * @brief setter for world transform
-   * @param worldTrans
-   */
-  virtual void setWorldTransform(const btTransform &worldTrans);
+    /**
+     * @brief setter for world transform
+     * @param worldTrans
+     */
+    virtual void setWorldTransform(const btTransform& worldTrans);
 
 protected:
-  /**
-   * @brief scene node of moving object
-   */
-  Ogre::SceneNode *mVisibleobj;
 
-  /**
- * @brief not used (initial position)
-   */
-  btTransform mPos1;
+    /**
+     * @brief scene node of moving object
+     */
+    Ogre::SceneNode* mVisibleobj;
+
+    /**
+     * @brief not used (initial position)
+     */
+    btTransform mPos1;
 
 };
 

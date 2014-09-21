@@ -16,6 +16,9 @@
 #include <OGRE/OgreCommon.h>
 #include <cstdlib>
 
+class PlayerInput;
+class Vehicle;
+
 /**
  *
  * @class Player
@@ -23,122 +26,118 @@
  * Everything related to the player logic like view, controllers score, lives, etc is here
  * It has a connection to the corresponding Vehicle class (which is responsible for Physics and Graphics)
  */
-
-class PlayerInput;
-class Vehicle;
-
 class Player
 {
+
 public:
 
-  /**
-   *
-   * @param playerId player number
-   */
-  Player(int playerId);
+    /**
+     * @param playerId player number
+     */
+    Player(int playerId);
 
-  /**
-   *
-   * @brief getter for Vehicle*
-   * @return Pointer to corresponding Vehicle.
-   */
-  Vehicle*getVehicle();
+    /**
+     * @brief getter for Vehicle*
+     * @return Pointer to corresponding Vehicle.
+     */
+    Vehicle*getVehicle();
 
-  /**
-   *
-   * @brief function to call once per frame
-   *
-   */
-  void update(const float & timestep);
+    /**
+     * @brief function to call once per frame
+     */
+    void update(const float & timestep);
 
-  /**
-   * @brief function to increase score
-   */
-  void addLive();
+    /**
+     * @brief function to increase score
+     */
+    void addLive();
 
-  /**
-   * @brief function to decrease score
-   */
-  void removeLive();
+    /**
+     * @brief function to decrease score
+     */
+    void removeLive();
 
-  /**
-   * @brief getter for number of lives
-   * @return
-   */
-  int getLives();
+    /**
+     * @brief getter for number of lives
+     * @return
+     */
+    int getLives();
 
-  /**
-   * @brief getter for x-position
-   * @return
-   */
-  int getX();
+    /**
+     * @brief getter for x-position
+     * @return
+     */
+    int getX();
 
-  /**
-   * @brief getter for y-position
-   * @return
-   */
-  int getY();
+    /**
+     * @brief getter for y-position
+     * @return
+     */
+    int getY();
 
-  /**
-   * @brief getter for z-position
-   * @return
-   */
-  int getZ();
+    /**
+     * @brief getter for z-position
+     * @return
+     */
+    int getZ();
 
-  /**
-   * @brief getter for angle
-   */
-  Ogre::Radian getAngle();
+    /**
+     * @brief getter for angle
+     */
+    Ogre::Radian getAngle();
 
-  /**
-   * @brief getter for player id
-   * @return
-   */
-  int getId();
+    /**
+     * @brief getter for player id
+     * @return
+     */
+    int getId();
 
-  /**
-   * @brief getter for milliseconds since creation
-   * @return
-   */
-  unsigned long getMilliseconds();
+    /**
+     * @brief getter for milliseconds since creation
+     * @return
+     */
+    unsigned long getMilliseconds();
 
-  /**
-   * @brief toggle the automatic driving
-   */
-  void toggleAutomatic();
+    /**
+     * @brief toggle the automatic driving
+     */
+    void toggleAutomatic();
 
-  /**
-   * @brief Computes a new path for the automatic driving.
-   */
-  void findNewPath();
+    /**
+     * @brief Computes a new path for the automatic driving.
+     */
+    void findNewPath();
 
-  /**
-   * @brief setter for automatic
-   *
-   */
-  void setAutomatic(bool a);
+    /**
+     * @brief setter for automatic
+     *
+     */
+    void setAutomatic(bool a);
 
-  /**
-   * @brief getter for automatic
-   *
-   */
-  bool getAutomatic();
+    /**
+     * @brief getter for automatic
+     *
+     */
+    bool getAutomatic();
 
-  void disableJoystick();
+    void disableJoystick();
+
 private:
-  void createViewport();
-  void createPlayerCam();
-  void updateTank();
-  int m_playerId;
-  int m_lives;
-  Vehicle * m_vehicle;
-  PlayerInput * m_input;
-  Ogre::Viewport* m_playerVp;
-  Ogre::Camera * m_playerCam;
-  Ogre::Timer * m_timer;
-  int m_joystick;
-  bool m_automatic;
-  std::vector<Graph::Node> m_path;
+
+    void createViewport();
+    void createPlayerCam();
+    void updateTank();
+    int m_playerId;
+    int m_lives;
+    Vehicle* m_vehicle;
+    PlayerInput* m_input;
+    Ogre::Viewport* m_playerVp;
+    Ogre::Camera* m_playerCam;
+    Ogre::Timer* m_timer;
+    int m_joystick;
+    bool m_automatic;
+    std::vector<Graph::Node> m_path;
+
 };
 
 #endif

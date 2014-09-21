@@ -24,9 +24,6 @@
 #include <OIS/OISKeyboard.h>
 #include <OIS/OISMouse.h>
 
-//#include <OGRE/SdkTrays.h>
-//#include <OGRE/SdkCameraMan.h>
-
 
 /**
  *
@@ -36,84 +33,86 @@
  */
 class GraphicManager : public BaseApplication
 {
+
 public:
-  GraphicManager();
-  ~GraphicManager();
 
-  /**
-   * @brief getter for SceneManager
-   * @return Ogre::SceneManager
-   */
-  Ogre::SceneManager*getSceneManager();
+    GraphicManager();
 
-  /**
-   * @brief creator for scene
-   */
-  virtual void createScene();
+    ~GraphicManager();
 
-  /**
-   * @brief frame renderer
-   * @param evt Event
-   * @return bool if frame is rendered
-   */
-  virtual bool frameRenderingQueued(const Ogre::FrameEvent&evt);
+    /**
+     * @brief getter for SceneManager
+     * @return Ogre::SceneManager
+     */
+    Ogre::SceneManager* getSceneManager();
 
-  /**
-   * @brief creator for viewports
-   */
-  virtual void createViewports();
-  //virtual void createCamera(){};
-  //virtual void createViewports(){};
+    /**
+     * @brief creator for scene
+     */
+    virtual void createScene();
 
-  /**
-   * @brief getter for Ogre::RenderWindow
-   * @return pointer to Ogre::RenderWindow
-   */
-  Ogre::RenderWindow*getRenderWindow();
+    /**
+     * @brief frame renderer
+     * @param evt Event
+     * @return bool if frame is rendered
+     */
+    virtual bool frameRenderingQueued(const Ogre::FrameEvent & evt);
 
-  /**
-   * @brief setter for shutdown
-   * @param shutdown bool for shutdown
-   * using this with a true value will shutdown the game in the next frame
-   */
-  void setShutdown(bool shutdown);
+    /**
+     * @brief creator for viewports
+     */
+    virtual void createViewports();
 
-  /**
-   * @brief create camera, not rendered, only for overlays
-   */
-  virtual void createCamera();
+    /**
+     * @brief getter for Ogre::RenderWindow
+     * @return pointer to Ogre::RenderWindow
+     */
+    Ogre::RenderWindow* getRenderWindow();
 
-  /**
-   * @brief chooses the scene manager
-   */
-  virtual void chooseSceneManager();
+    /**
+     * @brief setter for shutdown
+     * @param shutdown bool for shutdown
+     * using this with a true value will shutdown the game in the next frame
+     */
+    void setShutdown(bool shutdown);
 
-  /**
-   * @brief getter for Ogre::Viewport
-   * @return Ogre::Viewport*
-   */
-  Ogre::Viewport*getViewport();
+    /**
+     * @brief create camera, not rendered, only for overlays
+     */
+    virtual void createCamera();
 
-  /**
-   * @brief toggle day and night modus (lights)
-   */
-  void toggleDayNight();
+    /**
+     * @brief chooses the scene manager
+     */
+    virtual void chooseSceneManager();
 
-  /**
-   * @brief set all lights to day mode
-   */
-  void makeDayLights();
+    /**
+     * @brief getter for Ogre::Viewport
+     * @return Ogre::Viewport*
+     */
+    Ogre::Viewport* getViewport();
 
-  /**
-   * @brief set all lights to night mode
-   */
-  void makeNightLights();
+    /**
+     * @brief toggle day and night modus (lights)
+     */
+    void toggleDayNight();
+
+    /**
+     * @brief set all lights to day mode
+     */
+    void makeDayLights();
+
+    /**
+     * @brief set all lights to night mode
+     */
+    void makeNightLights();
 
 private:
-  Ogre::Viewport* m_vp;
-  std::vector<Ogre::Vector3> m_waypoints;
-  void createLightNShadow();
-  bool m_daylight;
+
+    Ogre::Viewport* m_vp;
+    std::vector<Ogre::Vector3> m_waypoints;
+    void createLightNShadow();
+    bool m_daylight;
 
 };
 

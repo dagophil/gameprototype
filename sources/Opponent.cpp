@@ -12,8 +12,8 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
 
     // Create the collision model (bounding box)
     m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0, 0, 0));
-//    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
-//    m_SceneNode->attachObject(collEnt);
+    //    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
+    //    m_SceneNode->attachObject(collEnt);
     m_SceneNode->yaw(Ogre::Radian(Ogre::Math::PI));
     m_SceneNode->pitch(Ogre::Radian(Ogre::Math::PI/2));
     Ogre::MeshPtr MeshPtr = Ogre::Singleton<Ogre::MeshManager>::getSingletonPtr()->load("Cube.mesh", "Map");
@@ -66,7 +66,7 @@ void Opponent::translateLocal(const Ogre::Vector3 & dir)
 
 GameObject::ObjectType Opponent::getType()
 {
-  return m_type;
+    return m_type;
 }
 
 void Opponent::ShowYourself(){}

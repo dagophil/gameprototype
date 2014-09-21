@@ -7,7 +7,7 @@
 #define POINTREADER_H_
 
 #include <vector>
-#include <OgreVector3.h>
+#include <OGRE/OgreVector3.h>
 #include "Graph.h"
 
 /**

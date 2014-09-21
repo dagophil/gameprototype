@@ -28,23 +28,23 @@ void SortedList::add(Graph::Node* node, float weight) {
 }
 
 Graph::Node* SortedList::popNode() {
-        NodeDistPair temp = m_list.back();
-        m_list.pop_back();
-        return temp.first;
+    NodeDistPair temp = m_list.back();
+    m_list.pop_back();
+    return temp.first;
 }
 
 const std::vector<SortedList::NodeDistPair> & SortedList::getList() {
-        return m_list;
+    return m_list;
 }
 
 int SortedList::getIndex(const Graph::Node & node) {
     int index = -1;
     for (size_t i = 0; i < m_list.size(); i++) {
         if (*(m_list[i].first) == node) {
-			index = i;
-		}
-	}
-	return index;
+            index = i;
+        }
+    }
+    return index;
 }
 
 void SortedList::remove_at(size_t i) {

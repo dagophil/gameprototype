@@ -22,7 +22,7 @@ public:
     class Node : public Ogre::Vector3
     {
 
-	public:
+    public:
 
         Node() {}
 
@@ -56,7 +56,7 @@ public:
         Node* m_parent;
         float m_weight;
 
-	};
+    };
 
     /**
      * @brief PRECISION precision of rounded double values

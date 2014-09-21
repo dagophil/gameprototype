@@ -14,40 +14,44 @@
  */
 class GameMovableObject : public GameObject
 {
+
 public:
-  GameMovableObject(){}
 
-  /**
-   * @brief constructor
-   * @param name name of mesh
-   * @param mass mass of object
-   *
-   */
-  GameMovableObject(const std::string&name, const float&mass);
-  ~GameMovableObject(){}
+    GameMovableObject(){}
 
-  /**
-   * @brief getter for object type
-   * @return
-   */
-  virtual ObjectType getType(){return AbstractObject; }
+    /**
+     * @brief constructor
+     * @param name name of mesh
+     * @param mass mass of object
+     *
+     */
+    GameMovableObject(const std::string&name, const float&mass);
+    ~GameMovableObject(){}
 
-  /**
-   * @brief handles collsions
-   * @param type type of second object in collision
-   */
-  virtual void CollideWith(const ObjectType&type){}
+    /**
+     * @brief getter for object type
+     * @return
+     */
+    virtual ObjectType getType(){return AbstractObject; }
 
-  /**
-   * @brief not used
-   */
-  virtual void ShowYourself(){}
+    /**
+     * @brief handles collsions
+     * @param type type of second object in collision
+     */
+    virtual void CollideWith(const ObjectType&type){}
 
-  /**
-   * @brief animation for collision
-   */
-  virtual void PlayCollisionAnimation(){}
+    /**
+     * @brief not used
+     */
+    virtual void ShowYourself(){}
+
+    /**
+     * @brief animation for collision
+     */
+    virtual void PlayCollisionAnimation(){}
+
 private:
+
 };
 
 #endif

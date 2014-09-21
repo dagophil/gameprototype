@@ -50,13 +50,9 @@ void GraphicManager::createLightNShadow()
 void GraphicManager::toggleDayNight()
 {
     if (m_daylight)
-    {
         makeNightLights();
-    }
     else
-    {
         makeDayLights();
-    }
 }
 
 void GraphicManager::makeDayLights()
@@ -73,9 +69,7 @@ void GraphicManager::makeDayLights()
 
     // Change to day materials
     if (TopManager::Instance()->isMapLoaded())
-    {
         TopManager::Instance()->getMap()->changeToDayMaterials();
-    }
 
     mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.3));
@@ -96,9 +90,7 @@ void GraphicManager::makeNightLights()
 
     // Change map materials
     if (TopManager::Instance()->isMapLoaded())
-    {
         TopManager::Instance()->getMap()->changeToNightMaterials();
-    }
 
     mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0.1, 0.1, 0.1));
@@ -111,9 +103,7 @@ void GraphicManager::createScene()
     mCamNode->attachObject(mCamera);
 
     createLightNShadow();
-
     m_waypoints = TopManager::Instance()->getWaypoints();
-
 
     // Draw (or dont draw) the waypoints
     if (false)
@@ -127,18 +117,14 @@ void GraphicManager::createScene()
             ss << "wp" << i;
 
             Ogre::SceneNode* cubenode = wprnode->createChildSceneNode();
-
             Ogre::Entity* entCube = mSceneMgr->createEntity(ss.str(), "Cube.mesh");
             entCube->setCastShadows(true);
             cubenode->attachObject(entCube);
             cubenode->setPosition(m_waypoints[i].x, 0, m_waypoints[i].z);
             cubenode->scale(0.5, 0.5, 0.5);
-            //citynode->setPosition(-20, 1,-75);     //TEST
         }
         wprnode->scale(2,2,2);
     }
-
-
 
     TopManager::Instance()->loadMap();
     TopManager::Instance()->addPlayer();
@@ -166,7 +152,7 @@ Ogre::RenderWindow* GraphicManager::getRenderWindow()
     return mWindow;
 }
 
-bool GraphicManager::frameRenderingQueued(const Ogre::FrameEvent&evt)
+bool GraphicManager::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
 #ifdef PROFILE
     Ogre::Profiler::getSingleton().beginProfile("Ogre Main Loop");
@@ -187,7 +173,6 @@ bool GraphicManager::frameRenderingQueued(const Ogre::FrameEvent&evt)
 #endif
     return true;
 }
-
 
 void GraphicManager::createViewports(void)
 {

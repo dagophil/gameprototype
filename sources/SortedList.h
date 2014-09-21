@@ -9,7 +9,6 @@
  * @class SortedList
  * @brief SortedList for nodes
  */
-
 class SortedList{
 
 public:
@@ -33,6 +32,5 @@ private:
     std::vector<NodeDistPair> m_list;
 
 };
-
 
 #endif /* SORTEDLIST_H_ */

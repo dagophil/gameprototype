@@ -4,6 +4,7 @@
  */
 
 #include "AStar.h"
+#include "SortedList.h"
 
 AStar::AStar (Graph* graph)
     : m_graph(graph)
@@ -47,13 +48,13 @@ std::vector<Graph::Node> AStar::findPath(Graph::Node start, Graph::Node goal)
             Node* neighbor = *iter;
 
             // Neighbors in the closed list are already finished.
-			int cFound = -1;
+            int cFound = -1;
             for (size_t i = 0; i < close.size(); ++i) {
-				if (*(close[i]) == *neighbor) {
-					cFound = i;
-					break;
-				}
-			}
+                if (*(close[i]) == *neighbor) {
+                    cFound = i;
+                    break;
+                }
+            }
 
 
             //int cFound = close.getIndex(*neighbor);

@@ -2,10 +2,7 @@
 #define ASTAR_H_
 
 #include "Graph.h"
-#include "SortedList.h"
 #include <vector>
-#include <OGRE/OgreVector3.h>
-#include <map>
 
 /**
  * @class AStar

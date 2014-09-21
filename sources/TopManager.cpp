@@ -8,7 +8,6 @@
 #include <typeinfo>
 #include <vector>
 
-
 #include "TopManager.h"
 #include "Player.h"
 #include "Map.h"
@@ -30,7 +29,7 @@ TopManager* TopManager::Instance()
     return m_Instance;
 }
 
-void collisionCallback(btDynamicsWorld *world, btScalar timeStep)
+void collisionCallback(btDynamicsWorld* world, btScalar timeStep)
 {
     int numManifolds = world->getDispatcher()->getNumManifolds();
     for (int i = 0; i < numManifolds; i++)

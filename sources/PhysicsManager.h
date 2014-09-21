@@ -16,44 +16,49 @@
 
 class PhysicsManager
 {
+
 public:
-  PhysicsManager();
-  /**
-   * @brief getter for dynamics world
-   * @return
-   */
-  btDiscreteDynamicsWorld*getDynamicsWorld();
 
-  /**
-   * @brief getter for broadphase
-   * @return
-   */
-  btBroadphaseInterface*getBroadphase();
+    PhysicsManager();
 
-  /**
-   * @brief getter for dispatcher
-   * @return
-   */
-  btDispatcher*getDispatcher();
+    /**
+     * @brief getter for dynamics world
+     * @return
+     */
+    btDiscreteDynamicsWorld* getDynamicsWorld();
 
-  /**
-   * @brief getter for constraint solver
-   * @return
-   */
-  btConstraintSolver*getConstraintSolver();
+    /**
+     * @brief getter for broadphase
+     * @return
+     */
+    btBroadphaseInterface* getBroadphase();
 
-  /**
-   * getter for collsion configuration
-   * @return
-   */
-  btCollisionConfiguration*getCollisionConfiguration();
+    /**
+     * @brief getter for dispatcher
+     * @return
+     */
+    btDispatcher* getDispatcher();
+
+    /**
+     * @brief getter for constraint solver
+     * @return
+     */
+    btConstraintSolver* getConstraintSolver();
+
+    /**
+     * getter for collsion configuration
+     * @return
+     */
+    btCollisionConfiguration* getCollisionConfiguration();
+
 private:
-  btDiscreteDynamicsWorld*  m_DynamicsWorld;
-  btBroadphaseInterface*    m_Broadphase;
-  btDispatcher*         m_Dispatcher;
-  btConstraintSolver*     m_ConstraintSolver;
-  btCollisionConfiguration* m_CollisionConfiguration;
-};
 
+    btDiscreteDynamicsWorld* m_DynamicsWorld;
+    btBroadphaseInterface* m_Broadphase;
+    btDispatcher* m_Dispatcher;
+    btConstraintSolver* m_ConstraintSolver;
+    btCollisionConfiguration* m_CollisionConfiguration;
+
+};
 
 #endif /* PHYSICSMANAGER_H_ */
