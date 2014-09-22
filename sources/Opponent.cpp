@@ -4,10 +4,11 @@
 #include "PhysicsManager.h"
 #include "MotionState.h"
 #include "AStar.h"
+#include "Player.h"
 #include <OGRE/OgreQuaternion.h>
 
 Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
-    : m_type(type)
+    : m_type(type), m_caught(false)
 {
     Ogre::SceneManager* sceneManager = TopManager::Instance()->getGraphicManager()->getSceneManager();
 
@@ -70,12 +71,23 @@ void Opponent::findPath()
 void Opponent::CollideWith(const ObjectType & type)
 {
     std::cout << "COLLISION!" << std::endl;
-	this->~Opponent();
+
+	// Möglichkeit 1:
+	// delete this;
+
+	// Möglichkeit 2:
+	this->setY(-50);
+	
+	if (m_caught == false) {
+		Player* player = TopManager::Instance()->getPlayer();
+		player->addOpponent();
+		m_caught = true;
+	}
 }
 
 void Opponent::update(const float & timestep)
 {
-    // Nach rechts drehen.
+	// Nach rechts drehen.
     this->roll(Ogre::Degree(timestep*100));
 
 //    // Vorwaerts bewegen.
@@ -128,5 +140,6 @@ void Opponent::ShowYourself(){}
 void Opponent::PlayCollisionAnimation(){}
 
 Opponent::~Opponent() {
-
+	m_SceneNode->removeAndDestroyAllChildren();
+	getRigidBody()->~btRigidBody();
 }

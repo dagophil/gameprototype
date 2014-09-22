@@ -34,6 +34,9 @@ void GameOverlayManager::init()
     Ogre::Overlay* overlayFuel = Ogre::OverlayManager::getSingleton().getByName("Fuel/Overlay");
     overlayFuel->show();
 
+	Ogre::Overlay* overlayOpponentcount = Ogre::OverlayManager::getSingleton().getByName("Opponentcount/Overlay");
+    overlayOpponentcount->show();
+
     update();
 }
 
@@ -44,6 +47,13 @@ void GameOverlayManager::update()
     // Create a string for the lives.
     std::stringstream ssLives;
     ssLives << "Leben: " << player->getLives();
+
+	// Create a string for the opponents
+	std::stringstream ssOpponents;
+	ssOpponents << "Opponents: " << player->getOpponent() << "/10";
+
+	// Update the opponentcount overlay.
+    Ogre::OverlayManager::getSingleton().getOverlayElement("Opponentcount/Text")->setCaption(ssOpponents.str());
 
     // Update the lives score overlay.
     Ogre::OverlayManager::getSingleton().getOverlayElement("Player/TextScore")->setCaption(ssLives.str());

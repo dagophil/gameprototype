@@ -193,6 +193,11 @@ void Vehicle::CollideWith(const GameObject::ObjectType & type)
         break;
     case GameObject::Vehicle:
         break;
+		/*
+	case GameObject::Opponent:
+		delete m_type;
+		break;
+		*/
     default:
         break;
     }

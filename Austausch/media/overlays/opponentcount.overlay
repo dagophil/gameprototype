@@ -1,0 +1,27 @@
+Opponentcount/Overlay
+{
+	zorder 01
+	
+	container Panel(Opponentcount/Counter)
+	{
+		
+		left 0
+		top 0
+		width 0.1
+		height 0.1
+		
+		element TextArea(Opponentcount/Text)
+		{
+			left 0
+			top 0.23
+			width 0.2
+			height 0.2
+			
+			font_name SdkTrays/Caption
+			char_height 0.03
+			colour 1.0 0.0 0.0
+			caption OpponentcountCaption
+		}
+	}
+	
+}
