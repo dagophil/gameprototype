@@ -12,7 +12,9 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
     Ogre::SceneManager* sceneManager = TopManager::Instance()->getGraphicManager()->getSceneManager();
 
     // Create the collision model (bounding box)
-    m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(0, 0, 0));
+	int randomstartX = rand() % 360 - 180;
+	int randomstartZ = rand() % 360 - 180;
+    m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(randomstartX, 0, randomstartZ));
     //    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
     //    m_SceneNode->attachObject(collEnt);
     m_SceneNode->yaw(Ogre::Radian(Ogre::Math::PI));
@@ -68,12 +70,13 @@ void Opponent::findPath()
 void Opponent::CollideWith(const ObjectType & type)
 {
     std::cout << "COLLISION!" << std::endl;
+	this->~Opponent();
 }
 
 void Opponent::update(const float & timestep)
 {
-//    // Nach rechts drehen.
-//    this->roll(Ogre::Degree(timestep*100));
+    // Nach rechts drehen.
+    this->roll(Ogre::Degree(timestep*100));
 
 //    // Vorwaerts bewegen.
 //    Ogre::Vector3 forwards(0, 0, 0.03);
@@ -93,13 +96,19 @@ void Opponent::update(const float & timestep)
     // Next waypoint is close, remove it from the current path.
     if (delta.length() < 5) {
         m_path.pop_back();
+		std::cout << "Pop Node!" << std::endl;
     }
 
-    // Scale delta (here: move 2 units per second).
-    delta = 2 * delta.normalisedCopy() * timestep;
+    // Scale delta (here: move 4 units per second).
+    delta = 4 * delta.normalisedCopy() * timestep;
 
     // Move.
     translate(delta.x, delta.y, delta.z);
+
+	if (m_path.size() <= 1) {
+		findPath();
+		std::cout << "New Path!" << std::endl;
+	}
 }
 
 void Opponent::translateLocal(const Ogre::Vector3 & dir)
@@ -118,4 +127,6 @@ void Opponent::ShowYourself(){}
 
 void Opponent::PlayCollisionAnimation(){}
 
+Opponent::~Opponent() {
 
+}
