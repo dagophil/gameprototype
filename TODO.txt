@@ -11,6 +11,7 @@ Sonstiges:
 * Nacht-Textur für Boden.
 * Gegner schießen und Auto schießt.
 * A Star ändern, sodass der Graph nicht immer verändert wird.
+* Spiel stoppt, falls gewonnen oder verloren.
 
 
 
