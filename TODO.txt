@@ -3,13 +3,17 @@
 
 Wegplaner:
 * Bessere Wegpunkte.
+* Start am Eingang des Labyrinths (entweder immer das selbe oder zufällig).
 
 Gegner:
 * bunt (jeder Gegner eigene Farbe)
 
 Sonstiges:
 * Wände mit Textur.
-* Start am Eingang des Labyrinths (entweder immer das selbe oder zufällig).
+* Nacht-Materialien für Gegner.
+* Nacht-Textur für Boden.
+* Gegner schießen und Auto schießt.
+* A Star ändern, sodass der Graph nicht immer verändert wird.
 
 
 
