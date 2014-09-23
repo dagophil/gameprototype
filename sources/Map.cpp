@@ -94,15 +94,19 @@ void Map::createUpgrades()
 
 void Map::createOpponents()
 {
+	std::vector<std::string> colors;
+	colors.push_back("redBlockMat");
+	colors.push_back("blueMat");
+	colors.push_back("greenMat");
+	colors.push_back("yellowMat");
+	colors.push_back("purpleMat");
+
     for (int i = 0; i < 40; i++) {
 		Opponent* opp = new Opponent("opponent.mesh", GameObject::Opponent);
 		opp->scale(0.5, 0.5, 0.5);
 		opp->findPath();
 
-
-        opp->getEntity()->getMesh()->getSubMesh(0)->setMaterialName("Red");
-
-
+		opp->getEntity()->getMesh()->getSubMesh(0)->setMaterialName(colors.at(i % colors.size()));
 		m_opponents.push_back(opp);
 	}
 }

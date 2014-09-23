@@ -11,3 +11,72 @@ material redBlockMat
         }
     }
 }
+
+material blueMat
+{
+	technique
+	{
+		pass blueMaterial
+		{
+			ambient 0.0 0.025 0.8 1.0
+          		diffuse 0.0 0.02 0.64 1.0
+           	specular 0.5 0.5 0.5 1.0 12.5
+           	emissive 0.0 0.0 0.0 1.0
+		}
+	}
+}
+
+material greenMat
+{
+	technique
+	{
+		pass greenMaterial
+		{
+			ambient 0.15 0.8 0.15 1.0
+          		diffuse 0.1 0.64 0.1 1.0
+           	specular 0.5 0.5 0.5 1.0 12.5
+           	emissive 0.0 0.0 0.0 1.0
+		}
+	}
+}
+
+material yellowMat
+{
+	technique
+	{
+		pass yellowMaterial
+		{
+			ambient 1.0 1.0 0.15 1.0
+          		diffuse 1.0 1.0 0.0 1.0
+           	specular 0.5 0.5 0.5 1.0 12.5
+           	emissive 0.0 0.0 0.0 1.0
+		}
+	}
+}
+
+material purpleMat
+{
+	technique
+	{
+		pass purpleMaterial
+		{
+			ambient 1.0 0.0 1.0 1.0
+          		diffuse 1.0 0.0 1.0 1.0
+           	specular 0.5 0.5 0.5 1.0 12.5
+           	emissive 0.0 0.0 0.0 1.0
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
