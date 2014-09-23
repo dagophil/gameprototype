@@ -120,7 +120,7 @@ private:
     void updateTank();
     int m_playerId;
     int m_lives;
-	int m_opponent;
+    size_t m_opponent;
     Vehicle* m_vehicle;
     PlayerInput* m_input;
     Ogre::Viewport* m_playerVp;

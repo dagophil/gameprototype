@@ -6,9 +6,9 @@
 Player::Player(int playerId)
     : m_playerId(playerId),
       m_lives(10),
-      m_opponent(0)
+      m_opponent(0),
+      m_joystick(true)
 {
-    m_joystick = true;
     srand(time(NULL) );
     m_vehicle = new Vehicle("car.mesh",400.f,this);
     //m_vehicle->translate(10*playerId,10*playerId,10*playerId);
