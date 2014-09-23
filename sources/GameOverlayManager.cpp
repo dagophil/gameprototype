@@ -7,6 +7,7 @@
 
 #include "Player.h"
 #include "Vehicle.h"
+#include "Map.h"
 
 GameOverlayManager::GameOverlayManager() {}
 
@@ -49,8 +50,12 @@ void GameOverlayManager::update()
     ssLives << "Leben: " << player->getLives();
 
 	// Create a string for the opponents
+    size_t numOpponents = TopManager::Instance()->getMap()->getNumOpponents();
 	std::stringstream ssOpponents;
-	ssOpponents << "Opponents: " << player->getOpponent() << "/10";
+    ssOpponents << "Opponents: " << player->getOpponent() << "/" << numOpponents;
+
+
+
 
 	// Update the opponentcount overlay.
     Ogre::OverlayManager::getSingleton().getOverlayElement("Opponentcount/Text")->setCaption(ssOpponents.str());

@@ -46,6 +46,11 @@ public:
      */
     void changeToNightMaterials();
 
+    /**
+     * @brief return the number of opponents
+     */
+    size_t getNumOpponents() const;
+
 private:
 
     void createGround();

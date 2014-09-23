@@ -94,14 +94,17 @@ void Map::createUpgrades()
 
 void Map::createOpponents()
 {
-	for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 40; i++) {
 		Opponent* opp = new Opponent("opponent.mesh", GameObject::Opponent);
-		opp->translate(-16, 1.5, -74);
 		opp->scale(0.5, 0.5, 0.5);
 		opp->findPath();
+
+
+        opp->getEntity()->getMesh()->getSubMesh(0)->setMaterialName("Red");
+
+
 		m_opponents.push_back(opp);
 	}
-
 }
 
 void Map::changeToDayMaterials()
@@ -132,6 +135,11 @@ void Map::changeToNightMaterials()
             (*iter)->setMaterialName("Simple_Perpixel_Oildrum");
         }
     }
+}
+
+size_t Map::getNumOpponents() const
+{
+    return m_opponents.size();
 }
 
 const btVector4 Map::getStartPos(int playerId)

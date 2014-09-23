@@ -16,10 +16,13 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
 	int randomstartX = rand() % 360 - 180;
 	int randomstartZ = rand() % 360 - 180;
     m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(randomstartX, 0, randomstartZ));
-    //    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
-    //    m_SceneNode->attachObject(collEnt);
+
+//    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
+//    m_SceneNode->attachObject(collEnt);
+
     m_SceneNode->yaw(Ogre::Radian(Ogre::Math::PI));
     m_SceneNode->pitch(Ogre::Radian(Ogre::Math::PI/2));
+
     Ogre::MeshPtr MeshPtr = Ogre::Singleton<Ogre::MeshManager>::getSingletonPtr()->load("Cube.mesh", "Map");
     MeshStrider* Strider = new MeshStrider(MeshPtr.get());
     btCollisionShape* CollisionShape = new btBvhTriangleMeshShape(Strider,true,true);
@@ -70,12 +73,10 @@ void Opponent::findPath()
 
 void Opponent::CollideWith(const ObjectType & type)
 {
-    std::cout << "COLLISION!" << std::endl;
-
-	// Möglichkeit 1:
+	// Moeglichkeit 1:
 	// delete this;
 
-	// Möglichkeit 2:
+	// Moeglichkeit 2:
 	this->setY(-50);
 	
 	if (m_caught == false) {
@@ -90,25 +91,17 @@ void Opponent::update(const float & timestep)
 	// Nach rechts drehen.
     this->roll(Ogre::Degree(timestep*100));
 
-//    // Vorwaerts bewegen.
-//    Ogre::Vector3 forwards(0, 0, 0.03);
-//    translateLocal(forwards);
-	
     // Get next waypoint and position.
 	Graph::Node current_node = m_path.back();
 	Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
     position.y = 0;
 
-    std::cout << "Pos: " << position << std::endl;
-    std::cout << "Curr: " << current_node << std::endl;
-
     // Get the movement vector.
     Ogre::Vector3 delta = current_node - position;
 
     // Next waypoint is close, remove it from the current path.
-    if (delta.length() < 5) {
+    if (delta.length() < 2) {
         m_path.pop_back();
-		std::cout << "Pop Node!" << std::endl;
     }
 
     // Scale delta (here: move 4 units per second).
@@ -117,9 +110,8 @@ void Opponent::update(const float & timestep)
     // Move.
     translate(delta.x, delta.y, delta.z);
 
-	if (m_path.size() <= 1) {
+    if (m_path.empty()) {
 		findPath();
-		std::cout << "New Path!" << std::endl;
 	}
 }
 
@@ -138,8 +130,3 @@ GameObject::ObjectType Opponent::getType()
 void Opponent::ShowYourself(){}
 
 void Opponent::PlayCollisionAnimation(){}
-
-Opponent::~Opponent() {
-	m_SceneNode->removeAndDestroyAllChildren();
-	getRigidBody()->~btRigidBody();
-}

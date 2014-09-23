@@ -56,8 +56,6 @@ public:
 
     void findPath();
 
-	~Opponent();
-
 private:
 
     ObjectType m_type;
