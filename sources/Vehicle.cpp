@@ -211,9 +211,6 @@ void Vehicle::update(const float & timestep)
     float throttle = 0.f;
     float brake = 0.f;
     float kmh = m_RaycastVehicle->getCurrentSpeedKmHour();
-
-        std::cout << "vehicle kmh: " << kmh << std::endl;
-
     if (m_throttle)
     {
         if (kmh < 10.f && kmh > -20.f)

@@ -54,19 +54,15 @@ void Opponent::findPath()
     // Create path with AStar algorithm
     Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
 
-    std::cout << "Start position: " << position << std::endl;
-
     Graph* graph = TopManager::Instance()->getGraph();
     const Graph::Node & start(graph->getNearestNode(position));
-    std::cout << "Start node: " << start << std::endl;
-
     const std::vector<Graph::Node> & nodes = graph->getNodes();
 
     // generate random number and goal node
     int random = rand() % nodes.size() + 1;
     const Graph::Node & goal = nodes.at(random);
-    std::cout << "Goal node: " << goal << std::endl;
 
+    // call the path finder
     AStar astar(graph);
     m_path = astar.findPath(start, goal);
 }
