@@ -6,8 +6,6 @@
 #include "PlayerInput.h"
 #include "TopManager.h"
 #include "GraphicManager.h"
-#include "Graph.h"
-#include "AStar.h"
 #include <iostream>
 #include <sstream>
 #include <stdio.h>
@@ -103,22 +101,15 @@ public:
      */
     void toggleAutomatic();
 
-    /**
-     * @brief Computes a new path for the automatic driving.
+	/**
+     * @brief function to increase opponent
      */
-    void findNewPath();
+    void addOpponent();
 
-    /**
-     * @brief setter for automatic
-     *
+	/**
+     * @brief getter for number of opponents
      */
-    void setAutomatic(bool a);
-
-    /**
-     * @brief getter for automatic
-     *
-     */
-    bool getAutomatic();
+    int getOpponent();
 
     void disableJoystick();
 
@@ -129,15 +120,13 @@ private:
     void updateTank();
     int m_playerId;
     int m_lives;
+	int m_opponent;
     Vehicle* m_vehicle;
     PlayerInput* m_input;
     Ogre::Viewport* m_playerVp;
     Ogre::Camera* m_playerCam;
     Ogre::Timer* m_timer;
     int m_joystick;
-    bool m_automatic;
-    std::vector<Graph::Node> m_path;
-
 };
 
 #endif

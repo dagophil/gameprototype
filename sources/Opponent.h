@@ -56,11 +56,13 @@ public:
 
     void findPath();
 
+	~Opponent();
 
 private:
 
     ObjectType m_type;
 	std::vector<Graph::Node> m_path;
+	bool m_caught;
 
 };
 

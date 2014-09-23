@@ -94,11 +94,14 @@ void Map::createUpgrades()
 
 void Map::createOpponents()
 {
-    Opponent* opp = new Opponent("opponent.mesh", GameObject::Opponent);
-    opp->translate(-16, 1.5, -74);
-    opp->scale(0.5, 0.5, 0.5);
-    opp->findPath();
-    m_opponents.push_back(opp);
+	for (int i = 0; i < 10; i++) {
+		Opponent* opp = new Opponent("opponent.mesh", GameObject::Opponent);
+		opp->translate(-16, 1.5, -74);
+		opp->scale(0.5, 0.5, 0.5);
+		opp->findPath();
+		m_opponents.push_back(opp);
+	}
+
 }
 
 void Map::changeToDayMaterials()
