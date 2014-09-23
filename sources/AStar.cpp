@@ -55,9 +55,6 @@ std::vector<Graph::Node> AStar::findPath(Graph::Node start, Graph::Node goal)
                     break;
                 }
             }
-
-
-            //int cFound = close.getIndex(*neighbor);
             if (cFound > 0)
                 continue;
 
