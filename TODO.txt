@@ -1,12 +1,6 @@
-﻿Upgrades:
-(* Upgrades für Leben hinzufügen.)
-
 Wegplaner:
 * Bessere Wegpunkte.
 * Start am Eingang des Labyrinths (entweder immer das selbe oder zufällig).
-
-Gegner:
-* bunt (jeder Gegner eigene Farbe)
 
 Sonstiges:
 * Wände mit Textur.
