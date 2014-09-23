@@ -7,7 +7,6 @@ Wegplaner:
 Gegner:
 * Gegner auf Karte hinzufügen (Klasse Map).
 * Gegner suchen sich einen Weg durchs Labyrinth (zufälliger Wegpunkt als Ziel, aber weit genug weg).
-* A* im Konstruktor aufrufen, update Funktion zum Bewegen benutzen.
 * Kollision mit Auto
 
 Sonstiges:
