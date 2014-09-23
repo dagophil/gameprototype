@@ -58,47 +58,37 @@ bool Keyboard::keyPressed(const OIS::KeyEvent& arg)
         TopManager::Instance()->getGraphicManager()->setShutdown(true);
         return false;
     }
-    //if (m_pPlayer->getAutomatic() == false) {
-    if (true) {
-        if(arg.key == m_pPlayerKeys[THROTTLE])
-        {
-            m_pVehicle->setThrottle(true);
-            return true;
-        }
-        if(arg.key == m_pPlayerKeys[BRAKE])
-        {
-            m_pVehicle->setBrake(true);
-            return true;
-        }
-        if(arg.key == m_pPlayerKeys[STEER_LEFT])
-        {
-            m_pVehicle->setSteering(-1.f);
-            return true;
-        }
-        if(arg.key == m_pPlayerKeys[STEER_RIGHT])
-        {
-            m_pVehicle->setSteering(1.f);
-            return true;
-        }
-        if(arg.key == m_pPlayerKeys[RESET])
-        {
-            m_pVehicle->resetOrientation();
-            return true;
-        }
-        if(arg.key == m_pPlayerKeys[REVERSE])
-        {
-            m_pVehicle->setReverse(true);
-            return true;
-        }
-    }
-	/*
-    // Drive automatically
-    if(arg.key == OIS::KC_A)
+    if(arg.key == m_pPlayerKeys[THROTTLE])
     {
-        m_pPlayer->toggleAutomatic();
+        m_pVehicle->setThrottle(true);
         return true;
     }
-	*/
+    if(arg.key == m_pPlayerKeys[BRAKE])
+    {
+        m_pVehicle->setBrake(true);
+        return true;
+    }
+    if(arg.key == m_pPlayerKeys[STEER_LEFT])
+    {
+        m_pVehicle->setSteering(-1.f);
+        return true;
+    }
+    if(arg.key == m_pPlayerKeys[STEER_RIGHT])
+    {
+        m_pVehicle->setSteering(1.f);
+        return true;
+    }
+    if(arg.key == m_pPlayerKeys[RESET])
+    {
+        m_pVehicle->resetOrientation();
+        return true;
+    }
+    if(arg.key == m_pPlayerKeys[REVERSE])
+    {
+        m_pVehicle->setReverse(true);
+        return true;
+    }
+    
     // Lighting (day / night)
     if (arg.key == OIS::KC_L)
     {
