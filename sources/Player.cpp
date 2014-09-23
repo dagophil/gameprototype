@@ -1,6 +1,7 @@
 #include "Player.h"
 
 #include "Vehicle.h"
+#include "Map.h"
 
 Player::Player(int playerId)
     : m_playerId(playerId),
@@ -119,6 +120,10 @@ unsigned long Player::getMilliseconds()
 
 void Player::addOpponent() {
 	m_opponent++;
+	size_t numOpponents = TopManager::Instance()->getMap()->getNumOpponents();
+	if (m_opponent == numOpponents) {
+		TopManager::Instance()->game_over(true);
+	}
 }
 
 int Player::getOpponent()
