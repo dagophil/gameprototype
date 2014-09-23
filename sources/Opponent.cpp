@@ -73,10 +73,6 @@ void Opponent::findPath()
 
 void Opponent::CollideWith(const ObjectType & type)
 {
-	// Moeglichkeit 1:
-	// delete this;
-
-	// Moeglichkeit 2:
 	this->setY(-50);
 	
 	if (m_caught == false) {
