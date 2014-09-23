@@ -2,7 +2,10 @@
 
 #include "Vehicle.h"
 
-Player::Player(int playerId) : m_playerId(playerId),m_lives(5),m_opponent(0)
+Player::Player(int playerId)
+    : m_playerId(playerId),
+      m_lives(10),
+      m_opponent(0)
 {
     m_joystick = true;
     srand(time(NULL) );
