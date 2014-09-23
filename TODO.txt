@@ -1,18 +1,15 @@
-Upgrades:
+﻿Upgrades:
 (* Upgrades für Leben hinzufügen.)
 
 Wegplaner:
 * Bessere Wegpunkte.
 
 Gegner:
-* Gegner auf Karte hinzufügen (Klasse Map).
-* Gegner suchen sich einen Weg durchs Labyrinth (zufälliger Wegpunkt als Ziel, aber weit genug weg).
-* Kollision mit Auto
+* bunt (jeder Gegner eigene Farbe)
 
 Sonstiges:
 * Wände mit Textur.
 * Start am Eingang des Labyrinths (entweder immer das selbe oder zufällig).
-* Alten A* Code von Keyboard, Player, Vehicle entfernen.
 
 
 
