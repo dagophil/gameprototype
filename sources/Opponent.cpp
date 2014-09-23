@@ -81,7 +81,7 @@ void Opponent::CollideWith(const ObjectType & type)
 void Opponent::update(const float & timestep)
 {
 	// Nach rechts drehen.
-    this->roll(Ogre::Degree(timestep*100));
+    this->roll(m_rollSpeed * (Ogre::Degree(timestep*100)));
 
     // Get next waypoint and position.
 	Graph::Node current_node = m_path.back();
@@ -117,6 +117,11 @@ void Opponent::translateLocal(const Ogre::Vector3 & dir)
 GameObject::ObjectType Opponent::getType()
 {
     return m_type;
+}
+
+void Opponent::setRollSpeed(double speed) 
+{
+	m_rollSpeed = speed;
 }
 
 void Opponent::ShowYourself(){}

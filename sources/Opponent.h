@@ -56,11 +56,17 @@ public:
 
     void findPath();
 
+	/**
+     * @brief setter for numOpp
+     */
+    void setRollSpeed(double speed);
+
 private:
 
     ObjectType m_type;
 	std::vector<Graph::Node> m_path;
 	bool m_caught;
+	double m_rollSpeed;
 
 };
 

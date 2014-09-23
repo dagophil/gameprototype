@@ -106,6 +106,13 @@ void Map::createOpponents()
 		// opp->translate(-16, 1.5, -74);
 		opp->scale(0.5, 0.5, 0.5);
 		opp->findPath();
+		int randomSpeed = rand() % 100 + 10;
+		if ( i % 2 == 0) {
+			opp->setRollSpeed(-randomSpeed / 50.0);
+		}
+		else {
+			opp->setRollSpeed(randomSpeed / 50.0 );
+		}
 
 		opp->getEntity()->getMesh()->getSubMesh(0)->setMaterialName(colors.at(i % colors.size()));
 		m_opponents.push_back(opp);
