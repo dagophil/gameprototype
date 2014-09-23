@@ -13,12 +13,12 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
     Ogre::SceneManager* sceneManager = TopManager::Instance()->getGraphicManager()->getSceneManager();
 
     // Create the collision model (bounding box)
-	int randomstartX = rand() % 360 - 180;
-	int randomstartZ = rand() % 360 - 180;
-    m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(randomstartX, 0, randomstartZ));
+	std::vector<Ogre::Vector3> waypoints = TopManager::Instance()->getWaypoints();
+	int randomstart = rand() % waypoints.size();
+	m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(waypoints.at(randomstart)));
 
-//    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
-//    m_SceneNode->attachObject(collEnt);
+    //    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
+    //    m_SceneNode->attachObject(collEnt);
 
     m_SceneNode->yaw(Ogre::Radian(Ogre::Math::PI));
     m_SceneNode->pitch(Ogre::Radian(Ogre::Math::PI/2));
