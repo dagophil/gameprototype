@@ -32,7 +32,7 @@ std::vector<Graph::Node> AStar::findPath(Graph::Node start, Graph::Node goal)
         Node* current_node = open.popNode();
 
         // Check if the goal was reached.
-        if (current_node->distance(goal) < 1)
+        if (current_node->distance(goal) < 0.5)
         {
             goal.setParent(current_node->getParent());
             break;
@@ -83,6 +83,5 @@ std::vector<Graph::Node> AStar::findPath(Graph::Node start, Graph::Node goal)
         solution.push_back(*p);
         p = p->getParent();
     }
-	
     return solution;
 }

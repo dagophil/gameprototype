@@ -50,23 +50,21 @@ public:
     virtual void PlayCollisionAnimation();
 
     /**
-     * @brief converts the vector to the local coordinates
+     * @brief computes a new path
      */
-    void translateLocal(const Ogre::Vector3 & dir);
-
     void findPath();
 
 	/**
      * @brief setter for numOpp
      */
-    void setRollSpeed(double speed);
+    void setRollSpeed(float speed);
 
 private:
 
     ObjectType m_type;
 	std::vector<Graph::Node> m_path;
 	bool m_caught;
-	double m_rollSpeed;
+    float m_rollSpeed;
 
 };
 

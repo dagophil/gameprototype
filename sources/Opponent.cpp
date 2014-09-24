@@ -12,10 +12,13 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
 {
     Ogre::SceneManager* sceneManager = TopManager::Instance()->getGraphicManager()->getSceneManager();
 
+    // Get a random waypoint as start position.
+    std::vector<Ogre::Vector3> waypoints = TopManager::Instance()->getWaypoints();
+    Ogre::Vector3 startPos = 2 * waypoints.at(rand() % waypoints.size());
+    startPos.y = 0.5;
+
     // Create the collision model (bounding box)
-	std::vector<Ogre::Vector3> waypoints = TopManager::Instance()->getWaypoints();
-	int randomstart = rand() % waypoints.size();
-	m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(2*(waypoints.at(randomstart))));
+    m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(startPos);
 
     //    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
     //    m_SceneNode->attachObject(collEnt);
@@ -42,8 +45,8 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
 
     // Create the drawing model.
     m_Entity = sceneManager->createEntity(MeshName);
+    m_Entity->setCastShadows(false);
     Ogre::SceneNode* drawNode = m_SceneNode->createChildSceneNode(Ogre::Vector3(0, 0, 0));
-    m_Entity->setCastShadows(true);
     drawNode->attachObject(m_Entity);
     drawNode->pitch(-Ogre::Radian(Ogre::Math::PI/2));
     drawNode->yaw(-Ogre::Radian(Ogre::Math::PI));
@@ -80,38 +83,34 @@ void Opponent::CollideWith(const ObjectType & type)
 
 void Opponent::update(const float & timestep)
 {
-	// Nach rechts drehen.
-    this->roll(m_rollSpeed * (Ogre::Degree(timestep*100)));
+    if (!m_caught)
+    {
+        // Rotate.
+        this->roll(m_rollSpeed * (Ogre::Degree(timestep*100)));
 
-    // Get next waypoint and position.
-	Graph::Node current_node = m_path.back();
-	Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
-    position.y = 0;
+        // Get next waypoint and position.
+        Graph::Node current_node = m_path.back();
+        Ogre::Vector3 position = this->getSceneNode()->getPosition() / 2;
 
-    // Get the movement vector.
-    Ogre::Vector3 delta = current_node - position;
+        // Get the movement vector.
+        Ogre::Vector3 delta = current_node - position;
+        delta.y = 0;
 
-    // Next waypoint is close, remove it from the current path.
-    if (delta.length() < 2) {
-        m_path.pop_back();
+        // Next waypoint is close, remove it from the current path.
+        if (delta.length() < 1) {
+            m_path.pop_back();
+        }
+
+        // Scale delta (here: move 4 units per second).
+        delta = 6 * delta.normalisedCopy() * timestep;
+
+        // Move.
+        translate(delta.x, delta.y, delta.z);
+
+        if (m_path.empty()) {
+            findPath();
+        }
     }
-
-    // Scale delta (here: move 4 units per second).
-    delta = 4 * delta.normalisedCopy() * timestep;
-
-    // Move.
-    translate(delta.x, delta.y, delta.z);
-
-    if (m_path.empty()) {
-		findPath();
-	}
-}
-
-void Opponent::translateLocal(const Ogre::Vector3 & dir)
-{
-    Ogre::Quaternion quat = m_SceneNode->convertLocalToWorldOrientation(m_SceneNode->getOrientation());
-    Ogre::Vector3 vec = quat * dir;
-    this->translate(vec.x, vec.y, vec.z);
 }
 
 GameObject::ObjectType Opponent::getType()
@@ -119,7 +118,7 @@ GameObject::ObjectType Opponent::getType()
     return m_type;
 }
 
-void Opponent::setRollSpeed(double speed) 
+void Opponent::setRollSpeed(float speed)
 {
 	m_rollSpeed = speed;
 }

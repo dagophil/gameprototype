@@ -69,7 +69,7 @@ TopManager::TopManager()
 
     m_PhysicsManager->getDynamicsWorld()->setInternalTickCallback(collisionCallback);
 
-    PointReader reader("waypoints1.txt");
+    PointReader reader("waypoints_philip.txt");
 
     std::vector<Ogre::Vector3> waypoints = reader.getWayPoints();
     for (size_t i = 0; i < waypoints.size(); ++i) {
