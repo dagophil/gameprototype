@@ -49,6 +49,7 @@ fragment_program Simple_PerPixel_Frag cg
         param_named diffuse float4 1.0 1.0 1.0 1.0
         param_named specular float4 1.0 1.0 1.0 1.0
         param_named usetexture float 0.0
+        param_named texturescale float 1.0
     }
 
     entry_point Simple_PerPixel_Frag
@@ -109,7 +110,221 @@ material Simple_Perpixel_Red
     }
 }
 
-material Simple_Perpixel_Oildrum
+// Oildrum-ref genrated by blender2ogre 0.6.0
+material Oildrum-ref-PP
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 0.64 0.64 0.64 1.0
+                param_named specular float4 0.1 0.1 0.1 1.0 12.5
+                param_named usetexture float 1.0
+            }
+
+            texture_unit 
+            {
+                texture oildrum_col.jpg
+            }
+        }
+    }
+}
+
+material groundMat-PP
+{
+	technique
+	{
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+		pass
+		{
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 1.0 1.0 1.0 1.0
+                param_named specular float4 0.2 0.2 0.2 1.0 12.5
+                param_named usetexture float 1.0
+                param_named texturescale float 900
+            }
+
+			texture_unit
+			{
+				texture cobbles02.jpg
+			}
+		}
+	}
+}
+
+material cityMat-PP
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 0.5 0.5 0.5 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+        }
+    }
+}
+
+material _missing_material_-PP
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 0.8 0.0 0.0 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+        }
+    }
+}
+
+// Red genrated by blender2ogre 0.6.0
+material Red-PP
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 1.0 0.0 0.0 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+        }
+    }
+}
+
+// SIlver genrated by blender2ogre 0.6.0
+material SIlver-PP
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 0.51 0.51 0.51 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+        }
+    }
+}
+
+// Black genrated by blender2ogre 0.6.0
+material Black-PP
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 0.021 0.021 0.021 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+        }
+    }
+}
+
+// White genrated by blender2ogre 0.6.0
+material White-PP
 {
     technique
     {
@@ -131,19 +346,149 @@ material Simple_Perpixel_Oildrum
             fragment_program_ref Simple_PerPixel_Frag
             {
                 param_named diffuse float4 1.0 1.0 1.0 1.0
-                param_named specular float4 0.0 0.0 0.0 1.0
-                param_named usetexture float 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
             }
-
-            texture_unit 
-            {
-                texture oildrum_col.jpg
-                tex_address_mode wrap
-                scale 1.0 1.0
-                colour_op modulate
-            }
-
         }
     }
+}
+
+material redMat-PP
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+        pass
+        {
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 0.64 0.02 0.0 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+        }
+    }
+}
+
+material blueMat-PP
+{
+	technique
+	{
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+		pass
+		{
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 0.0 0.02 0.64 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+		}
+	}
+}
+
+material greenMat-PP
+{
+	technique
+	{
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+		pass
+		{
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 0.1 0.64 0.1 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+		}
+	}
+}
+
+material yellowMat-PP
+{
+	technique
+	{
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+		pass
+		{
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 1.0 1.0 0.0 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+		}
+	}
+}
+
+material purpleMat-PP
+{
+	technique
+	{
+        pass
+        {
+            vertex_program_ref Ambient
+            {
+            }
+        }
+		pass
+		{
+            iteration once_per_light
+            scene_blend add
+
+            vertex_program_ref Simple_Perpixel_Vert
+            {
+            }
+
+            fragment_program_ref Simple_PerPixel_Frag
+            {
+                param_named diffuse float4 1.0 0.0 1.0 1.0
+                param_named specular float4 0.5 0.5 0.5 1.0 12.5
+            }
+		}
+	}
 }
 

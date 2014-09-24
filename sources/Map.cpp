@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Map.cpp
  *
  */
@@ -17,6 +17,18 @@
 
 
 float collison_length = 2.f;
+
+const std::string Map::MAT_OILDRUM = "Oildrum-ref";
+const std::string Map::MAT_OILDRUM_PP = "Oildrum-ref-PP";
+const std::string Map::MAT_GROUND = "groundMat";
+const std::string Map::MAT_GROUND_PP = "groundMat-PP";
+const std::string Map::MAT_CITY = "cityMat";
+const std::string Map::MAT_CITY_PP = "cityMat-PP";
+const std::string Map::MAT_OPP_RED = "redMat";
+const std::string Map::MAT_OPP_BLUE = "blueMat";
+const std::string Map::MAT_OPP_GREEN = "greenMat";
+const std::string Map::MAT_OPP_YELLOW = "yellowMat";
+const std::string Map::MAT_OPP_PURPLE = "purpleMat";
 
 Map::Map()
 {
@@ -41,8 +53,8 @@ Map::~Map()
 
 void Map::update(const float & timestep)
 {
-    typedef std::vector<GameMapObject*>::iterator objIter;
-    for (objIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
+    typedef std::vector<Upgrade*>::iterator upgrIter;
+    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
     {
         (*iter)->update(timestep);
     }
@@ -65,7 +77,7 @@ void Map::createGround()
 
     m_ground = new GameMapObject("ground", true, false, GameObject::Ground);
     m_ground->translate(0.f,0.f,0.f);
-    m_ground->setMaterialName("groundMat");
+    m_ground->setMaterialName(MAT_GROUND);
     m_ground->setCastShadows(false);
 }
 
@@ -75,7 +87,7 @@ void Map::createCity()
     m_city->translate(0.f,0.f,0.f);
     m_city->scale(2.f,2.f,2.f);
     m_city->setCastShadows(true);
-    m_city->setMaterialName("cityMat");
+    m_city->setMaterialName(MAT_CITY);
 }
 
 void Map::createUpgrades()
@@ -84,10 +96,11 @@ void Map::createUpgrades()
 
     PointReader reader("fuelupgrades.txt");
     std::vector<Ogre::Vector3> waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
-    for (vecIter iter = waypoints.begin(); iter != waypoints.end(); iter++) {
-        GameMapObject* upgr = new Upgrade("oildrum.mesh", GameObject::FuelUpgrade);
-        upgr->setMaterialName("Oildrum-ref");
+    for (vecIter iter = waypoints.begin(); iter != waypoints.end(); ++iter) {
+        Upgrade* upgr = new Upgrade("oildrum.mesh", GameObject::FuelUpgrade);
+        upgr->setMaterialName(MAT_OILDRUM);
         upgr->translate(2*iter->x, 1.5f, 2*iter->z);
+        upgr->yaw(Ogre::Degree(rand() % 360));
         m_upgrades.push_back(upgr);
     }
 }
@@ -95,11 +108,11 @@ void Map::createUpgrades()
 void Map::createOpponents()
 {
 	std::vector<std::string> colors;
-	colors.push_back("redBlockMat");
-	colors.push_back("blueMat");
-	colors.push_back("greenMat");
-	colors.push_back("yellowMat");
-	colors.push_back("purpleMat");
+    colors.push_back(MAT_OPP_RED);
+    colors.push_back(MAT_OPP_BLUE);
+    colors.push_back(MAT_OPP_GREEN);
+    colors.push_back(MAT_OPP_YELLOW);
+    colors.push_back(MAT_OPP_PURPLE);
 
     for (int i = 0; i < 40; i++) {
 		Opponent* opp = new Opponent("opponent.mesh", GameObject::Opponent);
@@ -113,38 +126,62 @@ void Map::createOpponents()
 		else {
 			opp->setRollSpeed(randomSpeed / 50.0 );
 		}
-
-		opp->getEntity()->getMesh()->getSubMesh(0)->setMaterialName(colors.at(i % colors.size()));
+        opp->getEntity()->getSubEntity(0)->setMaterialName(colors.at(i % colors.size()));
 		m_opponents.push_back(opp);
 	}
 }
 
 void Map::changeToDayMaterials()
 {
-    m_city->setMaterialName("cityMat");
-    m_ground->setMaterialName("groundMat");
+    m_city->setMaterialName(MAT_CITY);
+    m_ground->setMaterialName(MAT_GROUND);
 
-    typedef std::vector<GameMapObject*>::iterator upgrIter;
-    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
+    typedef std::vector<Upgrade*>::iterator upgrIter;
+    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
     {
         if ((*iter)->getType() == GameObject::FuelUpgrade)
         {
-            (*iter)->setMaterialName("Oildrum-ref");
+            (*iter)->setMaterialName(MAT_OILDRUM);
+        }
+    }
+
+    typedef std::vector<Opponent*>::iterator oppIter;
+    for (oppIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
+    {
+        size_t subCount = (*iter)->getEntity()->getNumSubEntities();
+        for (size_t i = 0; i < subCount; ++i)
+        {
+            std::string oldMat = (*iter)->getEntity()->getSubEntity(i)->getMaterialName();
+            std::string newMat = oldMat.substr(0, oldMat.size()-3);
+            (*iter)->getEntity()->getSubEntity(i)->setMaterialName(newMat);
         }
     }
 }
 
 void Map::changeToNightMaterials()
 {
-    m_city->setMaterialName("Simple_Perpixel");
-    m_ground->setMaterialName("Simple_Perpixel");
+    m_city->setMaterialName(MAT_CITY_PP);
+    m_ground->setMaterialName(MAT_GROUND_PP);
 
-    typedef std::vector<GameMapObject*>::iterator upgrIter;
-    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); iter++)
+    typedef std::vector<Upgrade*>::iterator upgrIter;
+    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
     {
         if ((*iter)->getType() == GameObject::FuelUpgrade)
         {
-            (*iter)->setMaterialName("Simple_Perpixel_Oildrum");
+
+            (*iter)->setMaterialName(MAT_OILDRUM_PP);
+        }
+    }
+
+    typedef std::vector<Opponent*>::iterator oppIter;
+    for (oppIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
+    {
+        size_t subCount = (*iter)->getEntity()->getNumSubEntities();
+        for (size_t i = 0; i < subCount; ++i)
+        {
+            std::string oldMat = (*iter)->getEntity()->getSubEntity(i)->getMaterialName();
+            std::string newMat = oldMat + "-PP";
+            (*iter)->getEntity()->getSubEntity(i)->setMaterialName(newMat);
         }
     }
 }

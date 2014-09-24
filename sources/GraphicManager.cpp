@@ -130,7 +130,7 @@ void GraphicManager::createScene()
     TopManager::Instance()->addPlayer();
     TopManager::Instance()->getOverlayManager()->init();
     Keyboard::Instance()->init();
-    mSceneMgr->setSkyDome(true, "skymat", 76.0, 16.0, 5000.0,true);
+    mSceneMgr->setSkyDome(true, "skymat", 76.0, 16.0, 5000.0, true);
 
 #ifdef PROFILE
     new Ogre::Profiler();

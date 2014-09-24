@@ -7,8 +7,10 @@
 #define MAP_H_
 #include <vector>
 #include "GameMapObject.h"
+#include "Upgrade.h"
 #include "Player.h"
 #include "Opponent.h"
+#include <string>
 #include <map>
 
 /**
@@ -25,6 +27,18 @@ public:
     Map();
 
     ~Map();
+
+    static const std::string MAT_OILDRUM;
+    static const std::string MAT_OILDRUM_PP;
+    static const std::string MAT_GROUND;
+    static const std::string MAT_GROUND_PP;
+    static const std::string MAT_CITY;
+    static const std::string MAT_CITY_PP;
+    static const std::string MAT_OPP_RED;
+    static const std::string MAT_OPP_BLUE;
+    static const std::string MAT_OPP_GREEN;
+    static const std::string MAT_OPP_YELLOW;
+    static const std::string MAT_OPP_PURPLE;
 
     /**
      * @brief function to call once per frame
@@ -60,7 +74,7 @@ private:
 
     GameMapObject* m_city;
     GameMapObject* m_ground;
-    std::vector<GameMapObject*> m_upgrades;
+    std::vector<Upgrade*> m_upgrades;
     std::vector<Opponent*> m_opponents;
     btVector4 m_startPositions[4];
 

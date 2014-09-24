@@ -1,0 +1,20 @@
+material skymat
+{
+	technique
+	{
+		pass
+		{
+			ambient 2.0 2.0 2.0 1
+			diffuse 2.0 2.0 2.0 1
+			specular 0 0 0 1 10
+
+			texture_unit
+			{
+				texture clouds.jpg
+				transform 2.0 0 0 0 0 2.0 0 0 0 0 1 0 0 0 0 1
+			}
+		}
+
+	}
+
+}

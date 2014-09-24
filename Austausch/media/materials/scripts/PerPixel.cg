@@ -57,6 +57,7 @@ void Simple_PerPixel_Frag(float3 normal : TEXCOORD0,
                           uniform float4 specular,
                           uniform sampler2D texture,
                           uniform float usetexture,
+                          uniform float texturescale,
                           out float4 oColor : COLOR) 
 {
     float3 N = normalize(normal);
@@ -68,7 +69,7 @@ void Simple_PerPixel_Frag(float3 normal : TEXCOORD0,
     float4 Lit = lit(NdotL,NdotH,exponent0);
     oColor = diffuse * lightDiffuse0 * Lit.y + specular * lightSpecular0 * Lit.z + ambient;
 
-    float3 textureColor = expand(tex2D(texture, uv).xyz);
+    float3 textureColor = expand(tex2D(texture, texturescale*uv).xyz);
     if (usetexture > 0.5) {
         oColor = oColor + float4(textureColor, 1);
     }

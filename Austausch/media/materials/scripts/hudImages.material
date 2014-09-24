@@ -1,0 +1,167 @@
+material Overlay/Rocket
+ {
+    technique
+    {
+       pass
+        {
+          texture_unit
+          {
+            texture rocket.png
+            tex_border_colour 0.0 0.0 1.0
+            tex_address_mode border
+            scale 1 1
+          }
+       }   
+    }
+ }
+
+material Overlay/Rocket_active
+ {
+    technique
+    {
+       pass
+        {
+          texture_unit
+          {
+            texture rocket_active.png
+            tex_border_colour 0.0 0.0 1.0
+            tex_address_mode border
+            scale 1 1
+          }
+       }   
+    }
+ }
+
+material Overlay/Bomb
+ {
+    technique
+    {
+       pass
+        {
+          texture_unit
+          {
+            texture bomb.png
+            tex_border_colour 0.0 0.0 1.0
+            tex_address_mode border
+            scale 1 1
+          }
+       }   
+    }
+ }
+
+material Overlay/Bomb_active
+ {
+    technique
+    {
+       pass
+        {
+//		  depth_write off
+//		  scene_blend alpha_blend
+          texture_unit
+          {
+            texture bomb_active.png
+            tex_border_colour 0.0 0.0 1.0
+            tex_address_mode border
+            scale 1 1
+          }
+       }   
+    }
+ }
+material Overlay/Empty
+ {
+    technique
+    {
+       pass
+        {
+          texture_unit
+          {
+            texture empty.png
+            tex_border_colour 0.0 0.0 1.0
+            tex_address_mode border
+            scale 1 1
+          }
+       }   
+    }
+ }
+
+material Overlay/Empty_active
+ {
+    technique
+    {
+       pass
+        {
+          texture_unit
+          {
+            texture empty_active.png
+            tex_border_colour 0.0 0.0 1.0
+            tex_address_mode border
+            scale 1 1
+          }
+       }   
+    }
+ }
+
+material Overlay/Map
+ {
+    technique
+    {
+       pass
+        {
+          texture_unit
+          {
+            texture map.png
+            tex_border_colour 0.0 0.0 1.0
+            tex_address_mode border
+            scale 1 1
+          }
+       }   
+    }
+ }
+material Player3/Marker
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			lighting on
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 1 0 0
+			}
+		} 
+	}
+}
+
+
+material Player2/Marker
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			lighting off
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 0 1 0
+			}
+		} 
+	}
+}
+
+material Player1/Marker
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			lighting off
+			texture_unit
+			{
+				colour_op_ex source1 src_manual src_current 0 0 1
+			}
+		} 
+	}
+}

@@ -1,7 +1,6 @@
 
 material _missing_material_
 {
-    receive_shadows off
     technique
     {
         pass
@@ -15,142 +14,62 @@ material _missing_material_
 }
 
 // Red genrated by blender2ogre 0.6.0
-
 material Red 
 {
-    receive_shadows on 
-
     technique
     {
-        pass Red
+        pass
         {
             ambient 1.0 0.0 0.0 1.0
             diffuse 1.0 0.0 0.0 1.0
             specular 0.5 0.5 0.5 1.0 12.5
             emissive 0.0 0.0 0.0 1.0
-
-            alpha_to_coverage off
-            colour_write on
-            cull_hardware clockwise
-            depth_check on
-            depth_func less_equal
-            depth_write on
-            illumination_stage 
-            light_clip_planes off
-            light_scissor off
-            lighting on
-            normalise_normals off
-            polygon_mode solid
-            scene_blend one zero
-            scene_blend_op add
-            shading gouraud
-            transparent_sorting on
-
         }
     }
 }
-// SIlver genrated by blender2ogre 0.6.0
 
+// SIlver genrated by blender2ogre 0.6.0
 material SIlver 
 {
-    receive_shadows on 
-
     technique
     {
-        pass SIlver
+        pass
         {
-            ambient 0.6382705569267273 0.6382705569267273 0.6382705569267273 1.0
-            diffuse 0.5106164531501598 0.5106164531501598 0.5106164531501598 1.0
+            ambient 0.64 0.64 0.64 1.0
+            diffuse 0.51 0.51 0.51 1.0
             specular 0.5 0.5 0.5 1.0 12.5
             emissive 0.0 0.0 0.0 1.0
-
-            alpha_to_coverage off
-            colour_write on
-            cull_hardware clockwise
-            depth_check on
-            depth_func less_equal
-            depth_write on
-            illumination_stage 
-            light_clip_planes off
-            light_scissor off
-            lighting on
-            normalise_normals off
-            polygon_mode solid
-            scene_blend one zero
-            scene_blend_op add
-            shading gouraud
-            transparent_sorting on
-
         }
     }
 }
-// Black genrated by blender2ogre 0.6.0
 
+// Black genrated by blender2ogre 0.6.0
 material Black 
 {
-    receive_shadows on 
-
     technique
     {
-        pass Black
+        pass
         {
-            ambient 0.027209652587771416 0.027209652587771416 0.027209652587771416 1.0
-            diffuse 0.021767722394581468 0.021767722394581468 0.021767722394581468 1.0
+            ambient 0.027 0.027 0.027 1.0
+            diffuse 0.021 0.021 0.021 1.0
             specular 0.5 0.5 0.5 1.0 12.5
             emissive 0.0 0.0 0.0 1.0
-
-            alpha_to_coverage off
-            colour_write on
-            cull_hardware clockwise
-            depth_check on
-            depth_func less_equal
-            depth_write on
-            illumination_stage 
-            light_clip_planes off
-            light_scissor off
-            lighting on
-            normalise_normals off
-            polygon_mode solid
-            scene_blend one zero
-            scene_blend_op add
-            shading gouraud
-            transparent_sorting on
-
         }
     }
 }
-// White genrated by blender2ogre 0.6.0
 
+// White genrated by blender2ogre 0.6.0
 material White 
 {
-    receive_shadows on 
-
     technique
     {
-        pass White
+        pass
         {
             ambient 1.0 1.0 1.0 1.0
             diffuse 1.0 1.0 1.0 1.0
             specular 0.5 0.5 0.5 1.0 12.5
             emissive 0.0 0.0 0.0 1.0
-
-            alpha_to_coverage off
-            colour_write on
-            cull_hardware clockwise
-            depth_check on
-            depth_func less_equal
-            depth_write on
-            illumination_stage 
-            light_clip_planes off
-            light_scissor off
-            lighting on
-            normalise_normals off
-            polygon_mode solid
-            scene_blend one zero
-            scene_blend_op add
-            shading gouraud
-            transparent_sorting on
-
         }
     }
 }
+
