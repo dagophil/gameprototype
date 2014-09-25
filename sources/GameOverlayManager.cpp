@@ -52,7 +52,7 @@ void GameOverlayManager::update()
 	// Create a string for the opponents
     size_t numOpponents = TopManager::Instance()->getMap()->getNumOpponents();
 	std::stringstream ssOpponents;
-    ssOpponents << "Opponents: " << player->getOpponent() << "/" << numOpponents;
+    ssOpponents << "Gegner: " << player->getOpponent() << "/" << numOpponents;
 
 
 
