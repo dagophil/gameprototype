@@ -24,7 +24,7 @@ Graph::Graph(const std::vector<Ogre::Vector3> & wayPoints)
         {
             if ( (*iter) != (*iter2) )
             {
-                if ((*iter).distance(*iter2) <= 3)
+                if ((*iter).distance(*iter2) <= 2.5)
                 {
                     neighbors.push_back(&(*iter2));
                 }
