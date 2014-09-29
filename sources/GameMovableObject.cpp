@@ -24,7 +24,7 @@ GameMovableObject::GameMovableObject(const std::string& MeshName, const float&Ma
 
     Ogre::MeshPtr MeshPtr = Ogre::Singleton<Ogre::MeshManager>::getSingletonPtr()->load(MeshName, "Map");  //TODO gedanken zu resource-groups machen !
     MeshStrider* Strider = new MeshStrider(MeshPtr.get());
-    btCollisionShape* CollisionShape = new btBvhTriangleMeshShape(Strider,true,true);
+    btBvhTriangleMeshShape CollisionShape = btBvhTriangleMeshShape(Strider, true, true);
     btTransform Transform;
     Transform.setIdentity();
     Transform.setOrigin(btVector3(0,0,0));
@@ -32,14 +32,13 @@ GameMovableObject::GameMovableObject(const std::string& MeshName, const float&Ma
     btVector3 localInertia(0,0,0);
     btVector3 AabbMin;
     btVector3 AabbMax;
-    CollisionShape->getAabb(Transform,AabbMin,AabbMax);
+    CollisionShape.getAabb(Transform,AabbMin,AabbMax);
     btCollisionShape* BoxShape = new btBoxShape(AabbMax);
     BoxShape->calculateLocalInertia(mass,localInertia);
     MotionState *motionState = new MotionState(Transform, m_SceneNode);
     btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,motionState,BoxShape,localInertia);
     btRigidBody *body = new btRigidBody(rbInfo);
     TopManager::Instance()->getPhysicsManager()->getDynamicsWorld()->addRigidBody(body);
-    delete CollisionShape;
 
     setRigidBody(body);
     setSceneNode(m_SceneNode);

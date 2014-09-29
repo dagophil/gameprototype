@@ -66,13 +66,13 @@ Vehicle::Vehicle(const std::string & MeshName, const float & Mass, Player* Playe
 
     Ogre::MeshPtr MeshPtr = Ogre::Singleton<Ogre::MeshManager>::getSingletonPtr()->load(MeshName, "Map");  //TODO gedanken zu resource-groups machen !
     MeshStrider* Strider = new MeshStrider(MeshPtr.get());
-    btCollisionShape* TriangleMeshShape = new btBvhTriangleMeshShape(Strider,true,true);
+    btBvhTriangleMeshShape TriangleMeshShape(Strider,true,true);
     btVector3 Aabbmin;
     btVector3 Aabbmax;
     btTransform Transform;
     Transform.setIdentity();
     Transform.setOrigin(btVector3(0,0,0));
-    TriangleMeshShape->getAabb(Transform,Aabbmin,Aabbmax);
+    TriangleMeshShape.getAabb(Transform,Aabbmin,Aabbmax);
     btVector3 Aabb = 0.5 * (Aabbmax - Aabbmin);
     m_ChassisShape = new btBoxShape(Aabb);
     btVector3 offset = -0.5 * (Aabbmax + Aabbmin);
@@ -134,8 +134,6 @@ Vehicle::Vehicle(const std::string & MeshName, const float & Mass, Player* Playe
         wheel.m_rollInfluence = rollInfluence;
         wheel.m_maxSuspensionForce = maxSuspensionForce;
     }
-
-    delete Strider;
 }
 Vehicle::~Vehicle(){}
 
