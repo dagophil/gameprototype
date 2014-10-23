@@ -1,10 +1,6 @@
-Wegplaner:
-* Start am Eingang des Labyrinths (entweder immer das selbe oder zufällig).
-
 Sonstiges:
 * Gegner schießen und Auto schießt.
 * A Star ändern, sodass der Graph nicht immer verändert wird.
-* Spiel stoppt, falls gewonnen oder verloren.
 
 
 

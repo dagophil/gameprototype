@@ -142,7 +142,7 @@ bool TopManager::isMapLoaded()
 
 void TopManager::game_over(const bool & win)
 {
-    //m_gameOver = true;
+    m_gameOver = true;
 
     long milliseconds = PlayerList[0]->getMilliseconds();
     long seconds = milliseconds/1000;
