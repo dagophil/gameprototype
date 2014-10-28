@@ -103,6 +103,17 @@ public:
     void game_over(const bool & win);
 
     /**
+     * @brief toggle movement of opponents
+     */
+    void toggleOpponentMovement();
+
+    /**
+     * @brief getter for m_moveOpponents
+     * @return m_moveOpponents
+     */
+    bool getMoveOpponents();
+
+    /**
      * @brief getter for m_waypoints
      * @return
      */
@@ -121,6 +132,7 @@ private:
     std::vector<Ogre::Vector3> m_waypoints;
     Graph* m_graph;
     bool m_gameOver;
+    bool m_moveOpponents;
 
 };
 

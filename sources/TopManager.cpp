@@ -80,6 +80,7 @@ TopManager::TopManager()
 
     m_mapLoaded = false;
     m_gameOver = false;
+    m_moveOpponents = true;
 }
 
 TopManager::~TopManager()
@@ -138,6 +139,16 @@ void TopManager::loadMap()
 bool TopManager::isMapLoaded()
 {
     return m_mapLoaded;
+}
+
+void TopManager::toggleOpponentMovement()
+{
+    m_moveOpponents = !m_moveOpponents;
+}
+
+bool TopManager::getMoveOpponents()
+{
+    return m_moveOpponents;
 }
 
 void TopManager::game_over(const bool & win)

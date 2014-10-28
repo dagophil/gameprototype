@@ -25,7 +25,7 @@ Keyboard::Keyboard()
     m_pInputManager = InputManager::Instance()->getOIS();
     m_pKeyboard = static_cast<OIS::Keyboard*>(m_pInputManager->createInputObject(OIS::OISKeyboard, true));
     m_pKeyboard->setEventCallback(this);
-    m_pPlayerKeys = new OIS::KeyCode[6];
+    m_pPlayerKeys = new OIS::KeyCode[7];
 }
 
 void Keyboard::init()
@@ -93,6 +93,12 @@ bool Keyboard::keyPressed(const OIS::KeyEvent& arg)
     if (arg.key == OIS::KC_L)
     {
         TopManager::Instance()->getGraphicManager()->toggleDayNight();
+    }
+
+    // Opponent movement
+    if (arg.key == OIS::KC_T)
+    {
+        TopManager::Instance()->toggleOpponentMovement();
     }
 
     return true;

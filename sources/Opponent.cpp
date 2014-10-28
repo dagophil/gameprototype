@@ -83,7 +83,7 @@ void Opponent::CollideWith(const ObjectType & type)
 
 void Opponent::update(const float & timestep)
 {
-    if (!m_caught)
+    if (!m_caught && TopManager::Instance()->getMoveOpponents())
     {
         // Rotate.
         this->roll(m_rollSpeed * (Ogre::Degree(timestep*100)));
