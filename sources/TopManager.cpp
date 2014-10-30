@@ -48,8 +48,12 @@ void collisionCallback(btDynamicsWorld* world, btScalar timeStep)
 
                 for (int j = 0; j < numContacts; j++)
                 {
-                    if(contactManifold->getContactPoint(j).getDistance() < 0.f)
+                    btManifoldPoint& pt = contactManifold->getContactPoint(j);
+                    if(pt.getDistance() < 0.f)
                     {
+//                        const btVector3 & ptA = pt.getPositionWorldOnA();
+//                        const btVector3 & ptB = pt.getPositionWorldOnB();
+//                        const btVector3 & normalOnB = pt.m_normalWorldOnB;
                         obAF->CollideWith(obBF->getType());
                         obBF->CollideWith(obAF->getType());
                         break;
