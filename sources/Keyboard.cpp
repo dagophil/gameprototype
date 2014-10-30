@@ -7,6 +7,7 @@
 #include "AStar.h"
 #include "Graph.h"
 #include "Vehicle.h"
+#include "Map.h"
 
 enum {THROTTLE, BRAKE, STEER_LEFT, STEER_RIGHT, REVERSE, RESET, AUTOMATIC};
 
@@ -99,6 +100,12 @@ bool Keyboard::keyPressed(const OIS::KeyEvent& arg)
     if (arg.key == OIS::KC_T)
     {
         TopManager::Instance()->toggleOpponentMovement();
+    }
+
+    // Opponent bounding boxes
+    if (arg.key == OIS::KC_B)
+    {
+        TopManager::Instance()->getMap()->toggleOpponentBoundingBoxes();
     }
 
     return true;

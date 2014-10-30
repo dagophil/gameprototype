@@ -59,12 +59,19 @@ public:
      */
     void setRollSpeed(float speed);
 
+    /**
+     * @brief toggle the visibility of the bounding boxes
+     */
+    void toggleBoundingBox();
+
 private:
 
     ObjectType m_type;
 	std::vector<Graph::Node> m_path;
 	bool m_caught;
     float m_rollSpeed;
+    Ogre::Entity* m_collisionEntity;
+    bool m_bbVisible;
 
 };
 

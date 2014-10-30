@@ -24,6 +24,10 @@ class Map
 
 public:
 
+    typedef std::vector<Opponent*>::iterator OpponentIter;
+    typedef std::vector<Upgrade*>::iterator UpgradeIter;
+    typedef std::vector<Ogre::Vector3>::iterator VecIter;
+
     Map();
 
     ~Map();
@@ -59,6 +63,11 @@ public:
      * @brief set materials to night materials
      */
     void changeToNightMaterials();
+
+    /**
+     * @brief toggle visibility of opponent bounding boxes
+     */
+    void toggleOpponentBoundingBoxes();
 
     /**
      * @brief return the number of opponents

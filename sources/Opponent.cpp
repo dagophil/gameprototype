@@ -18,15 +18,14 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
     startPos.y = 0.5;
 
     // Create the collision model (bounding box)
+    m_bbVisible = false;
+    m_collisionEntity = sceneManager->createEntity("boundingBox.mesh");
+    //    m_SceneNode->attachObject(m_collisionEntity);
     m_SceneNode = sceneManager->getRootSceneNode()->createChildSceneNode(startPos);
-
-    //    Ogre::Entity* collEnt = sceneManager->createEntity("boundingBox.mesh");
-    //    m_SceneNode->attachObject(collEnt);
-
     m_SceneNode->yaw(Ogre::Radian(Ogre::Math::PI));
     m_SceneNode->pitch(Ogre::Radian(Ogre::Math::PI/2));
 
-    Ogre::MeshPtr MeshPtr = Ogre::Singleton<Ogre::MeshManager>::getSingletonPtr()->load("Cube.mesh", "Map");
+    Ogre::MeshPtr MeshPtr = Ogre::Singleton<Ogre::MeshManager>::getSingletonPtr()->load("boundingBox.mesh", "Map");
     MeshStrider* Strider = new MeshStrider(MeshPtr.get());
     btCollisionShape* CollisionShape = new btBvhTriangleMeshShape(Strider,true,true);
     btTransform Transform;
@@ -52,6 +51,15 @@ Opponent::Opponent(const std::string & MeshName, const ObjectType & type)
     drawNode->yaw(-Ogre::Radian(Ogre::Math::PI));
 }
 
+void Opponent::toggleBoundingBox()
+{
+    m_bbVisible = !m_bbVisible;
+    if (m_bbVisible)
+        m_SceneNode->attachObject(m_collisionEntity);
+    else
+        m_SceneNode->detachObject(m_collisionEntity);
+}
+
 void Opponent::findPath()
 {
     // Create path with AStar algorithm
@@ -72,7 +80,7 @@ void Opponent::findPath()
 
 void Opponent::CollideWith(const ObjectType & type)
 {
-	this->setY(-50);
+    this->setY(-50);
 	
 	if (m_caught == false) {
 		Player* player = TopManager::Instance()->getPlayer();

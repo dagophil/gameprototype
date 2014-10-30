@@ -53,14 +53,12 @@ Map::~Map()
 
 void Map::update(const float & timestep)
 {
-    typedef std::vector<Upgrade*>::iterator upgrIter;
-    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
+    for (UpgradeIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
     {
         (*iter)->update(timestep);
     }
 
-    typedef std::vector<Opponent*>::iterator oppIter;
-    for(oppIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
+    for(OpponentIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
     {
         (*iter)->update(timestep);
     }
@@ -92,11 +90,9 @@ void Map::createCity()
 
 void Map::createUpgrades()
 {
-    typedef std::vector<Ogre::Vector3>::iterator vecIter;
-
     PointReader reader("fuelupgrades.txt");
     std::vector<Ogre::Vector3> waypoints = std::vector<Ogre::Vector3>(reader.getWayPoints());
-    for (vecIter iter = waypoints.begin(); iter != waypoints.end(); ++iter) {
+    for (VecIter iter = waypoints.begin(); iter != waypoints.end(); ++iter) {
         Upgrade* upgr = new Upgrade("oildrum.mesh", GameObject::FuelUpgrade);
         upgr->setMaterialName(MAT_OILDRUM);
         upgr->translate(2*iter->x, 1.5f, 2*iter->z);
@@ -131,13 +127,20 @@ void Map::createOpponents()
 	}
 }
 
+void Map::toggleOpponentBoundingBoxes()
+{
+    for (OpponentIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
+    {
+        (*iter)->toggleBoundingBox();
+    }
+}
+
 void Map::changeToDayMaterials()
 {
     m_city->setMaterialName(MAT_CITY);
     m_ground->setMaterialName(MAT_GROUND);
 
-    typedef std::vector<Upgrade*>::iterator upgrIter;
-    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
+    for (UpgradeIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
     {
         if ((*iter)->getType() == GameObject::FuelUpgrade)
         {
@@ -145,8 +148,7 @@ void Map::changeToDayMaterials()
         }
     }
 
-    typedef std::vector<Opponent*>::iterator oppIter;
-    for (oppIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
+    for (OpponentIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
     {
         size_t subCount = (*iter)->getEntity()->getNumSubEntities();
         for (size_t i = 0; i < subCount; ++i)
@@ -163,8 +165,7 @@ void Map::changeToNightMaterials()
     m_city->setMaterialName(MAT_CITY_PP);
     m_ground->setMaterialName(MAT_GROUND_PP);
 
-    typedef std::vector<Upgrade*>::iterator upgrIter;
-    for (upgrIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
+    for (UpgradeIter iter = m_upgrades.begin(); iter != m_upgrades.end(); ++iter)
     {
         if ((*iter)->getType() == GameObject::FuelUpgrade)
         {
@@ -173,8 +174,7 @@ void Map::changeToNightMaterials()
         }
     }
 
-    typedef std::vector<Opponent*>::iterator oppIter;
-    for (oppIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
+    for (OpponentIter iter = m_opponents.begin(); iter != m_opponents.end(); ++iter)
     {
         size_t subCount = (*iter)->getEntity()->getNumSubEntities();
         for (size_t i = 0; i < subCount; ++i)
